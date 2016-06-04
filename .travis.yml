@@ -1,0 +1,13 @@
+language: objective-c
+branches:
+  only:
+    master
+before_install:
+  - gem install slather --no-rdoc --no-ri --no-document --quiet
+  - gem i cocoapods --no-ri --no-rdoc
+  - pod install
+script:
+  - xctool test -workspace Traffic.xcworkspace -scheme Traffic
+after_success:
+  - slather -s -workspace Traffic.xcworkspace -scheme Traffic Traffic.xcodeproj
+
