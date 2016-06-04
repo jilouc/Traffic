@@ -32,5 +32,6 @@
 - (void)registerRoute:(TRFRoute *)route;
 - (void)registerRoutes:(NSArray<TRFRoute *> *)routes;
 - (BOOL)routeURL:(NSURL *)URL context:(id)context;
+- (TRFRoute *)routeMatchingURL:(NSURL *)URL;
 
 @end

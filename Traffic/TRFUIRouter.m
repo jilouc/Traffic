@@ -56,7 +56,7 @@
 
 - (void)registerRoutes:(NSArray<TRFRoute *> *)routes
 {
-    if (!routes) {
+    if (routes.count == 0) {
         return;
     }
     NSMutableArray *registeredRoutes = [NSMutableArray arrayWithArray:self.routes];

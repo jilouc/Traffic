@@ -68,9 +68,9 @@
 
 - (void)testQueryStringWithArrayValue
 {
-    NSURL *URL = [NSURL URLWithString:@"traffic://test/?param=value1&param=value2"];
+    NSURL *URL = [NSURL URLWithString:@"traffic://test/?param=value1&param=value2&param=value3"];
     expect(URL.trf_queryParameters).to.haveCountOf(1);
-    expect(URL.trf_queryParameters[@"param"]).to.equal(@[@"value1", @"value2"]);
+    expect(URL.trf_queryParameters[@"param"]).to.equal(@[@"value1", @"value2", @"value3"]);
 }
 
 - (void)testQueryStringWithEmptyNameOrValues

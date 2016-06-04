@@ -139,7 +139,7 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
              parameterType = [pattern substringWithRange:typeRange];
              if ([parameterType isEqualToString:TRFRouteParameterType.Regex]) {
                  NSRange patternRange = [result rangeAtIndex:3];
-                 if (patternRange.location != NSNotFound) {
+                 if (patternRange.location != NSNotFound && patternRange.length != 0) {
                      parameterValuePattern = [pattern substringWithRange:patternRange];
                  } else {
                      NSLog(@"missing pattern for parameter %@ of type 'regular expression' in route %@", parameterName, pattern);
