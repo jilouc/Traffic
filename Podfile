@@ -8,7 +8,7 @@ target 'Traffic' do
 end
 
 target 'TrafficTests' do
-    pod 'Expecta', '~> 1.0'
+    pod 'Expecta'
     pod 'OCMock'
 end
 
