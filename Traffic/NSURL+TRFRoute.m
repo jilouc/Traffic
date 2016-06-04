@@ -60,7 +60,7 @@ const void *NSURLTRFRouteKey;
 {
     NSDictionary *queryParameters = objc_getAssociatedObject(self, &NSURLTRFQueryParametersKey);
     if (!queryParameters) {
-        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:nil];
+        NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:NO];
         NSMutableDictionary *queryParametersBuffer = [NSMutableDictionary dictionary];
         [urlComponents.queryItems enumerateObjectsUsingBlock:^(NSURLQueryItem *queryItem, NSUInteger idx, BOOL *stop) {
             if (!queryItem.value) {
