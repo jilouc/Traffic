@@ -6,6 +6,7 @@ before_install:
   - gem install activesupport -N
   - gem install slather --no-rdoc --no-ri --no-document --quiet
   - gem i cocoapods --no-ri --no-rdoc
+  - pod repo update	
   - pod install
 script:
   - xctool test -workspace Traffic.xcworkspace -scheme Traffic
