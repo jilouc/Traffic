@@ -15,5 +15,5 @@ script:
   - set -o pipefail
   - xcodebuild test -workspace Traffic.xcworkspace -configuration Release -scheme Traffic -sdk iphonesimulator9.3 | xcpretty
 after_success:
-  - slather -s -workspace Traffic.xcworkspace -scheme Traffic Traffic.xcodeproj
+  - slather
 
