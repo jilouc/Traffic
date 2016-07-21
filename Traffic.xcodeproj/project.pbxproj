@@ -27,6 +27,7 @@
 		5B3D9F5F1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */; };
 		5B8AB5C51D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */; };
 		5B8AB5C71D03108B0072DEA4 /* TRFUIRouterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */; };
+		DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,6 @@
 		5B266FD51CFB9598003A3715 /* TRFViewControllerRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandler.m; sourceTree = "<group>"; };
 		5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoute.h"; sourceTree = "<group>"; };
 		5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TRFRoute.m"; sourceTree = "<group>"; };
-		5B266FE21CFB9797003A3715 /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
 		5B266FE81CFF9F5B003A3715 /* NSURLTRFRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLTRFRouteTests.m; sourceTree = "<group>"; };
 		5B3D9F5C1D022C75004B76E3 /* TRFRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandlerTests.m; sourceTree = "<group>"; };
 		5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandlerTests.m; sourceTree = "<group>"; };
@@ -67,6 +67,7 @@
 		9C4A6C5E5F7D53EF92B101C6 /* libPods-Traffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Traffic.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE18E54650FAC94B805BF10 /* Pods-TrafficTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF502E60C3A050EC4D278C0 /* Pods-TrafficTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.release.xcconfig"; sourceTree = "<group>"; };
+		DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
 		DF5F208069F972F9D60E27A0 /* libPods-TrafficTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrafficTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -104,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				5B266FCD1CFB9598003A3715 /* Traffic */,
+				DE806A1A1D41286C003B64EA /* Private */,
 				5B266F8C1CFB920E003A3715 /* Framework */,
 				5B266F981CFB920E003A3715 /* Tests */,
 				5B266F8B1CFB920E003A3715 /* Products */,
@@ -149,7 +151,6 @@
 			children = (
 				5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */,
 				5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */,
-				5B266FE21CFB9797003A3715 /* NSURL+TRFRoutePrivate.h */,
 				5B266FCE1CFB9598003A3715 /* TRFRoute.h */,
 				5B266FCF1CFB9598003A3715 /* TRFRoute.m */,
 				5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */,
@@ -173,6 +174,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		DE806A1A1D41286C003B64EA /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -182,6 +191,7 @@
 			files = (
 				5B266FE01CFB96E0003A3715 /* NSURL+TRFRoute.h in Headers */,
 				5B266F8E1CFB920E003A3715 /* Traffic.h in Headers */,
+				DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */,
 				5B266FD81CFB9598003A3715 /* TRFRouteHandler.h in Headers */,
 				5B266FDA1CFB9598003A3715 /* TRFUIRouter.h in Headers */,
 				5B266FD61CFB9598003A3715 /* TRFRoute.h in Headers */,
