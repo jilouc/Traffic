@@ -66,6 +66,8 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 @property (nonatomic, copy) NSString *pattern;
 @property (nonatomic) TRFRouteHandler *handler;
 
+@property (nonatomic, readwrite, copy) NSArray<TRFRoute *> *childRoutes;
+
 @property (nonatomic) NSRegularExpression *routeRegularExpression;
 @property (nonatomic) NSDictionary<NSString *, TRFRouteParameter *> *internalRouteParameters;
 
@@ -151,8 +153,9 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
          
          NSRange resultRange = [result range];
          
-         NSString *replacementPattern = [[[NSString stringWithFormat:@"(%@)", parameterValuePattern] stringByReplacingOccurrencesOfString:@"*" withString:@"¤"]
-         stringByReplacingOccurrencesOfString:@"." withString:@"§§"];
+         NSString *replacementPattern = [[[NSString stringWithFormat:@"(%@)", parameterValuePattern]
+                                          stringByReplacingOccurrencesOfString:@"*" withString:@"¤"]
+                                         stringByReplacingOccurrencesOfString:@"." withString:@"§§"];
          [compiledPatternBuffer replaceCharactersInRange:NSMakeRange(resultRange.location + replacementOffset, resultRange.length)
                                               withString:replacementPattern];
         
@@ -191,8 +194,14 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     compiledPattern = [compiledPattern stringByAppendingString:@"\\/?"];
     
     NSError *error = nil;
+    BOOL assertsPositionAtStartOfRange = YES;
+    BOOL assertsPositionAtEndOfRange = YES;
+    
     self.routeRegularExpression = [NSRegularExpression
-                                   regularExpressionWithPattern:[NSString stringWithFormat:@"^%@$", compiledPattern]
+                                   regularExpressionWithPattern:[NSString stringWithFormat:@"%@%@%@",
+                                                                 assertsPositionAtStartOfRange ? @"^" : @"",
+                                                                 compiledPattern,
+                                                                 assertsPositionAtEndOfRange ? @"$" : @""]
                                    options:NSRegularExpressionCaseInsensitive
                                    error:&error];
     if (error) {
@@ -218,12 +227,16 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (!hostAndPath) {
         return NO;
     }
-    NSTextCheckingResult *result = [self.routeRegularExpression
-                                    firstMatchInString:hostAndPath
-                                    options:(NSMatchingOptions)0
-                                    range:NSMakeRange(0, hostAndPath.length)];
+    __block NSTextCheckingResult *result = [self.routeRegularExpression
+                                            firstMatchInString:hostAndPath
+                                            options:(NSMatchingOptions)0
+                                            range:NSMakeRange(0, hostAndPath.length)];
     if (!result) {
-        return NO;
+        __block BOOL foundChildRouteMatch = NO;
+        [self.childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *childRouteStop) {
+            foundChildRouteMatch = [childRoute matchWithURL:URL];
+        }];
+        return foundChildRouteMatch;
     }
     
     [URL trf_setRoute:self];
@@ -254,6 +267,40 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     }
     return YES;
 }
+
+#pragma mark - Child routes
+
+- (void)addChildRoute:(TRFRoute *)childRoute
+{
+    if (!childRoute) {
+        return;
+    }
+    [self addChildRoutes:@[childRoute]];
+}
+
+- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes
+{
+    if (childRoutes.count == 0) {
+        return;
+    }
+    NSMutableArray *newChildRoutes = [NSMutableArray arrayWithArray:self.childRoutes];
+    [newChildRoutes addObject:childRoutes];
+    self.childRoutes = childRoutes;
+    
+    [childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *stop) {
+        childRoute.scheme = self.scheme;
+        childRoute.pattern = [self.pattern stringByAppendingPathComponent:childRoute.pattern];
+        childRoute.parentRoute = self;
+    }];
+}
+
+- (void)setParentRoute:(TRFRoute *)parentRoute
+{
+    _parentRoute = parentRoute;
+    [self compileRoute];
+}
+
+#pragma mark -
 
 - (NSString *)debugDescription
 {

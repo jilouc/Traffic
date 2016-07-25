@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TRFRouteHandler.h"
 
 @interface AppDelegate ()
 

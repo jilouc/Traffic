@@ -39,5 +39,10 @@
 - (BOOL)handleURL:(NSURL *)URL;
 - (BOOL)handleURL:(NSURL *)URL context:(id)context;
 
+- (void)addChildRoute:(TRFRoute *)childRoute;
+- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
+@property (nonatomic, weak) TRFRoute *parentRoute;
+@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
+
 @end
 

@@ -13,6 +13,11 @@
 		5B266FBB1CFB949C003A3715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FB91CFB949C003A3715 /* Main.storyboard */; };
 		5B266FBD1CFB949C003A3715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBC1CFB949C003A3715 /* Assets.xcassets */; };
 		5B266FC01CFB949C003A3715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBE1CFB949C003A3715 /* LaunchScreen.storyboard */; };
+		DEEE46031D46736800D7E447 /* NSURL+TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */; };
+		DEEE46041D46736800D7E447 /* TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FB1D46736800D7E447 /* TRFRoute.m */; };
+		DEEE46051D46736800D7E447 /* TRFRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */; };
+		DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */; };
+		DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,17 @@
 		5B266FBC1CFB949C003A3715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B266FBF1CFB949C003A3715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B266FC11CFB949C003A3715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEEE45F81D46736800D7E447 /* NSURL+TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoute.h"; sourceTree = "<group>"; };
+		DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TRFRoute.m"; sourceTree = "<group>"; };
+		DEEE45FA1D46736800D7E447 /* TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRoute.h; sourceTree = "<group>"; };
+		DEEE45FB1D46736800D7E447 /* TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRoute.m; sourceTree = "<group>"; };
+		DEEE45FC1D46736800D7E447 /* TRFRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteHandler.h; sourceTree = "<group>"; };
+		DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandler.m; sourceTree = "<group>"; };
+		DEEE45FE1D46736800D7E447 /* TRFUIRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFUIRouter.h; sourceTree = "<group>"; };
+		DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouter.m; sourceTree = "<group>"; };
+		DEEE46001D46736800D7E447 /* TRFViewControllerRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFViewControllerRouteHandler.h; sourceTree = "<group>"; };
+		DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandler.m; sourceTree = "<group>"; };
+		DEEE46081D4673F900D7E447 /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +58,8 @@
 		5B266FA41CFB949C003A3715 = {
 			isa = PBXGroup;
 			children = (
+				DEEE46091D4673F900D7E447 /* Private */,
+				DEEE46021D46736800D7E447 /* Traffic */,
 				5B266FAF1CFB949C003A3715 /* TrafficExample */,
 				5B266FAE1CFB949C003A3715 /* Products */,
 			);
@@ -77,6 +95,33 @@
 				5B266FB11CFB949C003A3715 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DEEE46021D46736800D7E447 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				DEEE45F81D46736800D7E447 /* NSURL+TRFRoute.h */,
+				DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */,
+				DEEE45FA1D46736800D7E447 /* TRFRoute.h */,
+				DEEE45FB1D46736800D7E447 /* TRFRoute.m */,
+				DEEE45FC1D46736800D7E447 /* TRFRouteHandler.h */,
+				DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */,
+				DEEE45FE1D46736800D7E447 /* TRFUIRouter.h */,
+				DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */,
+				DEEE46001D46736800D7E447 /* TRFViewControllerRouteHandler.h */,
+				DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */,
+			);
+			name = Traffic;
+			path = ../Traffic;
+			sourceTree = "<group>";
+		};
+		DEEE46091D4673F900D7E447 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				DEEE46081D4673F900D7E447 /* NSURL+TRFRoutePrivate.h */,
+			);
+			name = Private;
+			path = ../Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +194,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEEE46041D46736800D7E447 /* TRFRoute.m in Sources */,
+				DEEE46051D46736800D7E447 /* TRFRouteHandler.m in Sources */,
+				DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */,
 				5B266FB81CFB949C003A3715 /* ViewController.m in Sources */,
+				DEEE46031D46736800D7E447 /* NSURL+TRFRoute.m in Sources */,
 				5B266FB51CFB949C003A3715 /* AppDelegate.m in Sources */,
 				5B266FB21CFB949C003A3715 /* main.m in Sources */,
+				DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +352,7 @@
 				5B266FC61CFB949C003A3715 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
