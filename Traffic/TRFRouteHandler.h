@@ -25,8 +25,9 @@
 
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))block;
++ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context, void (^completionBlock)(BOOL stop)))handlerBlock;
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
+- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void(^)(BOOL stop))completion;
+- (id)contextForURL:(NSURL *)URL context:(id)context;
 
 @end

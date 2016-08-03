@@ -1,0 +1,13 @@
+//
+//  TRFSampleTabBarRouteContext.m
+//  TrafficExample
+//
+//  Created by Jean-Luc Dagon on 03/08/2016.
+//  Copyright © 2016 Cocoapps. All rights reserved.
+//
+
+#import "TRFSampleTabBarRouteContext.h"
+
+@implementation TRFSampleTabBarRouteContext
+
+@end

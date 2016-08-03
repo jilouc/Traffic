@@ -74,7 +74,7 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context
+- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void (^)(BOOL))completion
 {
     UIViewController *targetVC = [self targetViewControllerForURL:URL context:context];
     if (!targetVC) {
@@ -85,6 +85,7 @@
              presentingViewController:presentingVC
                               withURL:URL
                               context:context];
+    completion(NO);
     return YES;
 }
 

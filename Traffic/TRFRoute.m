@@ -235,6 +235,9 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         __block BOOL foundChildRouteMatch = NO;
         [self.childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *childRouteStop) {
             foundChildRouteMatch = [childRoute matchWithURL:URL];
+            if (foundChildRouteMatch) {
+                *childRouteStop = YES;
+            }
         }];
         return foundChildRouteMatch;
     }
@@ -262,10 +265,33 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (![self matchWithURL:URL]) {
         return NO;
     }
-    if (self.handler) {
-        return [self.handler handleURL:URL context:context];
+    NSMutableArray<TRFRouteHandler *> *handlerChain = [NSMutableArray array];
+    TRFRoute *route = self;
+    while (route) {
+        if (route.handler) {
+            [handlerChain insertObject:route.handler atIndex:0];
+        }
+        route = route.parentRoute;
     }
+    
+    _recursiveHandlerChainCall(handlerChain, URL, context);
+    
     return YES;
+}
+
+void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain, NSURL *URL, id context)
+{
+    TRFRouteHandler *handler = [handlerChain firstObject];
+    if (!handler) {
+        return;
+    }
+    [handler handleURL:URL context:context completion:^(BOOL stop) {
+        [handlerChain removeObjectAtIndex:0];
+        if (stop) {
+            return;
+        }
+        _recursiveHandlerChainCall(handlerChain, URL, [handler contextForURL:URL context:context]);
+    }];
 }
 
 #pragma mark - Child routes

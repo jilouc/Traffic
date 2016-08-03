@@ -23,12 +23,13 @@
 
 #import "TRFUIRouter.h"
 #import "TRFRoute.h"
+#import "NSURL+TRFRoute.h"
 
 //////////////////////////////////////////////////////////////////////
 
 @interface TRFUIRouter ()
 
-@property (nonatomic) NSArray<TRFRoute *> *routes;
+@property (nonatomic, copy) NSArray<TRFRoute *> *routes;
 
 @end
 
@@ -66,15 +67,13 @@
 
 - (TRFRoute *)routeMatchingURL:(NSURL *)URL
 {
-    __block TRFRoute *matchingRoute = nil;
     [self.routes enumerateObjectsUsingBlock:^(TRFRoute *route, NSUInteger idx, BOOL *stop) {
         if (![route matchWithURL:URL]) {
             return;
         }
         *stop = YES;
-        matchingRoute = route;
     }];
-    return matchingRoute;
+    return URL.trf_route;
 }
 
 - (BOOL)routeURL:(NSURL *)URL context:(id)context

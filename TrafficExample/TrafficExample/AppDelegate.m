@@ -7,18 +7,59 @@
 //
 
 #import "AppDelegate.h"
-#import "TRFRouteHandler.h"
+#import "TRFUIRouter.h"
+#import "TRFViewControllerRouteHandler.h"
+#import "NSURL+TRFRoute.h"
+
+#import "TRFSampleTabBarViewController.h"
+#import "TRFSampleTabBarRouteHandler.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic) TRFUIRouter *uiRouter;
 
 @end
 
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self createRoutes];
+    
     return YES;
+}
+
+- (void)createRoutes
+{
+    TRFUIRouter *uiRouter = [TRFUIRouter new];
+    self.uiRouter = uiRouter;
+    
+    TRFRouteHandler *recentsTabHandler;
+    recentsTabHandler = [TRFRouteHandler
+                         routeHandlerWithBlock:^(NSURL *URL, id context, void (^completionBlock)(BOOL stop)) {
+                             NSLog(@"handling %@", [URL.trf_route debugDescription]);
+                             completionBlock(NO);
+                         }];
+    TRFRouteHandler *featuredTabHandler;
+    featuredTabHandler = [TRFRouteHandler
+                          routeHandlerWithBlock:^(NSURL *URL, id context, void (^completionBlock)(BOOL stop)) {
+                              NSLog(@"handling %@", [URL.trf_route debugDescription]);
+                              completionBlock(NO);
+                          }];
+    
+    TRFRoute *tabBarRoute = [TRFRoute routeWithScheme:nil pattern:@"tabbar" handler:[TRFSampleTabBarRouteHandler new]];
+    TRFRoute *recentsTabRoute = [TRFRoute routeWithScheme:nil pattern:@"recents" handler:recentsTabHandler];
+    TRFRoute *featureTabRoute = [TRFRoute routeWithScheme:nil pattern:@"featured" handler:featuredTabHandler];
+    [tabBarRoute addChildRoutes:@[recentsTabRoute, featureTabRoute]];
+    
+//    TRFRoute *tabBarRoute = [TRFRoute routeWithScheme:nil pattern:@"tabbar" handler:tabBarHandler];
+    [uiRouter registerRoute:tabBarRoute];
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
+{
+    return [self.uiRouter routeURL:url context:options];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
