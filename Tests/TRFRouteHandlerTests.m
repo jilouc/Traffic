@@ -45,7 +45,7 @@
         completionBlock(routeContext, YES);
     };
     TRFRouteHandler *routeHandler = [TRFRouteHandler routeHandlerWithBlock:handlerBlock];
-    [routeHandler handleURL:routeURL context:routeContext completion:^(__kindof TRFRouteHandlerContext *context, BOOL stop) {}];
+    [routeHandler handleURL:routeURL context:routeContext completion:^(id context, BOOL stop) {}];
     [self waitForExpectationsWithTimeout:0.1 handler:nil];
 }
 
