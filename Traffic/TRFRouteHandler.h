@@ -21,12 +21,16 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+typedef void(^TRFRouteHandlerCompletion)(id context, BOOL stop);
 
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))block;
++ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context, TRFRouteHandlerCompletion completionBlock))handlerBlock;
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
+- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void(^)(id context, BOOL stop))completion;
+
+- (id)contextForURL:(NSURL *)URL context:(id)context;
 
 @end

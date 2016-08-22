@@ -1,5 +1,5 @@
 //
-//  TRFRoute.h
+//  TRFSampleRootViewController.h
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,28 +21,10 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "TRFRouteHandler.h"
+#import <UIKit/UIKit.h>
 
-//////////////////////////////////////////////////////////////////////
+@interface TRFSampleRootViewController : UIViewController
 
-@interface TRFRoute : NSObject
-
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler;
-
-@property (nonatomic, copy, readonly) NSString *scheme;
-
-- (BOOL)matchWithURL:(NSURL *)URL;
-
-- (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
-
-- (void)addChildRoute:(TRFRoute *)childRoute;
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
-@property (nonatomic, weak) TRFRoute *parentRoute;
-@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
 
 @end
 

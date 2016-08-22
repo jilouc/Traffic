@@ -1,5 +1,5 @@
 //
-//  TRFRoute.h
+//  TRFSampleTabBarRouteHandler.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,28 +21,29 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "TRFRouteHandler.h"
+#import "TRFSampleTabBarRouteHandler.h"
+#import "TRFSampleTabBarViewController.h"
+#import "TRFSampleTabBarViewControllerContext.h"
 
-//////////////////////////////////////////////////////////////////////
+@implementation TRFSampleTabBarRouteHandler
 
-@interface TRFRoute : NSObject
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context
+{
+    return [TRFSampleTabBarViewController new];
+}
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler;
-
-@property (nonatomic, copy, readonly) NSString *scheme;
-
-- (BOOL)matchWithURL:(NSURL *)URL;
-
-- (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
-
-- (void)addChildRoute:(TRFRoute *)childRoute;
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
-@property (nonatomic, weak) TRFRoute *parentRoute;
-@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
+- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
+{
+    TRFSampleTabBarViewControllerContext *vcContext = [[TRFSampleTabBarViewControllerContext alloc] initWithURL:URL context:context];
+    NSString *tabName = URL.trf_routeParameters[@"tab_name"];
+    if ([tabName isEqualToString:@"recents"]) {
+        vcContext.selectedTab = TRFSampleTabBarTabRecents;
+    } else if ([tabName isEqualToString:@"featured"]) {
+        vcContext.selectedTab = TRFSampleTabBarTabFeatured;
+    } else {
+        vcContext.selectedTab = TRFSampleTabBarTabUnknown;
+    }
+    return vcContext;
+}
 
 @end
-

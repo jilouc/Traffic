@@ -22,7 +22,10 @@
 //
 
 #import "TRFRouteHandler.h"
-#import <UIKit/UIKit.h>
+#import "TRFViewControllerContext.h"
+#import "NSURL+TRFRoute.h"
+
+@import UIKit;
 
 //////////////////////////////////////////////////////////////////////
 
@@ -34,6 +37,7 @@
                             presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, id context))presentationBlock;
 
 - (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context;
+- (__kindof TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context;
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController

@@ -8,24 +8,59 @@
 
 /* Begin PBXBuildFile section */
 		5B266FB21CFB949C003A3715 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FB11CFB949C003A3715 /* main.m */; };
-		5B266FB51CFB949C003A3715 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FB41CFB949C003A3715 /* AppDelegate.m */; };
-		5B266FB81CFB949C003A3715 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FB71CFB949C003A3715 /* ViewController.m */; };
+		5B266FB51CFB949C003A3715 /* TRFSampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FB41CFB949C003A3715 /* TRFSampleAppDelegate.m */; };
+		5B266FB81CFB949C003A3715 /* TRFSampleRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FB71CFB949C003A3715 /* TRFSampleRootViewController.m */; };
 		5B266FBB1CFB949C003A3715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FB91CFB949C003A3715 /* Main.storyboard */; };
 		5B266FBD1CFB949C003A3715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBC1CFB949C003A3715 /* Assets.xcassets */; };
 		5B266FC01CFB949C003A3715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBE1CFB949C003A3715 /* LaunchScreen.storyboard */; };
+		DE5A05D81D50E96500C97A6F /* TRFSampleTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05D71D50E96500C97A6F /* TRFSampleTabBarViewController.m */; };
+		DE5A05DB1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05DA1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m */; };
+		DE5A05DE1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05DD1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m */; };
+		DEEE46031D46736800D7E447 /* NSURL+TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */; };
+		DEEE46041D46736800D7E447 /* TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FB1D46736800D7E447 /* TRFRoute.m */; };
+		DEEE46051D46736800D7E447 /* TRFRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */; };
+		DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */; };
+		DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */; };
+		DEEEAE961D6759D300E2760F /* TRFSampleTabBarViewControllerContext.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerContext.m */; };
+		DEEEAE991D675A0800E2760F /* TRFViewControllerContext.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE981D675A0800E2760F /* TRFViewControllerContext.m */; };
+		DEEEAEA01D675FF900E2760F /* TRFSampleTabBarRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5B266FAD1CFB949C003A3715 /* TrafficExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrafficExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B266FB11CFB949C003A3715 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5B266FB31CFB949C003A3715 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		5B266FB41CFB949C003A3715 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5B266FB61CFB949C003A3715 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5B266FB71CFB949C003A3715 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5B266FB31CFB949C003A3715 /* TRFSampleAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRFSampleAppDelegate.h; sourceTree = "<group>"; };
+		5B266FB41CFB949C003A3715 /* TRFSampleAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRFSampleAppDelegate.m; sourceTree = "<group>"; };
+		5B266FB61CFB949C003A3715 /* TRFSampleRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRFSampleRootViewController.h; sourceTree = "<group>"; };
+		5B266FB71CFB949C003A3715 /* TRFSampleRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRFSampleRootViewController.m; sourceTree = "<group>"; };
 		5B266FBA1CFB949C003A3715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B266FBC1CFB949C003A3715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B266FBF1CFB949C003A3715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B266FC11CFB949C003A3715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DE5A05D61D50E96500C97A6F /* TRFSampleTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabBarViewController.h; sourceTree = "<group>"; };
+		DE5A05D71D50E96500C97A6F /* TRFSampleTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarViewController.m; sourceTree = "<group>"; };
+		DE5A05D91D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabRecentsViewController.h; sourceTree = "<group>"; };
+		DE5A05DA1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabRecentsViewController.m; sourceTree = "<group>"; };
+		DE5A05DC1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabFeaturedViewController.h; sourceTree = "<group>"; };
+		DE5A05DD1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabFeaturedViewController.m; sourceTree = "<group>"; };
+		DEBE06D51D524E3900149B91 /* TRFSampleTabBarRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabBarRouteHandler.h; sourceTree = "<group>"; };
+		DEEE45F81D46736800D7E447 /* NSURL+TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoute.h"; sourceTree = "<group>"; };
+		DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TRFRoute.m"; sourceTree = "<group>"; };
+		DEEE45FA1D46736800D7E447 /* TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRoute.h; sourceTree = "<group>"; };
+		DEEE45FB1D46736800D7E447 /* TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRoute.m; sourceTree = "<group>"; };
+		DEEE45FC1D46736800D7E447 /* TRFRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteHandler.h; sourceTree = "<group>"; };
+		DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandler.m; sourceTree = "<group>"; };
+		DEEE45FE1D46736800D7E447 /* TRFUIRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFUIRouter.h; sourceTree = "<group>"; };
+		DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouter.m; sourceTree = "<group>"; };
+		DEEE46001D46736800D7E447 /* TRFViewControllerRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFViewControllerRouteHandler.h; sourceTree = "<group>"; };
+		DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandler.m; sourceTree = "<group>"; };
+		DEEE46081D4673F900D7E447 /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
+		DEEEAE931D67375A00E2760F /* TRFRouteTargetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteTargetViewController.h; sourceTree = "<group>"; };
+		DEEEAE941D6759D300E2760F /* TRFSampleTabBarViewControllerContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabBarViewControllerContext.h; sourceTree = "<group>"; };
+		DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarViewControllerContext.m; sourceTree = "<group>"; };
+		DEEEAE971D675A0800E2760F /* TRFViewControllerContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFViewControllerContext.h; sourceTree = "<group>"; };
+		DEEEAE981D675A0800E2760F /* TRFViewControllerContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerContext.m; sourceTree = "<group>"; };
+		DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarRouteHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +77,8 @@
 		5B266FA41CFB949C003A3715 = {
 			isa = PBXGroup;
 			children = (
+				DEEE46091D4673F900D7E447 /* Private */,
+				DEEE46021D46736800D7E447 /* Traffic */,
 				5B266FAF1CFB949C003A3715 /* TrafficExample */,
 				5B266FAE1CFB949C003A3715 /* Products */,
 			);
@@ -58,14 +95,13 @@
 		5B266FAF1CFB949C003A3715 /* TrafficExample */ = {
 			isa = PBXGroup;
 			children = (
-				5B266FB31CFB949C003A3715 /* AppDelegate.h */,
-				5B266FB41CFB949C003A3715 /* AppDelegate.m */,
-				5B266FB61CFB949C003A3715 /* ViewController.h */,
-				5B266FB71CFB949C003A3715 /* ViewController.m */,
-				5B266FB91CFB949C003A3715 /* Main.storyboard */,
-				5B266FBC1CFB949C003A3715 /* Assets.xcassets */,
-				5B266FBE1CFB949C003A3715 /* LaunchScreen.storyboard */,
-				5B266FC11CFB949C003A3715 /* Info.plist */,
+				DEDCDBC41D6AFC9200208B00 /* Routing */,
+				DEDCDBC61D6AFD0400208B00 /* View Controllers */,
+				5B266FB31CFB949C003A3715 /* TRFSampleAppDelegate.h */,
+				5B266FB41CFB949C003A3715 /* TRFSampleAppDelegate.m */,
+				5B266FB61CFB949C003A3715 /* TRFSampleRootViewController.h */,
+				5B266FB71CFB949C003A3715 /* TRFSampleRootViewController.m */,
+				DEDCDBC51D6AFCA800208B00 /* Resources */,
 				5B266FB01CFB949C003A3715 /* Supporting Files */,
 			);
 			path = TrafficExample;
@@ -74,9 +110,74 @@
 		5B266FB01CFB949C003A3715 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5B266FC11CFB949C003A3715 /* Info.plist */,
 				5B266FB11CFB949C003A3715 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DEDCDBC41D6AFC9200208B00 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				DEBE06D51D524E3900149B91 /* TRFSampleTabBarRouteHandler.h */,
+				DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */,
+				DEEEAE941D6759D300E2760F /* TRFSampleTabBarViewControllerContext.h */,
+				DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerContext.m */,
+			);
+			name = Routing;
+			sourceTree = "<group>";
+		};
+		DEDCDBC51D6AFCA800208B00 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5B266FB91CFB949C003A3715 /* Main.storyboard */,
+				5B266FBC1CFB949C003A3715 /* Assets.xcassets */,
+				5B266FBE1CFB949C003A3715 /* LaunchScreen.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		DEDCDBC61D6AFD0400208B00 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DE5A05D61D50E96500C97A6F /* TRFSampleTabBarViewController.h */,
+				DE5A05D71D50E96500C97A6F /* TRFSampleTabBarViewController.m */,
+				DE5A05D91D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.h */,
+				DE5A05DA1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m */,
+				DE5A05DC1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.h */,
+				DE5A05DD1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		DEEE46021D46736800D7E447 /* Traffic */ = {
+			isa = PBXGroup;
+			children = (
+				DEEE45F81D46736800D7E447 /* NSURL+TRFRoute.h */,
+				DEEE45F91D46736800D7E447 /* NSURL+TRFRoute.m */,
+				DEEE45FA1D46736800D7E447 /* TRFRoute.h */,
+				DEEE45FB1D46736800D7E447 /* TRFRoute.m */,
+				DEEE45FC1D46736800D7E447 /* TRFRouteHandler.h */,
+				DEEE45FD1D46736800D7E447 /* TRFRouteHandler.m */,
+				DEEE45FE1D46736800D7E447 /* TRFUIRouter.h */,
+				DEEE45FF1D46736800D7E447 /* TRFUIRouter.m */,
+				DEEE46001D46736800D7E447 /* TRFViewControllerRouteHandler.h */,
+				DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */,
+				DEEEAE931D67375A00E2760F /* TRFRouteTargetViewController.h */,
+				DEEEAE971D675A0800E2760F /* TRFViewControllerContext.h */,
+				DEEEAE981D675A0800E2760F /* TRFViewControllerContext.m */,
+			);
+			name = Traffic;
+			path = ../Traffic;
+			sourceTree = "<group>";
+		};
+		DEEE46091D4673F900D7E447 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				DEEE46081D4673F900D7E447 /* NSURL+TRFRoutePrivate.h */,
+			);
+			name = Private;
+			path = ../Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +250,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B266FB81CFB949C003A3715 /* ViewController.m in Sources */,
-				5B266FB51CFB949C003A3715 /* AppDelegate.m in Sources */,
+				DEEE46041D46736800D7E447 /* TRFRoute.m in Sources */,
+				DEEEAE961D6759D300E2760F /* TRFSampleTabBarViewControllerContext.m in Sources */,
+				DEEE46051D46736800D7E447 /* TRFRouteHandler.m in Sources */,
+				DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */,
+				DE5A05DB1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m in Sources */,
+				5B266FB81CFB949C003A3715 /* TRFSampleRootViewController.m in Sources */,
+				DEEE46031D46736800D7E447 /* NSURL+TRFRoute.m in Sources */,
+				DE5A05DE1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m in Sources */,
+				5B266FB51CFB949C003A3715 /* TRFSampleAppDelegate.m in Sources */,
+				DEEEAEA01D675FF900E2760F /* TRFSampleTabBarRouteHandler.m in Sources */,
+				DE5A05D81D50E96500C97A6F /* TRFSampleTabBarViewController.m in Sources */,
 				5B266FB21CFB949C003A3715 /* main.m in Sources */,
+				DEEEAE991D675A0800E2760F /* TRFViewControllerContext.m in Sources */,
+				DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +414,7 @@
 				5B266FC61CFB949C003A3715 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

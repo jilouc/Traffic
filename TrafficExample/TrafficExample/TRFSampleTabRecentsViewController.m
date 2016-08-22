@@ -1,5 +1,5 @@
 //
-//  TRFRoute.h
+//  TRFSampleTabRecentsViewController.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,28 +21,42 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "TRFRouteHandler.h"
+#import "TRFSampleTabRecentsViewController.h"
 
-//////////////////////////////////////////////////////////////////////
+@interface TRFSampleTabRecentsViewController ()
 
-@interface TRFRoute : NSObject
-
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler;
-
-@property (nonatomic, copy, readonly) NSString *scheme;
-
-- (BOOL)matchWithURL:(NSURL *)URL;
-
-- (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
-
-- (void)addChildRoute:(TRFRoute *)childRoute;
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
-@property (nonatomic, weak) TRFRoute *parentRoute;
-@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
+@property (nonatomic) UISegmentedControl *segmentedControl;
 
 @end
 
+@implementation TRFSampleTabRecentsViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Tab 1", @"Tab 2", @"Tab 3"]];
+        self.navigationItem.titleView = self.segmentedControl;
+        self.segmentedControl.selectedSegmentIndex = 0;
+    }
+    return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)selectSegmentWithName:(NSString *)segmentName
+{
+    if ([segmentName isEqualToString:@"tab2"]) {
+        self.segmentedControl.selectedSegmentIndex = 1;
+    } else if ([segmentName isEqualToString:@"tab3"]) {
+        self.segmentedControl.selectedSegmentIndex = 2;
+    } else {
+        self.segmentedControl.selectedSegmentIndex = 0;
+    }
+}
+
+@end

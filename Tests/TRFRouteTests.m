@@ -267,9 +267,58 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     
     NSURL *URL = [NSURL URLWithString:@"traffic://route/value"];
     id context = [NSObject new];
-    [route1 handleURL:URL context:context];
-    [[(id)mockHandler verify] handleURL:URL context:context];
+    TRFRouteHandlerContext *newContext = [[TRFRouteHandlerContext alloc] initWithURL:URL baseContext:context];
+    [[[(id)mockHandler stub] andReturn:newContext] contextForURL:URL context:context];
     
+    [route1 handleURL:URL context:context];
+    [[(id)mockHandler verify] handleURL:URL
+                                context:newContext
+                             completion:[OCMArg isNotNil]];
+}
+
+- (void)testChildRoutesAreProperlyAdded
+{
+    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
+    TRFRoute *childRoute1 = [TRFRoute routeWithScheme:nil pattern:@"child_route" handler:nil];
+    [route1 addChildRoute:childRoute1];
+    expect(route1.childRoutes).to.haveCount(1);
+    expect(route1.childRoutes.firstObject).to.equal(childRoute1);
+    expect(childRoute1.parentRoute).to.equal(route1);
+    
+    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
+    TRFRoute *childRoute2_1 = [TRFRoute routeWithScheme:nil pattern:@"child_route_1" handler:nil];
+    TRFRoute *childRoute2_2 = [TRFRoute routeWithScheme:nil pattern:@"child_route_2" handler:nil];
+    [route2 addChildRoutes:@[childRoute2_1, childRoute2_2]];
+    expect(route2.childRoutes).to.haveCount(2);
+    expect(childRoute2_1.parentRoute).to.equal(route2);
+    expect(childRoute2_2.parentRoute).to.equal(route2);
+}
+
+- (void)testChildRouteMatches
+{
+    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
+    TRFRoute *childRoute = [TRFRoute routeWithScheme:nil pattern:@"child_route" handler:nil];
+    [route addChildRoute:childRoute];
+    
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route"]]).to.equal(YES);
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route/child_route"]]).to.equal(YES);
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://wrong_parent_route/child_route"]]).to.equal(NO);
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://routechild_route"]]).to.equal(NO);
+}
+
+- (void)testChildRouteMatchesWithParameters
+{
+    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"route/<param1:int>" handler:nil];
+    TRFRoute *childRoute = [TRFRoute routeWithScheme:nil pattern:@"child_route/<param2>" handler:nil];
+    [route addChildRoute:childRoute];
+    
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route/child_route"]]).to.equal(NO);
+    
+    NSURL *URL = [NSURL URLWithString:@"traffic://route/123/child_route/bar"];
+    expect([route matchWithURL:URL]).to.equal(YES);
+    expect(URL.trf_routeParameters[@"param1"]).to.equal(@"123");
+    expect(URL.trf_routeParameters[@"param2"]).to.equal(@"bar");
+    expect(URL.trf_route).to.equal(childRoute);
 }
 
 @end

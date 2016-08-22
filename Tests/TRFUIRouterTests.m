@@ -24,6 +24,7 @@
 #import "TRFUIRouter.h"
 #import <Expecta/Expecta.h>
 #import <OCMock/OCMock.h>
+#import "NSURL+TRFRoutePrivate.h"
 
 @interface TRFUIRouter (Private)
 @property (nonatomic) NSArray<TRFRoute *> *routes;
@@ -105,7 +106,7 @@
     TRFUIRouter *router = [TRFUIRouter new];
     id routeMock = [OCMockObject niceMockForClass:[TRFRoute class]];
     [[[routeMock stub] andReturnValue:@YES] matchWithURL:URL];
-    [router registerRoute:routeMock];
+    [URL trf_setRoute:routeMock];
     
     [router routeURL:URL context:context];
     OCMVerify([routeMock handleURL:URL context:context]);

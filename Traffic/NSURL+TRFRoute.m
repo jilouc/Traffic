@@ -40,7 +40,6 @@ const void *NSURLTRFRouteKey;
     return objc_getAssociatedObject(self, &NSURLTRFRouteKey);
 }
 
-
 - (void)trf_setRouteParameters:(NSDictionary *)routeParameters
 {
     objc_setAssociatedObject(self, &NSURLTRFRouteParametersKey, routeParameters, OBJC_ASSOCIATION_COPY_NONATOMIC);

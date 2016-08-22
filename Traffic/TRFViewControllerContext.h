@@ -1,5 +1,5 @@
 //
-//  TRFRoute.h
+//  TRFViewControllerContext.h
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,27 +22,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TRFRouteHandler.h"
 
-//////////////////////////////////////////////////////////////////////
+@interface TRFViewControllerContext : NSObject
 
-@interface TRFRoute : NSObject
+@property (nonatomic, copy) NSURL *URL;
+@property (nonatomic) id urlContext;
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler;
-
-@property (nonatomic, copy, readonly) NSString *scheme;
-
-- (BOOL)matchWithURL:(NSURL *)URL;
-
-- (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
-
-- (void)addChildRoute:(TRFRoute *)childRoute;
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
-@property (nonatomic, weak) TRFRoute *parentRoute;
-@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
+- (instancetype)initWithURL:(NSURL *)URL
+                    context:(id)context NS_DESIGNATED_INITIALIZER;
 
 @end
-
