@@ -267,8 +267,13 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     
     NSURL *URL = [NSURL URLWithString:@"traffic://route/value"];
     id context = [NSObject new];
+    TRFRouteHandlerContext *newContext = [[TRFRouteHandlerContext alloc] initWithURL:URL baseContext:context];
+    [[[(id)mockHandler stub] andReturn:newContext] contextForURL:URL context:context];
+    
     [route1 handleURL:URL context:context];
-    [[(id)mockHandler verify] handleURL:URL context:context];
+    [[(id)mockHandler verify] handleURL:URL
+                                context:newContext
+                             completion:[OCMArg isNotNil]];
 }
 
 - (void)testChildRoutesAreProperlyAdded

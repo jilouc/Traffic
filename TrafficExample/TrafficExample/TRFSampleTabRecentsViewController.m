@@ -1,5 +1,5 @@
 //
-//  TRFSampleTabBarViewController.h
+//  TRFSampleTabRecentsViewController.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +21,42 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "TRFRouteTargetViewController.h"
+#import "TRFSampleTabRecentsViewController.h"
 
-@interface TRFSampleTabBarViewController : UITabBarController <TRFRouteTargetViewController>
+@interface TRFSampleTabRecentsViewController ()
+
+@property (nonatomic) UISegmentedControl *segmentedControl;
+
+@end
+
+@implementation TRFSampleTabRecentsViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Tab 1", @"Tab 2", @"Tab 3"]];
+        self.navigationItem.titleView = self.segmentedControl;
+        self.segmentedControl.selectedSegmentIndex = 0;
+    }
+    return self;
+}
+
+- (void)loadView
+{
+    [super loadView];
+    self.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)selectSegmentWithName:(NSString *)segmentName
+{
+    if ([segmentName isEqualToString:@"tab2"]) {
+        self.segmentedControl.selectedSegmentIndex = 1;
+    } else if ([segmentName isEqualToString:@"tab3"]) {
+        self.segmentedControl.selectedSegmentIndex = 2;
+    } else {
+        self.segmentedControl.selectedSegmentIndex = 0;
+    }
+}
 
 @end

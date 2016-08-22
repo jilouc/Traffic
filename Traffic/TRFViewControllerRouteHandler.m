@@ -22,6 +22,7 @@
 //
 
 #import "TRFViewControllerRouteHandler.h"
+#import "TRFRouteTargetViewController.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -44,6 +45,11 @@
     return nil;
 }
 
+- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
+{
+    return nil;
+}
+
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
                             withURL:(NSURL *)URL
@@ -63,7 +69,7 @@
                              presentationBlock:presentationBlock];
 }
 
-- (instancetype)initWithCreationBlock:(UIViewController *(^)(NSURL *URL, id context))creationBlock
+- (instancetype)initWithCreationBlock:(UIViewController *(^)(NSURL *, id))creationBlock
                     presentationBlock:(void(^)(__kindof UIViewController *, UIViewController *, NSURL *, id))presentationBlock
 {
     self = [self init];
@@ -74,7 +80,7 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void (^)(BOOL))completion
+- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void (^)(id, BOOL))completion
 {
     UIViewController *targetVC = [self targetViewControllerForURL:URL context:context];
     if (!targetVC) {
@@ -85,7 +91,20 @@
              presentingViewController:presentingVC
                               withURL:URL
                               context:context];
-    completion(NO);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
+            id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;
+            TRFViewControllerContext *configurationContext = [self viewControllerConfigurationContextForURL:URL context:context];
+            [routeTargetVC configureWithTrafficContext:configurationContext
+                                            completion:completion];
+        } else {
+            if (completion) {
+                completion(context, NO);
+            }
+        }
+    });
+    
     return YES;
 }
 

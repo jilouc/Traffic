@@ -44,7 +44,7 @@
                         return targetViewController;
                     } presentationBlock:nil];
     
-    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil]).to.equal(YES);
+    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil completion:nil]).to.equal(YES);
     [self waitForExpectationsWithTimeout:0. handler:nil];
 }
 
@@ -65,7 +65,7 @@
     routeHandler = [TRFViewControllerRouteHandler
                     routeHandlerWithCreationBlock:nil
                     presentationBlock:nil];
-    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil]).to.equal(NO);
+    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil completion:nil]).to.equal(NO);
 }
 
 - (void)testPresentationBlock
@@ -94,7 +94,7 @@
                         expect(context).to.equal(routeContext);
                         [presentationExpectation fulfill];
                     }];
-    [routeHandler handleURL:routeURL context:routeContext];
+    [routeHandler handleURL:routeURL context:routeContext completion:nil];
     [self waitForExpectationsWithTimeout:0. handler:nil];
 }
 

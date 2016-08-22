@@ -1,5 +1,5 @@
 //
-//  TRFSampleTabBarViewController.h
+//  TRFViewControllerContext.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +21,23 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "TRFRouteTargetViewController.h"
+#import "TRFViewControllerContext.h"
 
-@interface TRFSampleTabBarViewController : UITabBarController <TRFRouteTargetViewController>
+@implementation TRFViewControllerContext
+
+- (instancetype)initWithURL:(NSURL *)URL context:(id)context
+{
+    self = [super init];
+    if (self) {
+        self.URL = URL;
+        self.urlContext = context;
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    return [self initWithURL:nil context:nil];
+}
 
 @end

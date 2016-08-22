@@ -224,6 +224,9 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         return NO;
     }
     NSString *hostAndPath = [URL.host stringByAppendingString:URL.path];
+    if (![hostAndPath hasSuffix:@"/"]) {
+        hostAndPath = [hostAndPath stringByAppendingString:@"/"];
+    }
     if (!hostAndPath) {
         return NO;
     }
@@ -265,6 +268,7 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (![self matchWithURL:URL]) {
         return NO;
     }
+    
     NSMutableArray<TRFRouteHandler *> *handlerChain = [NSMutableArray array];
     TRFRoute *route = self;
     while (route) {
@@ -285,12 +289,13 @@ void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain,
     if (!handler) {
         return;
     }
-    [handler handleURL:URL context:context completion:^(BOOL stop) {
+    id newContext = [handler contextForURL:URL context:context];
+    [handler handleURL:URL context:newContext completion:^(id childContext, BOOL stop) {
         [handlerChain removeObjectAtIndex:0];
         if (stop) {
             return;
         }
-        _recursiveHandlerChainCall(handlerChain, URL, [handler contextForURL:URL context:context]);
+        _recursiveHandlerChainCall(handlerChain, URL, childContext);
     }];
 }
 

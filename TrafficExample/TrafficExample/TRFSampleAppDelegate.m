@@ -1,5 +1,5 @@
 //
-//  TRFSampleTabBarViewController.h
+//  TRFSampleAppDelegate.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +21,44 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "TRFRouteTargetViewController.h"
+#import "TRFSampleAppDelegate.h"
+#import "TRFUIRouter.h"
+#import "TRFViewControllerRouteHandler.h"
+#import "NSURL+TRFRoute.h"
+#import "TRFSampleTabBarViewController.h"
+#import "TRFSampleTabBarRouteHandler.h"
 
-@interface TRFSampleTabBarViewController : UITabBarController <TRFRouteTargetViewController>
+@interface TRFSampleAppDelegate ()
+
+@property (nonatomic) TRFUIRouter *uiRouter;
+
+@end
+
+@implementation TRFSampleAppDelegate
+
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self createRoutes];
+    
+    return YES;
+}
+
+- (void)createRoutes
+{
+    TRFUIRouter *uiRouter = [TRFUIRouter new];
+    self.uiRouter = uiRouter;
+    
+    TRFRoute *tabBarRoute = [TRFRoute routeWithScheme:nil
+                                              pattern:@"tabbar/<tab_name:re:(recents|featured)?>"
+                                              handler:[TRFSampleTabBarRouteHandler new]];
+    
+    [uiRouter registerRoute:tabBarRoute];
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
+{
+    return [self.uiRouter routeURL:url context:options];
+}
 
 @end

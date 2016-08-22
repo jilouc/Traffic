@@ -1,5 +1,5 @@
 //
-//  TRFSampleTabBarViewController.h
+//  TRFSampleTabRecentsViewController.h
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,8 +22,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TRFRouteTargetViewController.h"
 
-@interface TRFSampleTabBarViewController : UITabBarController <TRFRouteTargetViewController>
+@interface TRFSampleTabRecentsViewController : UIViewController
+
+- (void)selectSegmentWithName:(NSString *)segmentName;
 
 @end
