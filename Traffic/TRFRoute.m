@@ -63,13 +63,13 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 @interface TRFRoute ()
 
 @property (nonatomic, readwrite, copy) NSString *scheme;
-@property (nonatomic, copy) NSString *pattern;
+@property (nonatomic, copy) NSArray<NSString *> *patterns;
 @property (nonatomic) TRFRouteHandler *handler;
 
 @property (nonatomic, readwrite, copy) NSArray<TRFRoute *> *childRoutes;
 
-@property (nonatomic) NSRegularExpression *routeRegularExpression;
-@property (nonatomic) NSDictionary<NSString *, TRFRouteParameter *> *internalRouteParameters;
+@property (nonatomic, copy) NSDictionary<NSString *, NSRegularExpression *> *routeRegularExpressions;
+@property (nonatomic, copy) NSDictionary<NSString *, NSDictionary<NSString *, TRFRouteParameter *> *> *internalRouteParameters;
 
 @end
 
@@ -95,19 +95,28 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
                         pattern:(NSString *)pattern
                         handler:(TRFRouteHandler *)routeHandler
 {
+    return [self routeWithScheme:scheme
+                        patterns:pattern ? @[pattern] : nil
+                         handler:routeHandler];
+}
+
++ (instancetype)routeWithScheme:(NSString *)scheme
+                       patterns:(NSArray<NSString *> *)patterns
+                        handler:(TRFRouteHandler *)routeHandler
+{
     return [[self alloc] initWithScheme:scheme 
-                                pattern:pattern
+                               patterns:patterns
                                 handler:routeHandler];
 }
 
 - (instancetype)initWithScheme:(NSString *)scheme
-                       pattern:(NSString *)pattern
+                      patterns:(NSArray<NSString *> *)patterns
                        handler:(TRFRouteHandler *)routeHandler
 {
     self = [super init];
     if (self) {
         self.scheme = scheme;
-        self.pattern = pattern;
+        self.patterns = patterns;
         self.handler = routeHandler;
         [self compileRoute];
     }
@@ -116,100 +125,116 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 
 - (void)compileRoute
 {
-    __block NSString *pattern = self.pattern;
-    if (pattern.length == 0) {
+    if (self.patterns.count == 0) {
         return;
     }
     
-    NSMutableDictionary *routeParameters = [NSMutableDictionary dictionary];
-    NSMutableString *compiledPatternBuffer = [pattern mutableCopy];
-    __block NSInteger replacementOffset = 0;
-    __block NSInteger parameterIndex = 1;
+    NSMutableDictionary *internalRouteParameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *routeRegularExpressions = [NSMutableDictionary dictionary];
     
     NSRegularExpression *namedParameterRegex = [self.class namedParametersRegex];
-    [namedParameterRegex
-     enumerateMatchesInString:pattern
-     options:0
-     range:NSMakeRange(0, pattern.length)
-     usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-         
-         NSString *parameterName = [pattern substringWithRange:[result rangeAtIndex:1]];
-         NSString *parameterType = TRFRouteParameterType.String;
-         NSString *parameterValuePattern = TRFRouteParameterValueStringPattern;
-         NSRange typeRange = [result rangeAtIndex:2];
-         if (typeRange.location != NSNotFound) {
-             parameterType = [pattern substringWithRange:typeRange];
-             if ([parameterType isEqualToString:TRFRouteParameterType.Regex]) {
-                 NSRange patternRange = [result rangeAtIndex:3];
-                 if (patternRange.location != NSNotFound && patternRange.length != 0) {
-                     parameterValuePattern = [pattern substringWithRange:patternRange];
-                 } else {
-                     NSLog(@"missing pattern for parameter %@ of type 'regular expression' in route %@", parameterName, pattern);
-                 }
-             } else if ([parameterType isEqualToString:TRFRouteParameterType.Int]) {
-                 parameterValuePattern = TRFRouteParameterValueIntPattern;
-             }
-         }
-         
-         NSRange resultRange = [result range];
-         
-         NSString *replacementPattern = [[[NSString stringWithFormat:@"(%@)", parameterValuePattern]
-                                          stringByReplacingOccurrencesOfString:@"*" withString:@"¤"]
-                                         stringByReplacingOccurrencesOfString:@"." withString:@"§§"];
-         [compiledPatternBuffer replaceCharactersInRange:NSMakeRange(resultRange.location + replacementOffset, resultRange.length)
-                                              withString:replacementPattern];
+    
+    [self.patterns enumerateObjectsUsingBlock:^(NSString *pattern, NSUInteger patternIndex, BOOL *patternStop) {
+    
+        if (pattern.length == 0) {
+            return;
+        }
         
-         replacementOffset += (replacementPattern.length - resultRange.length);
-         
-         TRFRouteParameter *routeParameter = [TRFRouteParameter new];
-         routeParameter.name = parameterName;
-         routeParameter.pattern = parameterValuePattern;
-         routeParameter.groupNumber = parameterIndex;
-         routeParameters[parameterName] = routeParameter;
-         
-         parameterIndex += 1;
-     }];
+        NSMutableDictionary *routeParameters = [NSMutableDictionary dictionary];
+        NSMutableString *compiledPatternBuffer = [pattern mutableCopy];
+        __block NSInteger replacementOffset = 0;
+        __block NSInteger parameterIndex = 1;
+        
+        [namedParameterRegex
+         enumerateMatchesInString:pattern
+         options:0
+         range:NSMakeRange(0, pattern.length)
+         usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+             
+             NSString *parameterName = [pattern substringWithRange:[result rangeAtIndex:1]];
+             NSString *parameterType = TRFRouteParameterType.String;
+             NSString *parameterValuePattern = TRFRouteParameterValueStringPattern;
+             NSRange typeRange = [result rangeAtIndex:2];
+             if (typeRange.location != NSNotFound) {
+                 parameterType = [pattern substringWithRange:typeRange];
+                 if ([parameterType isEqualToString:TRFRouteParameterType.Regex]) {
+                     NSRange patternRange = [result rangeAtIndex:3];
+                     if (patternRange.location != NSNotFound && patternRange.length != 0) {
+                         parameterValuePattern = [pattern substringWithRange:patternRange];
+                     } else {
+                         NSLog(@"missing pattern for parameter %@ of type 'regular expression' in route %@", parameterName, pattern);
+                     }
+                 } else if ([parameterType isEqualToString:TRFRouteParameterType.Int]) {
+                     parameterValuePattern = TRFRouteParameterValueIntPattern;
+                 }
+             }
+             
+             NSRange resultRange = [result range];
+             
+             NSString *replacementPattern = [[[NSString stringWithFormat:@"(%@)", parameterValuePattern]
+                                              stringByReplacingOccurrencesOfString:@"*" withString:@"¤"]
+                                             stringByReplacingOccurrencesOfString:@"." withString:@"§§"];
+             [compiledPatternBuffer replaceCharactersInRange:NSMakeRange(resultRange.location + replacementOffset, resultRange.length)
+                                                  withString:replacementPattern];
+             
+             replacementOffset += (replacementPattern.length - resultRange.length);
+             
+             TRFRouteParameter *routeParameter = [TRFRouteParameter new];
+             routeParameter.name = parameterName;
+             routeParameter.pattern = parameterValuePattern;
+             routeParameter.groupNumber = parameterIndex;
+             routeParameters[parameterName] = routeParameter;
+             
+             parameterIndex += 1;
+         }];
+        
+        internalRouteParameters[pattern] = [routeParameters copy];
+        
+        // Any remaining dot should now be escaped
+        [compiledPatternBuffer replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        // Convert back the escaped regular expression dots to "."
+        [compiledPatternBuffer replaceOccurrencesOfString:@"§§" withString:@"." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        // Handle wildcard in path, escape the *
+        [compiledPatternBuffer replaceOccurrencesOfString:@"*" withString:@"#*#" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        // Convert global wildcards (initially **)
+        [compiledPatternBuffer replaceOccurrencesOfString:@"#*##*#" withString:@"(?:.*?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        // Then convert the remaining simple wildcards (initially *)
+        [compiledPatternBuffer replaceOccurrencesOfString:@"#*#" withString:@"(?:[^/]+?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        // Convert back the escaped regular expression *
+        [compiledPatternBuffer replaceOccurrencesOfString:@"¤" withString:@"*" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        
+        // Normalization - trim leading and trailing whitespaces, new lines and slashes
+        NSString *compiledPattern = [[compiledPatternBuffer
+                                      stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+                                     stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        
+        // Support the same route with or without trailing slash
+        compiledPattern = [compiledPattern stringByAppendingString:@"\\/?"];
+        
+        NSError *error = nil;
+        BOOL assertsPositionAtStartOfRange = YES;
+        BOOL assertsPositionAtEndOfRange = YES;
+        
+        NSRegularExpression *regex = [NSRegularExpression
+                                      regularExpressionWithPattern:[NSString stringWithFormat:@"%@%@%@",
+                                                                    assertsPositionAtStartOfRange ? @"^" : @"",
+                                                                    compiledPattern,
+                                                                    assertsPositionAtEndOfRange ? @"$" : @""]
+                                      options:NSRegularExpressionCaseInsensitive
+                                      error:&error];
+        if (regex) {
+            routeRegularExpressions[pattern] = regex;
+        }
+        if (error) {
+            [[NSException exceptionWithName:NSInvalidArgumentException
+                                     reason:[NSString stringWithFormat:@"Error while compiling pattern for route %@ (trying to compile regex with <<%@>>)", pattern, compiledPattern]
+                                   userInfo:@{NSLocalizedFailureReasonErrorKey: error.localizedFailureReason}]
+             raise];
+        }
+    }];
     
-    self.internalRouteParameters = routeParameters;
-    
-    // Any remaining dot should now be escaped
-    [compiledPatternBuffer replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    // Convert back the escaped regular expression dots to "."
-    [compiledPatternBuffer replaceOccurrencesOfString:@"§§" withString:@"." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    // Handle wildcard in path, escape the *
-    [compiledPatternBuffer replaceOccurrencesOfString:@"*" withString:@"#*#" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    // Convert global wildcards (initially **)
-    [compiledPatternBuffer replaceOccurrencesOfString:@"#*##*#" withString:@"(?:.*?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    // Then convert the remaining simple wildcards (initially *)
-    [compiledPatternBuffer replaceOccurrencesOfString:@"#*#" withString:@"(?:[^/]+?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    // Convert back the escaped regular expression *
-    [compiledPatternBuffer replaceOccurrencesOfString:@"¤" withString:@"*" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
-    
-    // Normalization - trim leading and trailing whitespaces, new lines and slashes
-    NSString *compiledPattern = [[compiledPatternBuffer
-                                  stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
-                                 stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    
-    // Support the same route with or without trailing slash
-    compiledPattern = [compiledPattern stringByAppendingString:@"\\/?"];
-    
-    NSError *error = nil;
-    BOOL assertsPositionAtStartOfRange = YES;
-    BOOL assertsPositionAtEndOfRange = YES;
-    
-    self.routeRegularExpression = [NSRegularExpression
-                                   regularExpressionWithPattern:[NSString stringWithFormat:@"%@%@%@",
-                                                                 assertsPositionAtStartOfRange ? @"^" : @"",
-                                                                 compiledPattern,
-                                                                 assertsPositionAtEndOfRange ? @"$" : @""]
-                                   options:NSRegularExpressionCaseInsensitive
-                                   error:&error];
-    if (error) {
-        [[NSException exceptionWithName:NSInvalidArgumentException
-                                reason:[NSString stringWithFormat:@"Error while compiling pattern for route %@ (trying to compile regex with <<%@>>)", pattern, compiledPattern]
-                              userInfo:@{NSLocalizedFailureReasonErrorKey: error.localizedFailureReason}]
-         raise];
-    }
+    self.routeRegularExpressions = routeRegularExpressions;
+    self.internalRouteParameters = internalRouteParameters;
 }
 
 - (BOOL)matchWithURL:(NSURL *)URL
@@ -230,10 +255,25 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (!hostAndPath) {
         return NO;
     }
-    __block NSTextCheckingResult *result = [self.routeRegularExpression
-                                            firstMatchInString:hostAndPath
-                                            options:(NSMatchingOptions)0
-                                            range:NSMakeRange(0, hostAndPath.length)];
+    
+    __block NSTextCheckingResult *result = nil;
+    __block NSDictionary *internalRouteParameters = nil;
+    
+    [self.patterns enumerateObjectsUsingBlock:^(NSString *pattern, NSUInteger patternIndex, BOOL *patternStop) {
+        NSRegularExpression *regex = self.routeRegularExpressions[pattern];
+        if (!regex) {
+            return;
+        }
+        result = [regex
+                  firstMatchInString:hostAndPath
+                  options:(NSMatchingOptions)0
+                  range:NSMakeRange(0, hostAndPath.length)];
+        if (result) {
+            internalRouteParameters = self.internalRouteParameters[pattern];
+            *patternStop = YES;
+        }
+    }];
+    
     if (!result) {
         __block BOOL foundChildRouteMatch = NO;
         [self.childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *childRouteStop) {
@@ -248,8 +288,12 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     [URL trf_setRoute:self];
     
     NSMutableDictionary *routeParameters = [NSMutableDictionary dictionary];
-    [self.internalRouteParameters enumerateKeysAndObjectsUsingBlock:^(NSString *name, TRFRouteParameter *parameter, BOOL *stop) {
-        NSString *paramValue = [hostAndPath substringWithRange:[result rangeAtIndex:parameter.groupNumber]];
+    [internalRouteParameters enumerateKeysAndObjectsUsingBlock:^(NSString *name, TRFRouteParameter *parameter, BOOL *stop) {
+        NSRange resultRange = [result rangeAtIndex:parameter.groupNumber];
+        if (resultRange.length == 0 || resultRange.location == NSNotFound) {
+            return;
+        }
+        NSString *paramValue = [hostAndPath substringWithRange:resultRange];
         if (paramValue) {
             routeParameters[name] = paramValue;
         }
@@ -319,8 +363,9 @@ void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain,
     self.childRoutes = childRoutes;
     
     [childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *stop) {
-        childRoute.scheme = self.scheme;
-        childRoute.pattern = [self.pattern stringByAppendingPathComponent:childRoute.pattern];
+        if (childRoute.scheme.length == 0) {
+            childRoute.scheme = self.scheme;
+        }
         childRoute.parentRoute = self;
     }];
 }
@@ -337,8 +382,8 @@ void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain,
 {
     return [NSString stringWithFormat:@"%@ - %@ - %@",
             self.scheme,
-            self.pattern,
-            self.routeRegularExpression.pattern];
+            self.patterns,
+            [self.routeRegularExpressions valueForKey:@"pattern"]];
 }
 
 @end

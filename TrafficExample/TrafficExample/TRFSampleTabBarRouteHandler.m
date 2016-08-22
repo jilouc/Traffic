@@ -35,14 +35,6 @@
 - (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
 {
     TRFSampleTabBarViewControllerContext *vcContext = [[TRFSampleTabBarViewControllerContext alloc] initWithURL:URL context:context];
-    NSString *tabName = URL.trf_routeParameters[@"tab_name"];
-    if ([tabName isEqualToString:@"recents"]) {
-        vcContext.selectedTab = TRFSampleTabBarTabRecents;
-    } else if ([tabName isEqualToString:@"featured"]) {
-        vcContext.selectedTab = TRFSampleTabBarTabFeatured;
-    } else {
-        vcContext.selectedTab = TRFSampleTabBarTabUnknown;
-    }
     return vcContext;
 }
 

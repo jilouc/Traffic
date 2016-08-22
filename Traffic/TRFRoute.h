@@ -29,6 +29,11 @@
 @interface TRFRoute : NSObject
 
 + (instancetype)routeWithScheme:(NSString *)scheme
+                       patterns:(NSArray<NSString *> *)patterns
+                        handler:(TRFRouteHandler *)routeHandler;
+
+
++ (instancetype)routeWithScheme:(NSString *)scheme
                         pattern:(NSString *)pattern
                         handler:(TRFRouteHandler *)routeHandler;
 

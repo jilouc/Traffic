@@ -31,6 +31,7 @@
     if (self) {
         self.URL = URL;
         self.urlContext = context;
+        [self configure];
     }
     return self;
 }
@@ -38,6 +39,11 @@
 - (instancetype)init
 {
     return [self initWithURL:nil context:nil];
+}
+
+- (void)configure
+{
+    
 }
 
 @end

@@ -22,6 +22,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSURL+TRFRoute.h"
 
 @interface TRFViewControllerContext : NSObject
 
@@ -30,5 +31,7 @@
 
 - (instancetype)initWithURL:(NSURL *)URL
                     context:(id)context NS_DESIGNATED_INITIALIZER;
+
+- (void)configure;
 
 @end

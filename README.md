@@ -7,3 +7,19 @@
 </p>
 
 Simple and powerful URL routing library to easily handle incoming URLs in your app
+
+## Install
+
+Install it through [CocoaPods](http://cocoapods.org/)
+
+```
+pod 'Traffic'
+```
+
+or by including sources in the Traffic directory directly in your project.
+
+If you just want to see how Traffic works, you can easily do by using
+
+```
+pod try 'Traffic'
+```

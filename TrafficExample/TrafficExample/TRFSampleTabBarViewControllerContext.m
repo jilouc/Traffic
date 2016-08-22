@@ -25,4 +25,16 @@
 
 @implementation TRFSampleTabBarViewControllerContext
 
+- (void)configure
+{
+    NSString *tabName = self.URL.trf_routeParameters[@"tab_name"];
+    if ([tabName isEqualToString:@"recents"]) {
+        self.selectedTab = TRFSampleTabBarTabRecents;
+    } else if ([tabName isEqualToString:@"featured"]) {
+        self.selectedTab = TRFSampleTabBarTabFeatured;
+    } else {
+        self.selectedTab = TRFSampleTabBarTabUnknown;
+    }
+}
+
 @end
