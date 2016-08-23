@@ -249,9 +249,6 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         return NO;
     }
     NSString *hostAndPath = [URL.host stringByAppendingString:URL.path];
-    if (![hostAndPath hasSuffix:@"/"]) {
-        hostAndPath = [hostAndPath stringByAppendingString:@"/"];
-    }
     if (!hostAndPath) {
         return NO;
     }
