@@ -29,8 +29,11 @@
 @interface TRFUIRouter : NSObject
 
 + (instancetype)defaultRouter;
++ (void)setDefaultRouter:(TRFUIRouter *)uiRouter;
+
 - (void)registerRoute:(TRFRoute *)route;
 - (void)registerRoutes:(NSArray<TRFRoute *> *)routes;
+
 - (BOOL)routeURL:(NSURL *)URL context:(id)context;
 - (TRFRoute *)routeMatchingURL:(NSURL *)URL;
 

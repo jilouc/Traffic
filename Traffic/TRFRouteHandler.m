@@ -25,18 +25,18 @@
 
 @interface TRFRouteHandler ()
 
-@property (nonatomic) void (^handlerBlock)(NSURL *URL, id context, void (^completionBlock)(id, BOOL));
+@property (nonatomic) void (^handlerBlock)(NSURL *URL, id context);
 
 @end
 
 @implementation TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context, void (^completionBlock)(id, BOOL)))handlerBlock
++ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))handlerBlock
 {
     return [[self alloc] initWithHandlerBlock:handlerBlock];
 }
 
-- (instancetype)initWithHandlerBlock:(void(^)(NSURL *URL, id context, void (^completionBlock)(id, BOOL)))handlerBlock
+- (instancetype)initWithHandlerBlock:(void(^)(NSURL *URL, id context))handlerBlock
 {
     self = [super init];
     if (self) {
@@ -45,12 +45,10 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void (^)(id, BOOL))completion
+- (BOOL)handleURL:(NSURL *)URL context:(id)context
 {
     if (self.handlerBlock) {
-        self.handlerBlock(URL, context, completion);
-    } else {
-        completion(context, NO);
+        self.handlerBlock(URL, context);
     }
     return YES;
 }

@@ -334,13 +334,9 @@ void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain,
         return;
     }
     id newContext = [handler contextForURL:URL context:context];
-    [handler handleURL:URL context:newContext completion:^(id childContext, BOOL stop) {
-        [handlerChain removeObjectAtIndex:0];
-        if (stop) {
-            return;
-        }
-        _recursiveHandlerChainCall(handlerChain, URL, childContext);
-    }];
+    [handler handleURL:URL context:newContext];
+    [handlerChain removeObjectAtIndex:0];
+    _recursiveHandlerChainCall(handlerChain, URL, newContext);
 }
 
 #pragma mark - Child routes

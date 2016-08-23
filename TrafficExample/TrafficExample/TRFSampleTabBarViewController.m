@@ -60,7 +60,6 @@
 }
 
 - (void)configureWithTrafficContext:(TRFSampleTabBarViewControllerContext *)configurationContext
-                         completion:(void (^)(id, BOOL))completion
 {
     switch (configurationContext.selectedTab) {
         case TRFSampleTabBarTabRecents:
@@ -72,8 +71,6 @@
         default:
             break;
     }
-    
-    completion(configurationContext.urlContext, NO);
 }
 
 @end

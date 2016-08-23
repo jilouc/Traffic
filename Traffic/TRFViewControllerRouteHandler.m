@@ -80,30 +80,24 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void (^)(id, BOOL))completion
+- (BOOL)handleURL:(NSURL *)URL context:(id)context
 {
     UIViewController *targetVC = [self targetViewControllerForURL:URL context:context];
     if (!targetVC) {
         return NO;
     }
     UIViewController *presentingVC = [[UIApplication sharedApplication].keyWindow trf_currentViewControllerForRoutePresenting];
+    
+    if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
+        id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;
+        TRFViewControllerContext *configurationContext = [self viewControllerConfigurationContextForURL:URL context:context];
+        [routeTargetVC configureWithTrafficContext:configurationContext];
+    }
+    
     [self presentTargetViewController:targetVC
              presentingViewController:presentingVC
                               withURL:URL
                               context:context];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
-            id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;
-            TRFViewControllerContext *configurationContext = [self viewControllerConfigurationContextForURL:URL context:context];
-            [routeTargetVC configureWithTrafficContext:configurationContext
-                                            completion:completion];
-        } else {
-            if (completion) {
-                completion(context, NO);
-            }
-        }
-    });
     
     return YES;
 }

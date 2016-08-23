@@ -30,8 +30,6 @@
 
 @interface TRFSampleAppDelegate ()
 
-@property (nonatomic) TRFUIRouter *uiRouter;
-
 @end
 
 @implementation TRFSampleAppDelegate
@@ -47,10 +45,13 @@
 - (void)createRoutes
 {
     TRFUIRouter *uiRouter = [TRFUIRouter new];
-    self.uiRouter = uiRouter;
+    [TRFUIRouter setDefaultRouter:uiRouter];
     
     TRFRoute *tabBarRoute = [TRFRoute routeWithScheme:nil
-                                              pattern:@"tabbar/<tab_name:re:(recents|featured)?>"
+                                             patterns:@[
+                                                        @"tabbar",
+                                                        @"tabbar/<tab_name:re:recents|featured>"
+                                                        ]
                                               handler:[TRFSampleTabBarRouteHandler new]];
     
     [uiRouter registerRoute:tabBarRoute];
@@ -58,7 +59,7 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    return [self.uiRouter routeURL:url context:options];
+    return [TRFUIRouter.defaultRouter routeURL:url context:options];
 }
 
 @end

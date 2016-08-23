@@ -36,10 +36,12 @@
 
 @implementation TRFUIRouterTests
 
-- (void)testDefaultRouterIsCreatedOnce
+- (void)testDefaultRouter
 {
-    TRFUIRouter *router = [TRFUIRouter defaultRouter];
-    expect(router).notTo.beNil;
+    expect([TRFUIRouter defaultRouter]).to.equal(nil);
+    
+    TRFUIRouter *router = [TRFUIRouter new];
+    [TRFUIRouter setDefaultRouter:router];
     expect([TRFUIRouter defaultRouter]).to.equal(router);
 }
 

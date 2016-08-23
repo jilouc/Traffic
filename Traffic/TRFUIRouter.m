@@ -33,18 +33,20 @@
 
 @end
 
+static TRFUIRouter *_defaultRouter = nil;
+
 //////////////////////////////////////////////////////////////////////
 
 @implementation TRFUIRouter
 
 + (instancetype)defaultRouter
 {
-    static TRFUIRouter *defaultRouter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        defaultRouter = [[self alloc] init];
-    });
-    return defaultRouter;
+    return _defaultRouter;
+}
+
++ (void)setDefaultRouter:(TRFUIRouter *)uiRouter
+{
+    _defaultRouter = uiRouter;
 }
 
 - (void)registerRoute:(TRFRoute *)route

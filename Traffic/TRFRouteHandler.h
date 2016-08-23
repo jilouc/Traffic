@@ -23,13 +23,11 @@
 
 @import Foundation;
 
-typedef void(^TRFRouteHandlerCompletion)(id context, BOOL stop);
-
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context, TRFRouteHandlerCompletion completionBlock))handlerBlock;
++ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))handlerBlock;
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context completion:(void(^)(id context, BOOL stop))completion;
+- (BOOL)handleURL:(NSURL *)URL context:(id)context;
 
 - (id)contextForURL:(NSURL *)URL context:(id)context;
 

@@ -26,7 +26,6 @@
 
 @protocol TRFRouteTargetViewController <NSObject>
 
-- (void)configureWithTrafficContext:(__kindof TRFViewControllerContext *)configurationContext
-                         completion:(void(^)(id context, BOOL stop))completion;
+- (void)configureWithTrafficContext:(__kindof TRFViewControllerContext *)configurationContext;
 
 @end

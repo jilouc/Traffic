@@ -287,8 +287,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     
     [route1 handleURL:URL context:context];
     [[(id)mockHandler verify] handleURL:URL
-                                context:context
-                             completion:[OCMArg isNotNil]];
+                                context:context];
 }
 
 - (void)testChildRoutesAreProperlyAdded
