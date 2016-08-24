@@ -44,6 +44,13 @@
                             withURL:(NSURL *)URL
                             context:(id)context;
 
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController;
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController;
+- (Class)wrappingNavigationControllerClass;
+
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
+
 @end
 
 //////////////////////////////////////////////////////////////////////

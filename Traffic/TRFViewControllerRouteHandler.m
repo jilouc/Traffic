@@ -58,7 +58,30 @@
     if (self.presentationBlock) {
         self.presentationBlock(targetViewController, proposedPresentingViewController, URL, context);
     } else {
-        [proposedPresentingViewController presentViewController:targetViewController animated:YES completion:nil];
+        if (![self shouldPresentModallyInViewController:proposedPresentingViewController]) {
+            UINavigationController *navigationController = nil;
+            if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
+                navigationController = (UINavigationController *)proposedPresentingViewController;
+            } else if (proposedPresentingViewController.navigationController) {
+                navigationController = navigationController;
+            }
+            if (navigationController) {
+                [navigationController pushViewController:targetViewController animated:YES];
+                return;
+            }
+        }
+        
+        UIViewController *presentedViewController = targetViewController;
+        if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:proposedPresentingViewController]) {
+            Class navigationControllerClass = [self wrappingNavigationControllerClass];
+            NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass");
+            presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
+        }
+        
+        [self willPresentViewController:presentedViewController targetViewController:targetViewController];
+        [proposedPresentingViewController presentViewController:presentedViewController animated:YES completion:^{
+            [self didPresentViewController:presentedViewController targetViewController:targetViewController];
+        }];
     }
 }
 
@@ -86,6 +109,7 @@
     if (!targetVC) {
         return NO;
     }
+    
     UIViewController *presentingVC = [[UIApplication sharedApplication].keyWindow trf_currentViewControllerForRoutePresenting];
     
     if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
@@ -100,6 +124,31 @@
                               context:context];
     
     return YES;
+}
+
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController
+{
+    return YES;
+}
+
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController
+{
+    return NO;
+}
+
+- (Class)wrappingNavigationControllerClass
+{
+    return [UINavigationController class];
+}
+
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+{
+    
+}
+
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+{
+    
 }
 
 @end
