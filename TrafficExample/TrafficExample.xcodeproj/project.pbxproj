@@ -15,6 +15,7 @@
 		5B266FBB1CFB949C003A3715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FB91CFB949C003A3715 /* Main.storyboard */; };
 		5B266FBD1CFB949C003A3715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBC1CFB949C003A3715 /* Assets.xcassets */; };
 		5B266FC01CFB949C003A3715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B266FBE1CFB949C003A3715 /* LaunchScreen.storyboard */; };
+		5BB38CCC1D6F33060024CF2A /* TRFSampleUIRoutes.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB38CCB1D6F33060024CF2A /* TRFSampleUIRoutes.m */; };
 		DE5A05D81D50E96500C97A6F /* TRFSampleTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05D71D50E96500C97A6F /* TRFSampleTabBarViewController.m */; };
 		DE5A05DB1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05DA1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m */; };
 		DE5A05DE1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5A05DD1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m */; };
@@ -42,6 +43,8 @@
 		5B266FBC1CFB949C003A3715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B266FBF1CFB949C003A3715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B266FC11CFB949C003A3715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5BB38CCA1D6F33060024CF2A /* TRFSampleUIRoutes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleUIRoutes.h; sourceTree = "<group>"; };
+		5BB38CCB1D6F33060024CF2A /* TRFSampleUIRoutes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleUIRoutes.m; sourceTree = "<group>"; };
 		DE5A05D61D50E96500C97A6F /* TRFSampleTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabBarViewController.h; sourceTree = "<group>"; };
 		DE5A05D71D50E96500C97A6F /* TRFSampleTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarViewController.m; sourceTree = "<group>"; };
 		DE5A05D91D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabRecentsViewController.h; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 				DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */,
 				DEEEAE941D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.h */,
 				DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.m */,
+				5BB38CCA1D6F33060024CF2A /* TRFSampleUIRoutes.h */,
+				5BB38CCB1D6F33060024CF2A /* TRFSampleUIRoutes.m */,
 			);
 			name = Routing;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				DE5A05DE1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m in Sources */,
 				5B266FB51CFB949C003A3715 /* TRFSampleAppDelegate.m in Sources */,
 				DEEEAEA01D675FF900E2760F /* TRFSampleTabBarRouteHandler.m in Sources */,
+				5BB38CCC1D6F33060024CF2A /* TRFSampleUIRoutes.m in Sources */,
 				DE5A05D81D50E96500C97A6F /* TRFSampleTabBarViewController.m in Sources */,
 				5B266FB21CFB949C003A3715 /* main.m in Sources */,
 				DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */,

@@ -53,18 +53,18 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteCompilingBasics
 {
     NSString *pattern = @"/routes";
-    TRFRoute *route1 = [TRFRoute routeWithScheme:@"traffic" pattern:pattern handler:nil];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:@"traffic" pattern:pattern handler:nil];
     expect(route1.scheme).to.equal(@"traffic");
-    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:@"/routes" handler:nil];
+    TRFRoute *route2 = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes" handler:nil];
     expect(route2.routeRegularExpressions[pattern].pattern).to.equal(@"^routes\\/?$");
-    TRFRoute *route3 = [TRFRoute routeWithScheme:nil pattern:@"" handler:nil];
+    TRFRoute *route3 = [TRFRoute routeWithId:nil scheme:nil pattern:@"" handler:nil];
     expect(route3.routeRegularExpressions.allValues.firstObject).to.beNil;
 }
 
 - (void)testRouteParameterWithoutType
 {
     NSString *pattern = @"/routes/<route_id>/no-type";
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:pattern handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:pattern handler:nil];
     expect(route.internalRouteParameters[pattern]).to.haveCountOf(1);
     expect(route.internalRouteParameters[pattern][@"route_id"]).notTo.beNil;
     expect(route.internalRouteParameters[pattern][@"route_id"].pattern).to.equal(TRFRouteParameterValueStringPattern);
@@ -74,7 +74,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteParameterTypeInt
 {
     NSString *pattern = @"/route/<route_id:int>";
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:pattern handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:pattern handler:nil];
     expect(route.internalRouteParameters).to.haveCountOf(1);
     expect(route.internalRouteParameters[pattern][@"route_id"]).notTo.beNil;
     expect(route.internalRouteParameters[pattern][@"route_id"].pattern).to.equal(TRFRouteParameterValueIntPattern);
@@ -85,7 +85,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteParameterTypeStr
 {
     NSString *pattern = @"/route/<route_id:str>";
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:pattern handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:pattern handler:nil];
     expect(route.internalRouteParameters[pattern]).to.haveCountOf(1);
     expect(route.internalRouteParameters[pattern][@"route_id"]).notTo.beNil;
     expect(route.internalRouteParameters[pattern][@"route_id"].pattern).to.equal(TRFRouteParameterValueStringPattern);
@@ -96,7 +96,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteParameterTypeStrWithRegex
 {
     NSString *pattern = @"/route/<route_id:re:[a-f0-9]+>";
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:pattern handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:pattern handler:nil];
     expect(route.internalRouteParameters[pattern]).to.haveCountOf(1);
     expect(route.internalRouteParameters[pattern][@"route_id"]).notTo.beNil;
     expect(route.internalRouteParameters[pattern][@"route_id"].pattern).to.equal(@"[a-f0-9]+");
@@ -106,18 +106,18 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteParameterTypeStrWithRegexEmpty
 {
     NSString *pattern1 = @"/route/<route_id:re>";
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:pattern1 handler:nil];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:pattern1 handler:nil];
     expect(route1.routeRegularExpressions[pattern1].pattern).to.contain(TRFRouteParameterValueStringPattern);
     
     NSString *pattern2 = @"/route/<route_id:re:>";
-    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:pattern2 handler:nil];
+    TRFRoute *route2 = [TRFRoute routeWithId:nil scheme:nil pattern:pattern2 handler:nil];
     expect(route2.routeRegularExpressions[pattern2].pattern).to.contain(TRFRouteParameterValueStringPattern);
 }
 
 - (void)testRouteWithMultipleParameters
 {
     NSString *pattern = @"/routes/<route_id>/parameter/<parameter_id>";
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:pattern handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:pattern handler:nil];
     expect(route.internalRouteParameters[pattern]).to.haveCountOf(2);
     expect(route.internalRouteParameters[pattern][@"route_id"]).notTo.beNil;
     expect(route.internalRouteParameters[pattern][@"parameter_id"]).notTo.beNil;
@@ -126,53 +126,53 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testRouteCompilationWildcards
 {
     NSString *patternWithSimpleWildcard = @"/route/with/*/simple/wildcard";
-    TRFRoute *routeWithSimpleWildcard = [TRFRoute routeWithScheme:nil pattern:patternWithSimpleWildcard handler:nil];
+    TRFRoute *routeWithSimpleWildcard = [TRFRoute routeWithId:nil scheme:nil pattern:patternWithSimpleWildcard handler:nil];
     expect(routeWithSimpleWildcard.routeRegularExpressions[patternWithSimpleWildcard].pattern).to.equal(@"^route/with/(?:[^/]+?)/simple/wildcard\\/?$");
     NSString *patternWithUnboundedWildcard = @"/route/with/**/wildcard";
-    TRFRoute *routeWithUnboundedWildcard = [TRFRoute routeWithScheme:nil pattern:patternWithUnboundedWildcard handler:nil];
+    TRFRoute *routeWithUnboundedWildcard = [TRFRoute routeWithId:nil scheme:nil pattern:patternWithUnboundedWildcard handler:nil];
     expect(routeWithUnboundedWildcard.routeRegularExpressions[patternWithUnboundedWildcard].pattern).to.equal(@"^route/with/(?:.*?)/wildcard\\/?$");
     
     NSString *patternWithBothWildcards = @"/route/with/simple/*/and/**/unbounded/wildcards";
-    TRFRoute *routeWithBothWildcards = [TRFRoute routeWithScheme:nil pattern:patternWithBothWildcards handler:nil];
+    TRFRoute *routeWithBothWildcards = [TRFRoute routeWithId:nil scheme:nil pattern:patternWithBothWildcards handler:nil];
     expect(routeWithBothWildcards.routeRegularExpressions[patternWithBothWildcards].pattern).to.equal(@"^route/with/simple/(?:[^/]+?)/and/(?:.*?)/unbounded/wildcards\\/?$");
 }
 
 - (void)testRouteWithWildcardAndParameters
 {
     NSString *pattern1 = @"/routes/<route_id>/*/<parameter_id:re:[a-f]+[0-9]*>";
-    TRFRoute *routeWithSimpleWildcard = [TRFRoute routeWithScheme:nil pattern:pattern1 handler:nil];
+    TRFRoute *routeWithSimpleWildcard = [TRFRoute routeWithId:nil scheme:nil pattern:pattern1 handler:nil];
     expect(routeWithSimpleWildcard.routeRegularExpressions[pattern1].pattern).to.equal([NSString stringWithFormat:@"^routes/(%@)/(?:[^/]+?)/([a-f]+[0-9]*)\\/?$",
                                                                              TRFRouteParameterValueStringPattern]);
     
     NSString *pattern2 = @"/routes/<route_id>/**/wildcard";
-    TRFRoute *routeWithWildcard = [TRFRoute routeWithScheme:nil pattern:pattern2 handler:nil];
+    TRFRoute *routeWithWildcard = [TRFRoute routeWithId:nil scheme:nil pattern:pattern2 handler:nil];
     expect(routeWithWildcard.routeRegularExpressions[pattern2].pattern).to.equal([NSString stringWithFormat:@"^routes/(%@)/(?:.*?)/wildcard\\/?$",
                                                                        TRFRouteParameterValueStringPattern]);
 }
 
 - (void)testRouteMatchingWithScheme
 {
-    TRFRoute *routeWithScheme = [TRFRoute routeWithScheme:@"traffic" pattern:@"/routes" handler:nil];
+    TRFRoute *routeWithScheme = [TRFRoute routeWithId:nil scheme:@"traffic" pattern:@"/routes" handler:nil];
     expect([routeWithScheme matchWithURL:[NSURL URLWithString:@"traffic://routes"]]).to.equal(YES);
     expect([routeWithScheme matchWithURL:[NSURL URLWithString:@"control://routes"]]).to.equal(NO);
 }
 
 - (void)testRouteMatchingWithoutScheme
 {
-    TRFRoute *routeWithoutScheme = [TRFRoute routeWithScheme:nil pattern:@"/routes" handler:nil];
+    TRFRoute *routeWithoutScheme = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes" handler:nil];
     expect([routeWithoutScheme matchWithURL:[NSURL URLWithString:@"traffic://routes"]]).to.equal(YES);
     expect([routeWithoutScheme matchWithURL:[NSURL URLWithString:@"control://routes"]]).to.equal(YES);
 }
 
 - (void)testRouteMatchingWithTrailingSlash
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/routes" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes" handler:nil];
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://routes/"]]).to.equal(YES);
 }
 
 - (void)testRouteMatchingWithParameter
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/routes/<id_route>" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes/<id_route>" handler:nil];
     NSURL *URL = [NSURL URLWithString:@"traffic://routes/123abc"];
     BOOL res = [route matchWithURL:URL];
     expect(res).to.equal(YES);
@@ -181,7 +181,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testRouteMatchingWithParameterTypeInt
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/routes/<id_route:int>" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes/<id_route:int>" handler:nil];
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://routes/123abc"]]).to.equal(NO);
     NSURL *URL = [NSURL URLWithString:@"traffic://routes/456"];
     BOOL res = [route matchWithURL:URL];
@@ -191,7 +191,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testRouteMatchingWithParameterTypeStr
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/routes/<route_name:str>" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes/<route_name:str>" handler:nil];
     NSURL *URL = [NSURL URLWithString:@"traffic://routes/abcdef"];
     BOOL res = [route matchWithURL:URL];
     expect(res).to.equal(YES);
@@ -202,7 +202,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testRouteMatchingWithParameterTypeRegex
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/routes/<id_route:re:[a-f0-9]+>" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/routes/<id_route:re:[a-f0-9]+>" handler:nil];
     NSURL *URL = [NSURL URLWithString:@"traffic://routes/a12cd45ef"];
     BOOL res = [route matchWithURL:URL];
     expect(res).to.equal(YES);
@@ -212,7 +212,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testRouteMatchingWithMultipleParameters
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"/posts/<id_post>/comments/<id_comment>" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"/posts/<id_post>/comments/<id_comment>" handler:nil];
     NSURL *URL = [NSURL URLWithString:@"traffic://posts/1234/comments/5678"];
     BOOL res = [route matchWithURL:URL];
     expect(res).to.equal(YES);
@@ -223,14 +223,14 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testMatchingWithSimpleWildcard
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"*/route" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"*/route" handler:nil];
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://wilcard_content/route"]]).to.equal(YES);
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://wilcard_content/not_matching/route"]]).to.equal(NO);
 }
 
 - (void)testMatchingWithGlobalWildcard
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"**/route" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"**/route" handler:nil];
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://wilcard_content/route"]]).to.equal(YES);
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://wilcard_content/also_matching/route"]]).to.equal(YES);
     expect([route matchWithURL:[NSURL URLWithString:@"traffic://wilcard_content/not_matching/route/extra"]]).to.equal(NO);
@@ -238,15 +238,15 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testMatchingRouteWithDot
 {
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"foo.bar" handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:@"foo.bar" handler:nil];
     expect([route matchWithURL:[NSURL URLWithString:@"http://foo.bar"]]).to.equal(YES);
     expect([route matchWithURL:[NSURL URLWithString:@"http://foo+bar"]]).to.equal(NO);
 }
 
 - (void)testAlreadyMatchedURL
 {
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route/<param1>" handler:nil];
-    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:@"route/<param2>" handler:nil];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param1>" handler:nil];
+    TRFRoute *route2 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param2>" handler:nil];
  
     NSURL *URL = [NSURL URLWithString:@"traffic://route/value1"];
     expect([route1 matchWithURL:URL]).to.equal(YES);
@@ -258,28 +258,28 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 - (void)testNilURL
 {
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route/<param1>" handler:nil];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param1>" handler:nil];
     expect([route1 matchWithURL:nil]).to.equal(NO);
 }
 
 - (void)testInvalidRoutePattern
 {
     expect(^{
-        [TRFRoute routeWithScheme:nil pattern:@"route/<param:re:[>" handler:nil];
+        [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param:re:[>" handler:nil];
     }).to.raise(NSInvalidArgumentException);
 }
 
 - (void)testHandleURL
 {
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route/<param1>" handler:nil];
-    expect([route1 handleURL:[NSURL URLWithString:@"traffic://not/matching"]]).to.equal(NO);
-    expect([route1 handleURL:[NSURL URLWithString:@"traffic://route/matching"]]).to.equal(YES);
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param1>" handler:nil];
+    expect([route1 handleURL:[NSURL URLWithString:@"traffic://not/matching"] intent:nil]).to.equal(NO);
+    expect([route1 handleURL:[NSURL URLWithString:@"traffic://route/matching"] intent:nil]).to.equal(YES);
 }
 
 - (void)testHandleURLWithHandler
 {
     TRFRouteHandler *mockHandler = [OCMockObject niceMockForClass:[TRFRouteHandler class]];
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route/<param1>" handler:mockHandler];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param1>" handler:mockHandler];
     
     NSURL *URL = [NSURL URLWithString:@"traffic://route/value"];
     TRFIntent *intent = [TRFIntent new];
@@ -287,51 +287,6 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     
     [route1 handleURL:URL intent:intent];
     [[(id)mockHandler verify] handleIntent:intent];
-}
-
-- (void)testChildRoutesAreProperlyAdded
-{
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
-    TRFRoute *childRoute1 = [TRFRoute routeWithScheme:nil pattern:@"child_route" handler:nil];
-    [route1 addChildRoute:childRoute1];
-    expect(route1.childRoutes).to.haveCount(1);
-    expect(route1.childRoutes.firstObject).to.equal(childRoute1);
-    expect(childRoute1.parentRoute).to.equal(route1);
-    
-    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
-    TRFRoute *childRoute2_1 = [TRFRoute routeWithScheme:nil pattern:@"child_route_1" handler:nil];
-    TRFRoute *childRoute2_2 = [TRFRoute routeWithScheme:nil pattern:@"child_route_2" handler:nil];
-    [route2 addChildRoutes:@[childRoute2_1, childRoute2_2]];
-    expect(route2.childRoutes).to.haveCount(2);
-    expect(childRoute2_1.parentRoute).to.equal(route2);
-    expect(childRoute2_2.parentRoute).to.equal(route2);
-}
-
-- (void)testChildRouteMatches
-{
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"route" handler:nil];
-    TRFRoute *childRoute = [TRFRoute routeWithScheme:nil pattern:@"route/child_route" handler:nil];
-    [route addChildRoute:childRoute];
-    
-    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route"]]).to.equal(YES);
-    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route/child_route"]]).to.equal(YES);
-    expect([route matchWithURL:[NSURL URLWithString:@"traffic://wrong_parent_route/child_route"]]).to.equal(NO);
-    expect([route matchWithURL:[NSURL URLWithString:@"traffic://routechild_route"]]).to.equal(NO);
-}
-
-- (void)testChildRouteMatchesWithParameters
-{
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:@"route/<param1:int>" handler:nil];
-    TRFRoute *childRoute = [TRFRoute routeWithScheme:nil pattern:@"route/<param1:int>/child_route/<param2>" handler:nil];
-    [route addChildRoute:childRoute];
-    
-    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route/child_route"]]).to.equal(NO);
-    
-    NSURL *URL = [NSURL URLWithString:@"traffic://route/123/child_route/bar"];
-    expect([route matchWithURL:URL]).to.equal(YES);
-    expect(URL.trf_routeParameters[@"param1"]).to.equal(@"123");
-    expect(URL.trf_routeParameters[@"param2"]).to.equal(@"bar");
-    expect(URL.trf_route).to.equal(childRoute);
 }
 
 @end

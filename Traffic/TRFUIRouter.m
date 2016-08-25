@@ -84,9 +84,25 @@ static TRFUIRouter *_defaultRouter = nil;
     if (route == nil) {
         return NO;
     }
-    NSLog(@"URL %@ matches route: %@", URL.absoluteString, route);
+    NSLog(@"URL %@ matches route: %@", URL.absoluteString, route.identifier);
     
     return [route handleURL:URL intent:intent];
+}
+
+- (TRFRoute *)routeWithId:(NSString *)routeId
+{
+    if (routeId.length == 0) {
+        return nil;
+    }
+    
+    __block TRFRoute *resultRoute = nil;
+    [self.routes enumerateObjectsUsingBlock:^(TRFRoute *route, NSUInteger idx, BOOL *stop) {
+        if ([route.identifier isEqualToString:routeId]) {
+            resultRoute = route;
+            *stop = YES;
+        }
+    }];
+    return resultRoute;
 }
 
 @end

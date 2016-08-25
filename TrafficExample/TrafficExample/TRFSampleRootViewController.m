@@ -22,6 +22,9 @@
 //
 
 #import "TRFSampleRootViewController.h"
+#import "TRFUIRouter.h"
+#import "TRFSampleUIRoutes.h"
+#import "TRFSampleTabBarViewControllerIntent.h"
 
 @interface TRFSampleRootViewController ()
 
@@ -35,6 +38,12 @@
 
 }
 
-
+- (IBAction)openTabBarVC:(id)sender
+{
+    TRFSampleTabBarViewControllerIntent *intent = [TRFSampleTabBarViewControllerIntent new];
+    intent.selectedTab = TRFSampleTabBarTabFeatured;
+    
+    [[[TRFUIRouter defaultRouter] routeWithId:TRFSampleUIRoutes.TabBar] handleIntent:intent];
+}
 
 @end

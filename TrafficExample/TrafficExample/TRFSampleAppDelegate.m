@@ -27,6 +27,7 @@
 #import "NSURL+TRFRoute.h"
 #import "TRFSampleTabBarViewController.h"
 #import "TRFSampleTabBarRouteHandler.h"
+#import "TRFSampleUIRoutes.h"
 
 @interface TRFSampleAppDelegate ()
 
@@ -47,12 +48,13 @@
     TRFUIRouter *uiRouter = [TRFUIRouter new];
     [TRFUIRouter setDefaultRouter:uiRouter];
     
-    TRFRoute *tabBarRoute = [TRFRoute routeWithScheme:nil
-                                             patterns:@[
-                                                        @"tabbar",
-                                                        @"tabbar/<tab_name:re:recents|featured>"
-                                                        ]
-                                              handler:[TRFSampleTabBarRouteHandler new]];
+    TRFRoute *tabBarRoute = [TRFRoute routeWithId:TRFSampleUIRoutes.TabBar
+                                           scheme:nil
+                                         patterns:@[
+                                                    @"tabbar",
+                                                    @"tabbar/<tab_name:re:recents|featured>"
+                                                    ]
+                                          handler:[TRFSampleTabBarRouteHandler new]];
     
     [uiRouter registerRoute:tabBarRoute];
 }

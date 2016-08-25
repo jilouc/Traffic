@@ -38,5 +38,6 @@
 
 - (BOOL)routeURL:(NSURL *)URL intent:(TRFIntent *)intent;
 - (TRFRoute *)routeMatchingURL:(NSURL *)URL;
+- (TRFRoute *)routeWithId:(NSString *)routeId;
 
 @end
