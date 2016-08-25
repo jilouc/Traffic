@@ -37,7 +37,7 @@
 
 @implementation TRFViewControllerRouteHandler
 
-- (TRFViewControllerIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent
+- (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent
 {
     NSAssert(intent != nil, @"source intent must not be nil");
     return [TRFViewControllerIntent intentWithIntent:intent];
