@@ -282,12 +282,12 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route/<param1>" handler:mockHandler];
     
     NSURL *URL = [NSURL URLWithString:@"traffic://route/value"];
-    id context = [NSObject new];
-    [[[(id)mockHandler stub] andReturn:context] contextForURL:URL context:context];
+    TRFIntent *intent = [TRFIntent new];
+    [[[(id)mockHandler stub] andReturn:intent] intentForURL:URL intent:intent];
     
-    [route1 handleURL:URL context:context];
+    [route1 handleURL:URL intent:intent];
     [[(id)mockHandler verify] handleURL:URL
-                                context:context];
+                                intent:intent];
 }
 
 - (void)testChildRoutesAreProperlyAdded

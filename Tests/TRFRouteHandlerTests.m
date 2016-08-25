@@ -35,16 +35,16 @@
 - (void)testHandlerBlockIsCalled
 {
     NSURL *routeURL = [NSURL URLWithString:@"traffic://route"];
-    id routeContext = [NSObject new];
+    TRFIntent *routeIntent = [TRFIntent new];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"route handler is expected to call the handler block"];
-    void (^handlerBlock)(NSURL *, id) = ^(NSURL *URL, id context) {
+    void (^handlerBlock)(NSURL *, id) = ^(NSURL *URL, TRFIntent *intent) {
         [expectation fulfill];
         expect(URL).to.equal([NSURL URLWithString:@"traffic://route"]);
-        expect(context).to.equal(routeContext);
+        expect(intent).to.equal(routeIntent);
     };
     TRFRouteHandler *routeHandler = [TRFRouteHandler routeHandlerWithBlock:handlerBlock];
-    [routeHandler handleURL:routeURL context:routeContext];
+    [routeHandler handleURL:routeURL intent:routeIntent];
     [self waitForExpectationsWithTimeout:0.1 handler:nil];
 }
 

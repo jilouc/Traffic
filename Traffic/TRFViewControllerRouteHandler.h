@@ -23,6 +23,7 @@
 
 #import "TRFRouteHandler.h"
 #import "TRFViewControllerContext.h"
+#import "TRFViewControllerIntent.h"
 #import "NSURL+TRFRoute.h"
 
 @import UIKit;
@@ -31,18 +32,18 @@
 
 @interface TRFViewControllerRouteHandler : TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void (^)(NSURL *URL, id context))block NS_UNAVAILABLE;
++ (instancetype)routeHandlerWithBlock:(void (^)(NSURL *URL, TRFViewControllerIntent *intent))block NS_UNAVAILABLE;
 
-+ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *URL, id context))creationBlock
-                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, id context))presentationBlock;
++ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *URL, __kindof TRFViewControllerIntent *intent))creationBlock
+                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, __kindof TRFViewControllerIntent *intent))presentationBlock;
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context;
-- (__kindof TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context;
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent;
+- (__kindof TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent;
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
                             withURL:(NSURL *)URL
-                            context:(id)context;
+                              intent:(TRFViewControllerIntent *)intent;
 
 - (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController;
 - (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController;

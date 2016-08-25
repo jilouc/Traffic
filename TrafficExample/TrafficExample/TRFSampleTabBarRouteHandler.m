@@ -27,14 +27,14 @@
 
 @implementation TRFSampleTabBarRouteHandler
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     return [TRFSampleTabBarViewController new];
 }
 
-- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
+- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
-    TRFSampleTabBarViewControllerContext *vcContext = [[TRFSampleTabBarViewControllerContext alloc] initWithURL:URL context:context];
+    TRFSampleTabBarViewControllerContext *vcContext = [[TRFSampleTabBarViewControllerContext alloc] initWithURL:URL intent:intent];
     return vcContext;
 }
 

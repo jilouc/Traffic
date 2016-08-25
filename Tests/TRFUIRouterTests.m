@@ -103,15 +103,15 @@
 - (void)testRouterCallsRouteHandler
 {
     NSURL *URL = [NSURL URLWithString:@"traffic://routes"];
-    id context = [NSObject new];
+    TRFIntent *intent = [TRFIntent new];
  
     TRFUIRouter *router = [TRFUIRouter new];
     id routeMock = [OCMockObject niceMockForClass:[TRFRoute class]];
     [[[routeMock stub] andReturnValue:@YES] matchWithURL:URL];
     [URL trf_setRoute:routeMock];
     
-    [router routeURL:URL context:context];
-    OCMVerify([routeMock handleURL:URL context:context]);
+    [router routeURL:URL intent:intent];
+    OCMVerify([routeMock handleURL:URL intent:intent]);
 }
 
 @end

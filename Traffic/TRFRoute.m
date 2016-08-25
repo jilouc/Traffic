@@ -301,10 +301,10 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 
 - (BOOL)handleURL:(NSURL *)URL
 {
-    return [self handleURL:URL context:nil];
+    return [self handleURL:URL intent:nil];
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context
+- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     if (![self matchWithURL:URL]) {
         return NO;
@@ -319,21 +319,21 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         route = route.parentRoute;
     }
     
-    _recursiveHandlerChainCall(handlerChain, URL, context);
+    _recursiveHandlerChainCall(handlerChain, URL, intent);
     
     return YES;
 }
 
-void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain, NSURL *URL, id context)
+void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain, NSURL *URL, TRFIntent *intent)
 {
     TRFRouteHandler *handler = [handlerChain firstObject];
     if (!handler) {
         return;
     }
-    id newContext = [handler contextForURL:URL context:context];
-    [handler handleURL:URL context:newContext];
+    id newIntent = [handler intentForURL:URL intent:intent];
+    [handler handleURL:URL intent:newIntent];
     [handlerChain removeObjectAtIndex:0];
-    _recursiveHandlerChainCall(handlerChain, URL, newContext);
+    _recursiveHandlerChainCall(handlerChain, URL, newIntent);
 }
 
 #pragma mark - Child routes

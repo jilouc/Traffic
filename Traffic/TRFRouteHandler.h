@@ -23,12 +23,14 @@
 
 @import Foundation;
 
+#import "TRFIntent.h"
+
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))handlerBlock;
++ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, TRFIntent *intent))handlerBlock;
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
+- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
-- (id)contextForURL:(NSURL *)URL context:(id)context;
+- (TRFIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
 @end

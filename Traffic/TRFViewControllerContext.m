@@ -25,12 +25,12 @@
 
 @implementation TRFViewControllerContext
 
-- (instancetype)initWithURL:(NSURL *)URL context:(id)context
+- (instancetype)initWithURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     self = [super init];
     if (self) {
         self.URL = URL;
-        self.urlContext = context;
+        self.intent = intent;
         [self configure];
     }
     return self;
@@ -38,7 +38,7 @@
 
 - (instancetype)init
 {
-    return [self initWithURL:nil context:nil];
+    return [self initWithURL:nil intent:nil];
 }
 
 - (void)configure

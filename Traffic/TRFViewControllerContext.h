@@ -23,14 +23,15 @@
 
 #import <Foundation/Foundation.h>
 #import "NSURL+TRFRoute.h"
+#import "TRFIntent.h"
 
 @interface TRFViewControllerContext : NSObject
 
 @property (nonatomic, copy) NSURL *URL;
-@property (nonatomic) id urlContext;
+@property (nonatomic) TRFIntent *intent;
 
 - (instancetype)initWithURL:(NSURL *)URL
-                    context:(id)context NS_DESIGNATED_INITIALIZER;
+                     intent:(TRFIntent *)intent NS_DESIGNATED_INITIALIZER;
 
 - (void)configure;
 

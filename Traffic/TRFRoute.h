@@ -23,6 +23,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TRFRouteHandler.h"
+#import "TRFIntent.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -42,7 +43,7 @@
 - (BOOL)matchWithURL:(NSURL *)URL;
 
 - (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
+- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
 - (void)addChildRoute:(TRFRoute *)childRoute;
 - (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
