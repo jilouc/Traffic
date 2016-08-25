@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "Traffic"
-  s.version      = "0.1.1"
+  s.version      = "0.2"
   s.summary      = "Simple and powerful URL routing library to easily handle incoming URLs in your app."
   s.homepage     = "https://github.com/jilouc/Traffic"
   s.license      = { :type => "MIT", :file => "LICENSE" }

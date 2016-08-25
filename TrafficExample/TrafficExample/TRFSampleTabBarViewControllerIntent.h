@@ -1,5 +1,5 @@
 //
-//  TRFViewControllerContext.m
+//  TRFSampleTabBarViewControllerIntent.h
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,29 +21,17 @@
 //  THE SOFTWARE.
 //
 
-#import "TRFViewControllerContext.h"
+#import <Foundation/Foundation.h>
+#import "TRFViewControllerIntent.h"
 
-@implementation TRFViewControllerContext
+typedef NS_ENUM(NSInteger, TRFSampleTabBarTab) {
+    TRFSampleTabBarTabUnknown,
+    TRFSampleTabBarTabRecents,
+    TRFSampleTabBarTabFeatured,
+};
 
-- (instancetype)initWithURL:(NSURL *)URL context:(id)context
-{
-    self = [super init];
-    if (self) {
-        self.URL = URL;
-        self.urlContext = context;
-        [self configure];
-    }
-    return self;
-}
+@interface TRFSampleTabBarViewControllerIntent : TRFViewControllerIntent
 
-- (instancetype)init
-{
-    return [self initWithURL:nil context:nil];
-}
-
-- (void)configure
-{
-    
-}
+@property (nonatomic) TRFSampleTabBarTab selectedTab;
 
 @end

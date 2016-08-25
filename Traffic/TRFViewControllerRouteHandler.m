@@ -28,8 +28,8 @@
 
 @interface TRFViewControllerRouteHandler ()
 
-@property (nonatomic, copy) UIViewController *(^creationBlock)(NSURL *, id);
-@property (nonatomic, copy) void (^presentationBlock)(__kindof UIViewController *, UIViewController *, NSURL *, id);
+@property (nonatomic, copy) UIViewController *(^creationBlock)(__kindof TRFViewControllerIntent *);
+@property (nonatomic, copy) void (^presentationBlock)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *);
 
 @end
 
@@ -37,40 +37,71 @@
 
 @implementation TRFViewControllerRouteHandler
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context
+- (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent
 {
-    if (self.creationBlock) {
-        return self.creationBlock(URL, context);
-    }
-    return nil;
+    NSAssert(intent != nil, @"source intent must not be nil");
+    return [TRFViewControllerIntent intentWithIntent:intent];
 }
 
-- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
+- (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent
 {
+    NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
+    if (self.creationBlock) {
+        return self.creationBlock(intent);
+    }
     return nil;
 }
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
-                            withURL:(NSURL *)URL
-                            context:(id)context
+                             intent:(TRFViewControllerIntent *)intent
 {
+    NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
     if (self.presentationBlock) {
-        self.presentationBlock(targetViewController, proposedPresentingViewController, URL, context);
+        self.presentationBlock(targetViewController, proposedPresentingViewController, intent);
     } else {
-        [proposedPresentingViewController presentViewController:targetViewController animated:YES completion:nil];
+        
+        TRFViewControllerPreferredTransition preferredTransition = TRFViewControllerPreferredTransitionAuto;
+        if (intent) {
+            preferredTransition = intent.preferredTransition;
+        }
+        
+        if (preferredTransition == TRFViewControllerPreferredTransitionPush || ![self shouldPresentModallyInViewController:proposedPresentingViewController]) {
+            UINavigationController *navigationController = nil;
+            if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
+                navigationController = (UINavigationController *)proposedPresentingViewController;
+            } else if (proposedPresentingViewController.navigationController) {
+                navigationController = proposedPresentingViewController.navigationController;
+            }
+            if (navigationController) {
+                [navigationController pushViewController:targetViewController animated:YES];
+                return;
+            }
+        }
+        
+        UIViewController *presentedViewController = targetViewController;
+        if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:proposedPresentingViewController]) {
+            Class navigationControllerClass = [self wrappingNavigationControllerClass];
+            NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass");
+            presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
+        }
+        
+        [self willPresentViewController:presentedViewController targetViewController:targetViewController];
+        [proposedPresentingViewController presentViewController:presentedViewController animated:YES completion:^{
+            [self didPresentViewController:presentedViewController targetViewController:targetViewController];
+        }];
     }
 }
 
-+ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *, id))creationBlock
-                            presentationBlock:(void (^)(__kindof UIViewController *, UIViewController *, NSURL *, id))presentationBlock
++ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *))creationBlock
+                            presentationBlock:(void (^)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *))presentationBlock
 {
     return [[self alloc] initWithCreationBlock:creationBlock
                              presentationBlock:presentationBlock];
 }
 
-- (instancetype)initWithCreationBlock:(UIViewController *(^)(NSURL *, id))creationBlock
-                    presentationBlock:(void(^)(__kindof UIViewController *, UIViewController *, NSURL *, id))presentationBlock
+- (instancetype)initWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *))creationBlock
+                    presentationBlock:(void(^)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *))presentationBlock
 {
     self = [self init];
     if (self) {
@@ -80,26 +111,50 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context
+- (BOOL)handleIntent:(TRFViewControllerIntent *)intent
 {
-    UIViewController *targetVC = [self targetViewControllerForURL:URL context:context];
+    UIViewController *targetVC = [self targetViewControllerForIntent:intent];
     if (!targetVC) {
         return NO;
     }
+    
     UIViewController *presentingVC = [[UIApplication sharedApplication].keyWindow trf_currentViewControllerForRoutePresenting];
     
     if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
         id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;
-        TRFViewControllerContext *configurationContext = [self viewControllerConfigurationContextForURL:URL context:context];
-        [routeTargetVC configureWithTrafficContext:configurationContext];
+        [routeTargetVC configureWithTrafficIntent:intent];
     }
     
     [self presentTargetViewController:targetVC
              presentingViewController:presentingVC
-                              withURL:URL
-                              context:context];
+                               intent:intent];
     
     return YES;
+}
+
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController
+{
+    return YES;
+}
+
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController
+{
+    return NO;
+}
+
+- (Class)wrappingNavigationControllerClass
+{
+    return [UINavigationController class];
+}
+
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+{
+    
+}
+
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+{
+    
 }
 
 @end

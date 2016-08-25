@@ -32,6 +32,8 @@
 
 @implementation TRFViewControllerRouteHandlerTests
 
+#define IntentWithURL(_urlStr) [TRFViewControllerIntent intentWithURL:[NSURL URLWithString:_urlStr]]
+
 - (void)testCreationBlockIsCalled
 {
     TRFViewControllerRouteHandler *routeHandler;
@@ -39,12 +41,13 @@
     
     UIViewController *targetViewController = [UIViewController new];
     routeHandler = [TRFViewControllerRouteHandler
-                    routeHandlerWithCreationBlock:^UIViewController *(NSURL *URL, id context) {
+                    routeHandlerWithCreationBlock:^UIViewController *(TRFIntent *intent) {
                         [creationExpectation fulfill];
                         return targetViewController;
                     } presentationBlock:nil];
     
-    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil]).to.equal(YES);
+    TRFIntent *intent = IntentWithURL(@"traffic://routes");
+    expect([routeHandler handleIntent:intent]).to.equal(YES);
     [self waitForExpectationsWithTimeout:0.1 handler:nil];
 }
 
@@ -53,10 +56,10 @@
     TRFViewControllerRouteHandler *routeHandler;
     UIViewController *targetViewController = [UIViewController new];
     routeHandler = [TRFViewControllerRouteHandler
-                    routeHandlerWithCreationBlock:^UIViewController *(NSURL *URL, id context) {
+                    routeHandlerWithCreationBlock:^UIViewController *(TRFIntent *intent) {
                         return targetViewController;
                     } presentationBlock:nil];
-    expect([routeHandler targetViewControllerForURL:[NSURL URLWithString:@"traffic://routes"] context:nil]).to.equal(targetViewController);
+    expect([routeHandler targetViewControllerForIntent:IntentWithURL(@"traffic://routes")]).to.equal(targetViewController);
 }
 
 - (void)testEmptyCreationBlock
@@ -65,7 +68,9 @@
     routeHandler = [TRFViewControllerRouteHandler
                     routeHandlerWithCreationBlock:nil
                     presentationBlock:nil];
-    expect([routeHandler handleURL:[NSURL URLWithString:@"traffic://routes"] context:nil]).to.equal(NO);
+    
+    TRFIntent *intent = IntentWithURL(@"traffic://routes");
+    expect([routeHandler handleIntent:intent]).to.equal(NO);
 }
 
 - (void)testPresentationBlock
@@ -81,20 +86,19 @@
     UIViewController *presentingViewController = [UIViewController new];
     window.rootViewController = presentingViewController;
     
-    NSURL *routeURL = [NSURL URLWithString:@"traffic://routes"];
-    id routeContext = [NSObject new];
+    TRFIntent *routeIntent = IntentWithURL(@"traffic://routes");
     
     UIViewController *targetViewController = [UIViewController new];
     routeHandler = [TRFViewControllerRouteHandler
-                    routeHandlerWithCreationBlock:^UIViewController *(NSURL *URL, id context) {
+                    routeHandlerWithCreationBlock:^UIViewController *(TRFIntent *intent) {
                         return targetViewController;
-                    } presentationBlock:^(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, id context) {
+                    } presentationBlock:^(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, TRFIntent *intent) {
                         expect(proposedPresentingViewController).to.equal(presentingViewController);
-                        expect(URL).to.equal(routeURL);
-                        expect(context).to.equal(routeContext);
+                        expect(intent.URL).to.equal(routeIntent.URL);
+                        expect(intent).to.equal(routeIntent);
                         [presentationExpectation fulfill];
                     }];
-    [routeHandler handleURL:routeURL context:routeContext];
+    [routeHandler handleIntent:routeIntent];
     [self waitForExpectationsWithTimeout:0. handler:nil];
 }
 

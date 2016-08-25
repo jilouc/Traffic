@@ -62,6 +62,7 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 
 @interface TRFRoute ()
 
+@property (nonatomic, readwrite, copy) NSString *identifier;
 @property (nonatomic, readwrite, copy) NSString *scheme;
 @property (nonatomic, copy) NSArray<NSString *> *patterns;
 @property (nonatomic) TRFRouteHandler *handler;
@@ -91,30 +92,49 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     return namedParametersRegex;
 }
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler
++ (instancetype)routeWithId:(NSString *)identifier
+                    handler:(TRFRouteHandler *)routeHandler
 {
-    return [self routeWithScheme:scheme
-                        patterns:pattern ? @[pattern] : nil
-                         handler:routeHandler];
+    return [self routeWithId:identifier
+                      scheme:nil
+                    patterns:nil
+                     handler:routeHandler];
 }
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                       patterns:(NSArray<NSString *> *)patterns
-                        handler:(TRFRouteHandler *)routeHandler
++ (instancetype)routeWithId:(NSString *)identifier
+                     scheme:(NSString *)scheme
+                    pattern:(NSString *)pattern
+                    handler:(TRFRouteHandler *)routeHandler
 {
-    return [[self alloc] initWithScheme:scheme 
-                               patterns:patterns
-                                handler:routeHandler];
+    return [self routeWithId:identifier
+                      scheme:scheme
+                    patterns:pattern ? @[pattern] : nil
+                     handler:routeHandler];
 }
 
-- (instancetype)initWithScheme:(NSString *)scheme
-                      patterns:(NSArray<NSString *> *)patterns
-                       handler:(TRFRouteHandler *)routeHandler
++ (instancetype)routeWithId:(NSString *)identifier
+                     scheme:(NSString *)scheme
+                   patterns:(NSArray<NSString *> *)patterns
+                    handler:(TRFRouteHandler *)routeHandler
+{
+    return [[self alloc] initWithId:identifier
+                             scheme:scheme
+                           patterns:patterns
+                            handler:routeHandler];
+}
+
+- (instancetype)initWithId:(NSString *)identifier
+                    scheme:(NSString *)scheme
+                  patterns:(NSArray<NSString *> *)patterns
+                   handler:(TRFRouteHandler *)routeHandler
 {
     self = [super init];
     if (self) {
+        if (identifier.length != 0) {
+            self.identifier = identifier;
+        } else {
+            self.identifier = [[NSUUID UUID] UUIDString];
+        }
         self.scheme = scheme;
         self.patterns = patterns;
         self.handler = routeHandler;
@@ -299,81 +319,43 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     return YES;
 }
 
-- (BOOL)handleURL:(NSURL *)URL
-{
-    return [self handleURL:URL context:nil];
-}
-
-- (BOOL)handleURL:(NSURL *)URL context:(id)context
+- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     if (![self matchWithURL:URL]) {
         return NO;
     }
     
-    NSMutableArray<TRFRouteHandler *> *handlerChain = [NSMutableArray array];
-    TRFRoute *route = self;
-    while (route) {
-        if (route.handler) {
-            [handlerChain insertObject:route.handler atIndex:0];
-        }
-        route = route.parentRoute;
+    if (!self.handler) {
+        return YES;
     }
     
-    _recursiveHandlerChainCall(handlerChain, URL, context);
+    TRFIntent *routeIntent = nil;
+    if (!intent) {
+        routeIntent = [TRFIntent intentWithURL:URL];
+    } else {
+        routeIntent = intent;
+        routeIntent.URL = URL;
+    }
     
+    TRFIntent *newIntent = [self.handler intentForIntent:routeIntent];
+    return [self handleIntent:newIntent];
+}
+
+- (BOOL)handleIntent:(TRFIntent *)intent
+{
+    if (!self.handler) {
+        return YES;
+    }
+    [self.handler handleIntent:intent];
     return YES;
-}
-
-void _recursiveHandlerChainCall(NSMutableArray<TRFRouteHandler *> *handlerChain, NSURL *URL, id context)
-{
-    TRFRouteHandler *handler = [handlerChain firstObject];
-    if (!handler) {
-        return;
-    }
-    id newContext = [handler contextForURL:URL context:context];
-    [handler handleURL:URL context:newContext];
-    [handlerChain removeObjectAtIndex:0];
-    _recursiveHandlerChainCall(handlerChain, URL, newContext);
-}
-
-#pragma mark - Child routes
-
-- (void)addChildRoute:(TRFRoute *)childRoute
-{
-    if (!childRoute) {
-        return;
-    }
-    [self addChildRoutes:@[childRoute]];
-}
-
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes
-{
-    if (childRoutes.count == 0) {
-        return;
-    }
-    NSMutableArray *newChildRoutes = [NSMutableArray arrayWithArray:self.childRoutes];
-    [newChildRoutes addObject:childRoutes];
-    self.childRoutes = childRoutes;
-    
-    [childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *stop) {
-        if (childRoute.scheme.length == 0) {
-            childRoute.scheme = self.scheme;
-        }
-        childRoute.parentRoute = self;
-    }];
-}
-
-- (void)setParentRoute:(TRFRoute *)parentRoute
-{
-    _parentRoute = parentRoute;
-    [self compileRoute];
 }
 
 #pragma mark -
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"%@ - %@ - %@",
+    return [NSString stringWithFormat:@"[%@] %@ - %@ - %@",
+            self.identifier,
             self.scheme,
             self.patterns,
             [self.routeRegularExpressions valueForKey:@"pattern"]];

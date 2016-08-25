@@ -23,19 +23,18 @@
 
 #import "TRFSampleTabBarRouteHandler.h"
 #import "TRFSampleTabBarViewController.h"
-#import "TRFSampleTabBarViewControllerContext.h"
+#import "TRFSampleTabBarViewControllerIntent.h"
 
 @implementation TRFSampleTabBarRouteHandler
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context
+- (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent
 {
     return [TRFSampleTabBarViewController new];
 }
 
-- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context
+- (TRFIntent *)intentForIntent:(TRFIntent *)intent
 {
-    TRFSampleTabBarViewControllerContext *vcContext = [[TRFSampleTabBarViewControllerContext alloc] initWithURL:URL context:context];
-    return vcContext;
+    return [TRFSampleTabBarViewControllerIntent intentWithIntent:intent];
 }
 
 @end

@@ -25,18 +25,18 @@
 
 @interface TRFRouteHandler ()
 
-@property (nonatomic) void (^handlerBlock)(NSURL *URL, id context);
+@property (nonatomic) void (^handlerBlock)(TRFIntent *intent);
 
 @end
 
 @implementation TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, id context))handlerBlock
++ (instancetype)routeHandlerWithBlock:(void(^)(TRFIntent *intent))handlerBlock
 {
     return [[self alloc] initWithHandlerBlock:handlerBlock];
 }
 
-- (instancetype)initWithHandlerBlock:(void(^)(NSURL *URL, id context))handlerBlock
+- (instancetype)initWithHandlerBlock:(void(^)(TRFIntent *intent))handlerBlock
 {
     self = [super init];
     if (self) {
@@ -45,17 +45,17 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL context:(id)context
+- (BOOL)handleIntent:(TRFIntent *)intent
 {
     if (self.handlerBlock) {
-        self.handlerBlock(URL, context);
+        self.handlerBlock(intent);
     }
     return YES;
 }
 
-- (id)contextForURL:(NSURL *)URL context:(id)context
+- (TRFIntent *)intentForIntent:(TRFIntent *)intent
 {
-    return context;
+    return intent;
 }
 
 @end

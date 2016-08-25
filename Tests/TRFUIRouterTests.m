@@ -59,7 +59,7 @@
 - (void)testRouteIsRegistered
 {
     TRFUIRouter *router = [TRFUIRouter new];
-    TRFRoute *route = [TRFRoute routeWithScheme:nil pattern:nil handler:nil];
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil pattern:nil handler:nil];
     [router registerRoute:route];
     expect(router.routes).to.haveCountOf(1);
     expect([router.routes firstObject]).to.equal(route);
@@ -68,8 +68,8 @@
 - (void)testMultiplesRoutesAreRegistered
 {
     TRFUIRouter *router = [TRFUIRouter new];
-    TRFRoute *route1 = [TRFRoute routeWithScheme:nil pattern:@"route1" handler:nil];
-    TRFRoute *route2 = [TRFRoute routeWithScheme:nil pattern:@"route2" handler:nil];
+    TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route1" handler:nil];
+    TRFRoute *route2 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route2" handler:nil];
     [router registerRoutes:@[route1, route2]];
     expect(router.routes).to.equal(@[route1, route2]);
 }
@@ -77,8 +77,8 @@
 - (void)testRouteMatchesFirstRegisteredWhenMoreSpecific
 {
     TRFUIRouter *router = [TRFUIRouter new];
-    TRFRoute *specificRoute = [TRFRoute routeWithScheme:nil pattern:@"route/first" handler:nil];
-    TRFRoute *genericRoute = [TRFRoute routeWithScheme:nil pattern:@"route/<param>" handler:nil];
+    TRFRoute *specificRoute = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/first" handler:nil];
+    TRFRoute *genericRoute = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param>" handler:nil];
     [router registerRoute:specificRoute];
     [router registerRoute:genericRoute];
     expect([router routeMatchingURL:[NSURL URLWithString:@"traffic://route/first"]]).to.equal(specificRoute);
@@ -87,8 +87,8 @@
 - (void)testRouteMatchesFirstRegisteredWhenMoreGeneric
 {
     TRFUIRouter *router = [TRFUIRouter new];
-    TRFRoute *genericRoute = [TRFRoute routeWithScheme:nil pattern:@"route/<param>" handler:nil];
-    TRFRoute *specificRoute = [TRFRoute routeWithScheme:nil pattern:@"route/first" handler:nil];
+    TRFRoute *genericRoute = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param>" handler:nil];
+    TRFRoute *specificRoute = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/first" handler:nil];
     [router registerRoute:genericRoute];
     [router registerRoute:specificRoute];
     expect([router routeMatchingURL:[NSURL URLWithString:@"traffic://route/first"]]).to.equal(genericRoute);
@@ -103,15 +103,15 @@
 - (void)testRouterCallsRouteHandler
 {
     NSURL *URL = [NSURL URLWithString:@"traffic://routes"];
-    id context = [NSObject new];
+    TRFIntent *intent = [TRFIntent new];
  
     TRFUIRouter *router = [TRFUIRouter new];
     id routeMock = [OCMockObject niceMockForClass:[TRFRoute class]];
     [[[routeMock stub] andReturnValue:@YES] matchWithURL:URL];
     [URL trf_setRoute:routeMock];
     
-    [router routeURL:URL context:context];
-    OCMVerify([routeMock handleURL:URL context:context]);
+    [router routeURL:URL intent:intent];
+    OCMVerify([routeMock handleURL:URL intent:intent]);
 }
 
 @end

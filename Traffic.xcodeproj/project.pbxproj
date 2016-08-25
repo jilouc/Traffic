@@ -25,11 +25,13 @@
 		5B266FEA1CFF9FEF003A3715 /* NSURLTRFRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FE81CFF9F5B003A3715 /* NSURLTRFRouteTests.m */; };
 		5B3D9F5D1D022C75004B76E3 /* TRFRouteHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D9F5C1D022C75004B76E3 /* TRFRouteHandlerTests.m */; };
 		5B3D9F5F1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */; };
+		5B668DAD1D6EE421008769D3 /* TRFIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B668DAB1D6EE421008769D3 /* TRFIntent.h */; };
+		5B668DAE1D6EE421008769D3 /* TRFIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B668DAC1D6EE421008769D3 /* TRFIntent.m */; };
+		5B668DB11D6EE919008769D3 /* TRFViewControllerIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B668DAF1D6EE919008769D3 /* TRFViewControllerIntent.h */; };
+		5B668DB21D6EE919008769D3 /* TRFViewControllerIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B668DB01D6EE919008769D3 /* TRFViewControllerIntent.m */; };
 		5B8AB5C51D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */; };
 		5B8AB5C71D03108B0072DEA4 /* TRFUIRouterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */; };
 		DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */; };
-		DEEEAE9C1D675B1200E2760F /* TRFViewControllerContext.h in Headers */ = {isa = PBXBuildFile; fileRef = DEEEAE9A1D675B1200E2760F /* TRFViewControllerContext.h */; };
-		DEEEAE9D1D675B1200E2760F /* TRFViewControllerContext.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE9B1D675B1200E2760F /* TRFViewControllerContext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,10 @@
 		5B266FE81CFF9F5B003A3715 /* NSURLTRFRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLTRFRouteTests.m; sourceTree = "<group>"; };
 		5B3D9F5C1D022C75004B76E3 /* TRFRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandlerTests.m; sourceTree = "<group>"; };
 		5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandlerTests.m; sourceTree = "<group>"; };
+		5B668DAB1D6EE421008769D3 /* TRFIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFIntent.h; sourceTree = "<group>"; };
+		5B668DAC1D6EE421008769D3 /* TRFIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFIntent.m; sourceTree = "<group>"; };
+		5B668DAF1D6EE919008769D3 /* TRFViewControllerIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFViewControllerIntent.h; sourceTree = "<group>"; };
+		5B668DB01D6EE919008769D3 /* TRFViewControllerIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerIntent.m; sourceTree = "<group>"; };
 		5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWindowTRFViewControllerPresentingTests.m; sourceTree = "<group>"; };
 		5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouterTests.m; sourceTree = "<group>"; };
 		7294690AF0C242B378E24F2D /* Pods-Traffic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traffic.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traffic/Pods-Traffic.release.xcconfig"; sourceTree = "<group>"; };
@@ -70,8 +76,6 @@
 		CBE18E54650FAC94B805BF10 /* Pods-TrafficTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF502E60C3A050EC4D278C0 /* Pods-TrafficTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.release.xcconfig"; sourceTree = "<group>"; };
 		DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
-		DEEEAE9A1D675B1200E2760F /* TRFViewControllerContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFViewControllerContext.h; sourceTree = "<group>"; };
-		DEEEAE9B1D675B1200E2760F /* TRFViewControllerContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerContext.m; sourceTree = "<group>"; };
 		DF5F208069F972F9D60E27A0 /* libPods-TrafficTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrafficTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -163,8 +167,10 @@
 				5B266FD31CFB9598003A3715 /* TRFUIRouter.m */,
 				5B266FD41CFB9598003A3715 /* TRFViewControllerRouteHandler.h */,
 				5B266FD51CFB9598003A3715 /* TRFViewControllerRouteHandler.m */,
-				DEEEAE9A1D675B1200E2760F /* TRFViewControllerContext.h */,
-				DEEEAE9B1D675B1200E2760F /* TRFViewControllerContext.m */,
+				5B668DAB1D6EE421008769D3 /* TRFIntent.h */,
+				5B668DAC1D6EE421008769D3 /* TRFIntent.m */,
+				5B668DAF1D6EE919008769D3 /* TRFViewControllerIntent.h */,
+				5B668DB01D6EE919008769D3 /* TRFViewControllerIntent.m */,
 			);
 			path = Traffic;
 			sourceTree = "<group>";
@@ -195,11 +201,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEEEAE9C1D675B1200E2760F /* TRFViewControllerContext.h in Headers */,
 				5B266FE01CFB96E0003A3715 /* NSURL+TRFRoute.h in Headers */,
 				5B266F8E1CFB920E003A3715 /* Traffic.h in Headers */,
 				DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */,
+				5B668DB11D6EE919008769D3 /* TRFViewControllerIntent.h in Headers */,
 				5B266FD81CFB9598003A3715 /* TRFRouteHandler.h in Headers */,
+				5B668DAD1D6EE421008769D3 /* TRFIntent.h in Headers */,
 				5B266FDA1CFB9598003A3715 /* TRFUIRouter.h in Headers */,
 				5B266FD61CFB9598003A3715 /* TRFRoute.h in Headers */,
 				5B266FDC1CFB9598003A3715 /* TRFViewControllerRouteHandler.h in Headers */,
@@ -386,9 +393,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B266FD71CFB9598003A3715 /* TRFRoute.m in Sources */,
+				5B668DB21D6EE919008769D3 /* TRFViewControllerIntent.m in Sources */,
+				5B668DAE1D6EE421008769D3 /* TRFIntent.m in Sources */,
 				5B266FE11CFB96E0003A3715 /* NSURL+TRFRoute.m in Sources */,
 				5B266FDB1CFB9598003A3715 /* TRFUIRouter.m in Sources */,
-				DEEEAE9D1D675B1200E2760F /* TRFViewControllerContext.m in Sources */,
 				5B266FDD1CFB9598003A3715 /* TRFViewControllerRouteHandler.m in Sources */,
 				5B266FD91CFB9598003A3715 /* TRFRouteHandler.m in Sources */,
 			);

@@ -22,8 +22,7 @@
 //
 
 #import "TRFRouteHandler.h"
-#import "TRFViewControllerContext.h"
-#import "NSURL+TRFRoute.h"
+#import "TRFViewControllerIntent.h"
 
 @import UIKit;
 
@@ -31,18 +30,24 @@
 
 @interface TRFViewControllerRouteHandler : TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void (^)(NSURL *URL, id context))block NS_UNAVAILABLE;
++ (instancetype)routeHandlerWithBlock:(void (^)(TRFViewControllerIntent *intent))block NS_UNAVAILABLE;
 
-+ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *URL, id context))creationBlock
-                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, id context))presentationBlock;
++ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *intent))creationBlock
+                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, __kindof TRFViewControllerIntent *intent))presentationBlock;
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL context:(id)context;
-- (__kindof TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL context:(id)context;
+- (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent;
+- (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent;
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
-                            withURL:(NSURL *)URL
-                            context:(id)context;
+                              intent:(TRFViewControllerIntent *)intent;
+
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController;
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController;
+- (Class)wrappingNavigationControllerClass;
+
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
 
 @end
 

@@ -23,6 +23,8 @@
 
 #import <Foundation/Foundation.h>
 #import "TRFRoute.h"
+#import "TRFIntent.h"
+#import "TRFViewControllerIntent.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -34,7 +36,8 @@
 - (void)registerRoute:(TRFRoute *)route;
 - (void)registerRoutes:(NSArray<TRFRoute *> *)routes;
 
-- (BOOL)routeURL:(NSURL *)URL context:(id)context;
+- (BOOL)routeURL:(NSURL *)URL intent:(TRFIntent *)intent;
 - (TRFRoute *)routeMatchingURL:(NSURL *)URL;
+- (TRFRoute *)routeWithId:(NSString *)routeId;
 
 @end

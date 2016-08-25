@@ -23,31 +23,31 @@
 
 #import <Foundation/Foundation.h>
 #import "TRFRouteHandler.h"
+#import "TRFIntent.h"
 
 //////////////////////////////////////////////////////////////////////
 
 @interface TRFRoute : NSObject
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                       patterns:(NSArray<NSString *> *)patterns
-                        handler:(TRFRouteHandler *)routeHandler;
++ (instancetype)routeWithId:(NSString *)identifier
+                    handler:(TRFRouteHandler *)routeHandler;
 
++ (instancetype)routeWithId:(NSString* )identifier
+                     scheme:(NSString *)scheme
+                   patterns:(NSArray<NSString *> *)patterns
+                    handler:(TRFRouteHandler *)routeHandler;
 
-+ (instancetype)routeWithScheme:(NSString *)scheme
-                        pattern:(NSString *)pattern
-                        handler:(TRFRouteHandler *)routeHandler;
++ (instancetype)routeWithId:(NSString* )identifier
+                     scheme:(NSString *)scheme
+                    pattern:(NSString *)pattern
+                    handler:(TRFRouteHandler *)routeHandler;
 
+@property (nonatomic, copy, readonly) NSString *identifier;
 @property (nonatomic, copy, readonly) NSString *scheme;
 
 - (BOOL)matchWithURL:(NSURL *)URL;
-
-- (BOOL)handleURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL context:(id)context;
-
-- (void)addChildRoute:(TRFRoute *)childRoute;
-- (void)addChildRoutes:(NSArray<TRFRoute *> *)childRoutes;
-@property (nonatomic, weak) TRFRoute *parentRoute;
-@property (nonatomic, copy, readonly) NSArray<TRFRoute *> *childRoutes;
+- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (BOOL)handleIntent:(TRFIntent *)intent;
 
 @end
 

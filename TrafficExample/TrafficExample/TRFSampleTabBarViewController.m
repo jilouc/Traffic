@@ -24,7 +24,7 @@
 #import "TRFSampleTabBarViewController.h"
 #import "TRFSampleTabRecentsViewController.h"
 #import "TRFSampleTabFeaturedViewController.h"
-#import "TRFSampleTabBarViewControllerContext.h"
+#import "TRFSampleTabBarViewControllerIntent.h"
 
 @implementation TRFSampleTabBarViewController
 
@@ -59,9 +59,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)configureWithTrafficContext:(TRFSampleTabBarViewControllerContext *)configurationContext
+- (void)configureWithTrafficIntent:(TRFSampleTabBarViewControllerIntent *)intent
 {
-    switch (configurationContext.selectedTab) {
+    switch (intent.selectedTab) {
         case TRFSampleTabBarTabRecents:
             self.selectedIndex = 0;
             break;
