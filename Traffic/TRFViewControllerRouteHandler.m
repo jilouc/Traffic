@@ -28,8 +28,8 @@
 
 @interface TRFViewControllerRouteHandler ()
 
-@property (nonatomic, copy) UIViewController *(^creationBlock)(NSURL *, __kindof TRFViewControllerIntent *);
-@property (nonatomic, copy) void (^presentationBlock)(__kindof UIViewController *, UIViewController *, NSURL *, __kindof TRFViewControllerIntent *);
+@property (nonatomic, copy) UIViewController *(^creationBlock)(__kindof TRFViewControllerIntent *);
+@property (nonatomic, copy) void (^presentationBlock)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *);
 
 @end
 
@@ -37,29 +37,28 @@
 
 @implementation TRFViewControllerRouteHandler
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent
+- (TRFViewControllerIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    NSAssert(intent != nil, @"source intent must not be nil");
+    return [TRFViewControllerIntent intentWithIntent:intent];
+}
+
+- (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent
 {
     NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
     if (self.creationBlock) {
-        return self.creationBlock(URL, intent);
+        return self.creationBlock(intent);
     }
-    return nil;
-}
-
-- (TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent
-{
-    NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
     return nil;
 }
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
-                            withURL:(NSURL *)URL
                              intent:(TRFViewControllerIntent *)intent
 {
     NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
     if (self.presentationBlock) {
-        self.presentationBlock(targetViewController, proposedPresentingViewController, URL, intent);
+        self.presentationBlock(targetViewController, proposedPresentingViewController, intent);
     } else {
         
         TRFViewControllerPreferredTransition preferredTransition = TRFViewControllerPreferredTransitionAuto;
@@ -72,7 +71,7 @@
             if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
                 navigationController = (UINavigationController *)proposedPresentingViewController;
             } else if (proposedPresentingViewController.navigationController) {
-                navigationController = navigationController;
+                navigationController = proposedPresentingViewController.navigationController;
             }
             if (navigationController) {
                 [navigationController pushViewController:targetViewController animated:YES];
@@ -94,15 +93,15 @@
     }
 }
 
-+ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *, __kindof TRFViewControllerIntent *))creationBlock
-                            presentationBlock:(void (^)(__kindof UIViewController *, UIViewController *, NSURL *, __kindof TRFViewControllerIntent *))presentationBlock
++ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *))creationBlock
+                            presentationBlock:(void (^)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *))presentationBlock
 {
     return [[self alloc] initWithCreationBlock:creationBlock
                              presentationBlock:presentationBlock];
 }
 
-- (instancetype)initWithCreationBlock:(UIViewController *(^)(NSURL *, __kindof TRFViewControllerIntent *))creationBlock
-                    presentationBlock:(void(^)(__kindof UIViewController *, UIViewController *, NSURL *, __kindof TRFViewControllerIntent *))presentationBlock
+- (instancetype)initWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *))creationBlock
+                    presentationBlock:(void(^)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *))presentationBlock
 {
     self = [self init];
     if (self) {
@@ -112,9 +111,9 @@
     return self;
 }
 
-- (BOOL)handleURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent
+- (BOOL)handleIntent:(TRFViewControllerIntent *)intent
 {
-    UIViewController *targetVC = [self targetViewControllerForURL:URL intent:intent];
+    UIViewController *targetVC = [self targetViewControllerForIntent:intent];
     if (!targetVC) {
         return NO;
     }
@@ -123,14 +122,12 @@
     
     if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
         id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;
-        TRFViewControllerContext *configurationContext = [self viewControllerConfigurationContextForURL:URL intent:intent];
-        [routeTargetVC configureWithTrafficContext:configurationContext];
+        [routeTargetVC configureWithTrafficIntent:intent];
     }
     
     [self presentTargetViewController:targetVC
              presentingViewController:presentingVC
-                              withURL:URL
-                              intent:intent];
+                               intent:intent];
     
     return YES;
 }

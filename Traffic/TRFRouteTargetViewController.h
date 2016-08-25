@@ -22,10 +22,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TRFViewControllerContext.h"
+#import "TRFViewControllerIntent.h"
 
 @protocol TRFRouteTargetViewController <NSObject>
 
-- (void)configureWithTrafficContext:(__kindof TRFViewControllerContext *)configurationContext;
+- (void)configureWithTrafficIntent:(__kindof TRFViewControllerIntent *)intent;
 
 @end

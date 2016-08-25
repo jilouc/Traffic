@@ -27,10 +27,10 @@
 
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(NSURL *URL, TRFIntent *intent))handlerBlock;
++ (instancetype)routeHandlerWithBlock:(void(^)(TRFIntent *intent))handlerBlock;
 
-- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (BOOL)handleIntent:(TRFIntent *)intent;
 
-- (TRFIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (TRFIntent *)intentForIntent:(TRFIntent *)intent;
 
 @end

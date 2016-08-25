@@ -85,6 +85,7 @@ static TRFUIRouter *_defaultRouter = nil;
         return NO;
     }
     NSLog(@"URL %@ matches route: %@", URL.absoluteString, route);
+    
     return [route handleURL:URL intent:intent];
 }
 

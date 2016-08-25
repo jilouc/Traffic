@@ -24,6 +24,7 @@
 #import <Foundation/Foundation.h>
 #import "TRFRoute.h"
 #import "TRFIntent.h"
+#import "TRFViewControllerIntent.h"
 
 //////////////////////////////////////////////////////////////////////
 

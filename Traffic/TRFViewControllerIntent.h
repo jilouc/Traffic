@@ -19,4 +19,6 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 
 @property (nonatomic) TRFViewControllerPreferredTransition preferredTransition;
 
++ (instancetype)intentWithIntent:(TRFIntent *)intent;
+
 @end

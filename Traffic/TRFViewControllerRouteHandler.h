@@ -22,7 +22,6 @@
 //
 
 #import "TRFRouteHandler.h"
-#import "TRFViewControllerContext.h"
 #import "TRFViewControllerIntent.h"
 #import "NSURL+TRFRoute.h"
 
@@ -32,17 +31,16 @@
 
 @interface TRFViewControllerRouteHandler : TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void (^)(NSURL *URL, TRFViewControllerIntent *intent))block NS_UNAVAILABLE;
++ (instancetype)routeHandlerWithBlock:(void (^)(TRFViewControllerIntent *intent))block NS_UNAVAILABLE;
 
-+ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(NSURL *URL, __kindof TRFViewControllerIntent *intent))creationBlock
-                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, NSURL *URL, __kindof TRFViewControllerIntent *intent))presentationBlock;
++ (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *intent))creationBlock
+                            presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, __kindof TRFViewControllerIntent *intent))presentationBlock;
 
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent;
-- (__kindof TRFViewControllerContext *)viewControllerConfigurationContextForURL:(NSURL *)URL intent:(TRFViewControllerIntent *)intent;
+- (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent;
+- (TRFViewControllerIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
-                            withURL:(NSURL *)URL
                               intent:(TRFViewControllerIntent *)intent;
 
 - (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController;
