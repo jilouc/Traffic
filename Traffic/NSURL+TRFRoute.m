@@ -67,13 +67,15 @@ const void *NSURLTRFRouteKey;
             }
             id existingValue = queryParametersBuffer[queryItem.name];
             if (existingValue) {
-                NSMutableArray *valueList = nil;
+                NSMutableArray<NSString *> *valueList = nil;
                 if ([existingValue isKindOfClass:[NSArray class]]) {
                     valueList = [NSMutableArray arrayWithArray:existingValue];
                 } else if ([existingValue isKindOfClass:[NSString class]]) {
                     valueList = [NSMutableArray arrayWithObject:existingValue];
                 }
-                [valueList addObject:queryItem.value];
+                if (queryItem.value) {
+                    [valueList addObject:(NSString * _Nonnull)queryItem.value];
+                }
                 queryParametersBuffer[queryItem.name] = [valueList copy];
             } else {
                 queryParametersBuffer[queryItem.name] = queryItem.value;

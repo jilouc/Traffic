@@ -42,12 +42,12 @@
            presentingViewController:(UIViewController *)proposedPresentingViewController
                               intent:(TRFViewControllerIntent *)intent;
 
-- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController;
-- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController;
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
 - (Class)wrappingNavigationControllerClass;
 
-- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
-- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController;
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent;
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent;
 
 @end
 

@@ -31,7 +31,7 @@
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *pattern;
-@property (nonatomic) NSInteger groupNumber;
+@property (nonatomic) NSUInteger groupNumber;
 
 @end
 
@@ -162,17 +162,17 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         
         NSMutableDictionary *routeParameters = [NSMutableDictionary dictionary];
         NSMutableString *compiledPatternBuffer = [pattern mutableCopy];
-        __block NSInteger replacementOffset = 0;
-        __block NSInteger parameterIndex = 1;
+        __block NSUInteger replacementOffset = 0;
+        __block NSUInteger parameterIndex = 1;
         
         [namedParameterRegex
          enumerateMatchesInString:pattern
-         options:0
+         options:(NSMatchingOptions)0
          range:NSMakeRange(0, pattern.length)
          usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
              
              NSString *parameterName = [pattern substringWithRange:[result rangeAtIndex:1]];
-             NSString *parameterType = TRFRouteParameterType.String;
+             NSString *parameterType;
              NSString *parameterValuePattern = TRFRouteParameterValueStringPattern;
              NSRange typeRange = [result rangeAtIndex:2];
              if (typeRange.location != NSNotFound) {
@@ -210,18 +210,20 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         
         internalRouteParameters[pattern] = [routeParameters copy];
         
+        NSStringCompareOptions options = (NSStringCompareOptions)0;
+        
         // Any remaining dot should now be escaped
-        [compiledPatternBuffer replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"." withString:@"\\." options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         // Convert back the escaped regular expression dots to "."
-        [compiledPatternBuffer replaceOccurrencesOfString:@"§§" withString:@"." options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"§§" withString:@"." options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         // Handle wildcard in path, escape the *
-        [compiledPatternBuffer replaceOccurrencesOfString:@"*" withString:@"#*#" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"*" withString:@"#*#" options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         // Convert global wildcards (initially **)
-        [compiledPatternBuffer replaceOccurrencesOfString:@"#*##*#" withString:@"(?:.*?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"#*##*#" withString:@"(?:.*?)" options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         // Then convert the remaining simple wildcards (initially *)
-        [compiledPatternBuffer replaceOccurrencesOfString:@"#*#" withString:@"(?:[^/]+?)" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"#*#" withString:@"(?:[^/]+?)" options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         // Convert back the escaped regular expression *
-        [compiledPatternBuffer replaceOccurrencesOfString:@"¤" withString:@"*" options:0 range:NSMakeRange(0, compiledPatternBuffer.length)];
+        [compiledPatternBuffer replaceOccurrencesOfString:@"¤" withString:@"*" options:options range:NSMakeRange(0, compiledPatternBuffer.length)];
         
         // Normalization - trim leading and trailing whitespaces, new lines and slashes
         NSString *compiledPattern = [[compiledPatternBuffer
@@ -268,7 +270,12 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (self.scheme && [URL.scheme compare:self.scheme options:NSCaseInsensitiveSearch] != NSOrderedSame) {
         return NO;
     }
-    NSString *hostAndPath = [URL.host stringByAppendingString:URL.path];
+    NSString *hostAndPath = nil;
+    if (URL.path) {
+        hostAndPath = [URL.host stringByAppendingString:(NSString * _Nonnull)URL.path];
+    } else {
+        hostAndPath = URL.host;
+    }
     if (!hostAndPath) {
         return NO;
     }

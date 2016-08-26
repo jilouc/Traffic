@@ -1,5 +1,5 @@
 //
-//  TRFViewControllerIntent.m
+//  TRFExternalLaunchInfo.h
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,18 +21,19 @@
 //  THE SOFTWARE.
 //
 
-#import "TRFViewControllerIntent.h"
+#import <Foundation/Foundation.h>
 
-@implementation TRFViewControllerIntent
+@interface TRFExternalLaunchInfo : NSObject
 
-+ (instancetype)intentWithIntent:(TRFIntent *)intent
-{
-    TRFViewControllerIntent *newIntent = [self intentWithURL:intent.URL];
-    if ([intent isKindOfClass:[TRFViewControllerIntent class]]) {
-        TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)intent;
-        newIntent.preferredTransition = vcIntent.preferredTransition;
-    }
-    return newIntent;
-}
+@property (nonatomic, copy) NSDictionary *options;
+
++ (instancetype)launchInfoWithOptions:(NSDictionary *)options;
+
+#pragma mark - Deprecated
+
+@property (nonatomic, copy) NSString *sourceApplication NS_DEPRECATED_IOS(8_0, 9_0, "Please use options instead");
+@property (nonatomic, copy) id annotation NS_DEPRECATED_IOS(8_0, 9_0, "Please use options instead");
+
++ (instancetype)launchInfoWithSourceApplication:(NSString *)sourceApplication annotation:(id)annotation NS_DEPRECATED_IOS(8_0, 9_0, "Please use +launchInfoWithOptions: instead");
 
 @end

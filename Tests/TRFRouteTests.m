@@ -32,7 +32,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 
 @interface TRFRouteParameter : NSObject
 - (NSString *)pattern;
-- (NSInteger)groupNumber;
+- (NSUInteger)groupNumber;
 @end
 
 @interface TRFRoute ()

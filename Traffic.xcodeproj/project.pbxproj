@@ -32,6 +32,8 @@
 		5B8AB5C51D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */; };
 		5B8AB5C71D03108B0072DEA4 /* TRFUIRouterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */; };
 		DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */; };
+		DE9BE2A21D7045FF005DF9B1 /* TRFExternalLaunchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */; };
+		DE9BE2A31D704600005DF9B1 /* TRFExternalLaunchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		CBE18E54650FAC94B805BF10 /* Pods-TrafficTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF502E60C3A050EC4D278C0 /* Pods-TrafficTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.release.xcconfig"; sourceTree = "<group>"; };
 		DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
+		DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFExternalLaunchInfo.h; sourceTree = "<group>"; };
+		DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFExternalLaunchInfo.m; sourceTree = "<group>"; };
 		DF5F208069F972F9D60E27A0 /* libPods-TrafficTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TrafficTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -157,20 +161,14 @@
 		5B266FCD1CFB9598003A3715 /* Traffic */ = {
 			isa = PBXGroup;
 			children = (
+				DE9BE2AA1D70473E005DF9B1 /* Route Handlers */,
+				DE9BE2A41D70465F005DF9B1 /* Intents */,
 				5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */,
 				5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */,
 				5B266FCE1CFB9598003A3715 /* TRFRoute.h */,
 				5B266FCF1CFB9598003A3715 /* TRFRoute.m */,
-				5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */,
-				5B266FD11CFB9598003A3715 /* TRFRouteHandler.m */,
 				5B266FD21CFB9598003A3715 /* TRFUIRouter.h */,
 				5B266FD31CFB9598003A3715 /* TRFUIRouter.m */,
-				5B266FD41CFB9598003A3715 /* TRFViewControllerRouteHandler.h */,
-				5B266FD51CFB9598003A3715 /* TRFViewControllerRouteHandler.m */,
-				5B668DAB1D6EE421008769D3 /* TRFIntent.h */,
-				5B668DAC1D6EE421008769D3 /* TRFIntent.m */,
-				5B668DAF1D6EE919008769D3 /* TRFViewControllerIntent.h */,
-				5B668DB01D6EE919008769D3 /* TRFViewControllerIntent.m */,
 			);
 			path = Traffic;
 			sourceTree = "<group>";
@@ -194,6 +192,30 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		DE9BE2A41D70465F005DF9B1 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				5B668DAB1D6EE421008769D3 /* TRFIntent.h */,
+				5B668DAC1D6EE421008769D3 /* TRFIntent.m */,
+				5B668DAF1D6EE919008769D3 /* TRFViewControllerIntent.h */,
+				5B668DB01D6EE919008769D3 /* TRFViewControllerIntent.m */,
+				DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */,
+				DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */,
+			);
+			name = Intents;
+			sourceTree = "<group>";
+		};
+		DE9BE2AA1D70473E005DF9B1 /* Route Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */,
+				5B266FD11CFB9598003A3715 /* TRFRouteHandler.m */,
+				5B266FD41CFB9598003A3715 /* TRFViewControllerRouteHandler.h */,
+				5B266FD51CFB9598003A3715 /* TRFViewControllerRouteHandler.m */,
+			);
+			name = "Route Handlers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -210,6 +232,7 @@
 				5B266FDA1CFB9598003A3715 /* TRFUIRouter.h in Headers */,
 				5B266FD61CFB9598003A3715 /* TRFRoute.h in Headers */,
 				5B266FDC1CFB9598003A3715 /* TRFViewControllerRouteHandler.h in Headers */,
+				DE9BE2A21D7045FF005DF9B1 /* TRFExternalLaunchInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +345,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3AFCFAA8F2B8314AA740371A /* [CP] Embed Pods Frameworks */ = {
@@ -367,7 +390,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DD2F159C8FBB50DB9B4F113A /* [CP] Copy Pods Resources */ = {
@@ -392,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE9BE2A31D704600005DF9B1 /* TRFExternalLaunchInfo.m in Sources */,
 				5B266FD71CFB9598003A3715 /* TRFRoute.m in Sources */,
 				5B668DB21D6EE919008769D3 /* TRFViewControllerIntent.m in Sources */,
 				5B668DAE1D6EE421008769D3 /* TRFIntent.m in Sources */,
@@ -522,10 +546,39 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 523FF721C25AA488598387FF /* Pods-Traffic.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
 				INFOPLIST_FILE = ./Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -539,10 +592,39 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7294690AF0C242B378E24F2D /* Pods-Traffic.release.xcconfig */;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
+				CLANG_STATIC_ANALYZER_MODE = deep;
+				CLANG_WARN_ASSIGN_ENUM = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = YES;
+				CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_STRICT_SELECTOR_MATCH = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
 				INFOPLIST_FILE = ./Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

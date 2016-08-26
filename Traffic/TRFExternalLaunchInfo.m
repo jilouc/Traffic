@@ -1,5 +1,5 @@
 //
-//  TRFViewControllerIntent.m
+//  TRFExternalLaunchInfo.m
 //  Copyright © 2016 Cocoapps. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,18 +21,48 @@
 //  THE SOFTWARE.
 //
 
-#import "TRFViewControllerIntent.h"
+#import "TRFExternalLaunchInfo.h"
 
-@implementation TRFViewControllerIntent
+@interface TRFExternalLaunchInfo ()
 
-+ (instancetype)intentWithIntent:(TRFIntent *)intent
+- (instancetype)initWithOptions:(NSDictionary *)options;
+
+@end
+
+@implementation TRFExternalLaunchInfo
+
++ (instancetype)launchInfoWithOptions:(NSDictionary *)options
 {
-    TRFViewControllerIntent *newIntent = [self intentWithURL:intent.URL];
-    if ([intent isKindOfClass:[TRFViewControllerIntent class]]) {
-        TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)intent;
-        newIntent.preferredTransition = vcIntent.preferredTransition;
+    return [(TRFExternalLaunchInfo *)[self alloc] initWithOptions:options];
+}
+
+- (instancetype)initWithOptions:(NSDictionary *)options
+{
+    self = [super init];
+    if (self) {
+        self.options = options;
     }
-    return newIntent;
+    return self;
+}
+
+#pragma mark - Deprecated
+
++ (instancetype)launchInfoWithSourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[self alloc] initWithSourceApplication:sourceApplication annotation:annotation];
+}
+
+- (instancetype)initWithSourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    self = [super init];
+    if (self) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+        self.sourceApplication = sourceApplication;
+        self.annotation = annotation;
+#pragma clang diagnostic pop
+    }
+    return self;
 }
 
 @end

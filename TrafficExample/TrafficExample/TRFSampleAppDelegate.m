@@ -61,7 +61,9 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options
 {
-    return [TRFUIRouter.defaultRouter routeURL:url intent:nil];
+    TRFIntent *intent = [TRFIntent intentWithURL:url];
+    intent.externalLaunchInfo = [TRFExternalLaunchInfo launchInfoWithOptions:options];
+    return [TRFUIRouter.defaultRouter routeURL:url intent:intent];
 }
 
 @end

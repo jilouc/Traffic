@@ -39,13 +39,13 @@
 
 - (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent
 {
-    NSAssert(intent != nil, @"source intent must not be nil");
+    NSCParameterAssert(intent != nil);
     return [TRFViewControllerIntent intentWithIntent:intent];
 }
 
 - (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent
 {
-    NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
+    NSCParameterAssert([intent isKindOfClass:[TRFViewControllerIntent class]]);
     if (self.creationBlock) {
         return self.creationBlock(intent);
     }
@@ -56,7 +56,7 @@
            presentingViewController:(UIViewController *)proposedPresentingViewController
                              intent:(TRFViewControllerIntent *)intent
 {
-    NSAssert(intent == nil || [intent isKindOfClass:[TRFViewControllerIntent class]], @"intent must be kind of TRFViewControllerIntent");
+    NSCParameterAssert([intent isKindOfClass:[TRFViewControllerIntent class]]);
     if (self.presentationBlock) {
         self.presentationBlock(targetViewController, proposedPresentingViewController, intent);
     } else {
@@ -66,7 +66,9 @@
             preferredTransition = intent.preferredTransition;
         }
         
-        if (preferredTransition == TRFViewControllerPreferredTransitionPush || ![self shouldPresentModallyInViewController:proposedPresentingViewController]) {
+        if (preferredTransition == TRFViewControllerPreferredTransitionPush ||
+            ![self shouldPresentModallyInViewController:proposedPresentingViewController intent:intent])
+        {
             UINavigationController *navigationController = nil;
             if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
                 navigationController = (UINavigationController *)proposedPresentingViewController;
@@ -80,15 +82,15 @@
         }
         
         UIViewController *presentedViewController = targetViewController;
-        if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:proposedPresentingViewController]) {
+        if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:proposedPresentingViewController intent:intent]) {
             Class navigationControllerClass = [self wrappingNavigationControllerClass];
-            NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass");
+            NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass, but got %@", NSStringFromClass(navigationControllerClass));
             presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
         }
         
-        [self willPresentViewController:presentedViewController targetViewController:targetViewController];
+        [self willPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
         [proposedPresentingViewController presentViewController:presentedViewController animated:YES completion:^{
-            [self didPresentViewController:presentedViewController targetViewController:targetViewController];
+            [self didPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
         }];
     }
 }
@@ -132,12 +134,12 @@
     return YES;
 }
 
-- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController
+- (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent
 {
     return YES;
 }
 
-- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController
+- (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent
 {
     return NO;
 }
@@ -147,12 +149,12 @@
     return [UINavigationController class];
 }
 
-- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent
 {
     
 }
 
-- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController
+- (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent
 {
     
 }
