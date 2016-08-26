@@ -25,4 +25,5 @@
 
 const struct _TRFSampleUIRoutes TRFSampleUIRoutes = {
     .TabBar = @"traffic.TabBar",
+    .HTTP = @"traffic.HTTP",
 };

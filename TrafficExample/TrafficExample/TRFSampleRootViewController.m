@@ -25,6 +25,7 @@
 #import "TRFUIRouter.h"
 #import "TRFSampleUIRoutes.h"
 #import "TRFSampleTabBarViewControllerIntent.h"
+#import "TRFSampleBrowserViewControllerIntent.h"
 
 @interface TRFSampleRootViewController ()
 
@@ -44,6 +45,11 @@
     intent.selectedTab = TRFSampleTabBarTabFeatured;
     
     [[[TRFUIRouter defaultRouter] routeWithId:TRFSampleUIRoutes.TabBar] handleIntent:intent];
+}
+
+- (IBAction)performHttpRoute:(id)sender
+{
+    [[TRFUIRouter defaultRouter] routeURL:[NSURL URLWithString:@"http://github.com/jilouc/Traffic"] intent:nil];
 }
 
 @end

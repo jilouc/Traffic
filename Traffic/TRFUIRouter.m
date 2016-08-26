@@ -78,6 +78,21 @@ static TRFUIRouter *_defaultRouter = nil;
     return URL.trf_route;
 }
 
+- (BOOL)routeIntent:(TRFIntent *)intent
+{
+    if (intent.routeId.length) {
+        TRFRoute *route = [self routeWithId:intent.routeId];
+        if (route) {
+            [route handleIntent:intent];
+            return YES;
+        }
+    }
+    if (intent.URL) {
+        return [self routeURL:intent.URL intent:intent];
+    }
+    return NO;
+}
+
 - (BOOL)routeURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     TRFRoute *route = [self routeMatchingURL:URL];

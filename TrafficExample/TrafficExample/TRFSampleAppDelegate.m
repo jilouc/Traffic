@@ -27,6 +27,7 @@
 #import "NSURL+TRFRoute.h"
 #import "TRFSampleTabBarViewController.h"
 #import "TRFSampleTabBarRouteHandler.h"
+#import "TRFSampleBrowserRouteHandler.h"
 #import "TRFSampleUIRoutes.h"
 
 @interface TRFSampleAppDelegate ()
@@ -56,7 +57,18 @@
                                                     ]
                                           handler:[TRFSampleTabBarRouteHandler new]];
     
-    [uiRouter registerRoute:tabBarRoute];
+    TRFRoute *httpRoute = [TRFRoute routeWithId:TRFSampleUIRoutes.HTTP
+                                         scheme:nil
+                                       patterns:@[
+                                                  @"traffic://browser",
+                                                  @"https?://**",
+                                                  ]
+                                        handler:[TRFSampleBrowserRouteHandler new]];
+    
+    [uiRouter registerRoutes:@[
+                               tabBarRoute,
+                               httpRoute
+                               ]];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options

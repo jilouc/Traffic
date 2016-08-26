@@ -27,6 +27,8 @@
 		DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEE46011D46736800D7E447 /* TRFViewControllerRouteHandler.m */; };
 		DEEEAE961D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.m */; };
 		DEEEAEA01D675FF900E2760F /* TRFSampleTabBarRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */; };
+		DEF8B49B1D7077AE001ED303 /* TRFSampleBrowserRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF8B49A1D7077AE001ED303 /* TRFSampleBrowserRouteHandler.m */; };
+		DEF8B49E1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF8B49D1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,10 @@
 		DEEEAE941D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleTabBarViewControllerIntent.h; sourceTree = "<group>"; };
 		DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarViewControllerIntent.m; sourceTree = "<group>"; };
 		DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleTabBarRouteHandler.m; sourceTree = "<group>"; };
+		DEF8B4991D7077AE001ED303 /* TRFSampleBrowserRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleBrowserRouteHandler.h; sourceTree = "<group>"; };
+		DEF8B49A1D7077AE001ED303 /* TRFSampleBrowserRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleBrowserRouteHandler.m; sourceTree = "<group>"; };
+		DEF8B49C1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFSampleBrowserViewControllerIntent.h; sourceTree = "<group>"; };
+		DEF8B49D1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFSampleBrowserViewControllerIntent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +163,10 @@
 				DEEEAE9F1D675FF900E2760F /* TRFSampleTabBarRouteHandler.m */,
 				DEEEAE941D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.h */,
 				DEEEAE951D6759D300E2760F /* TRFSampleTabBarViewControllerIntent.m */,
+				DEF8B4991D7077AE001ED303 /* TRFSampleBrowserRouteHandler.h */,
+				DEF8B49A1D7077AE001ED303 /* TRFSampleBrowserRouteHandler.m */,
+				DEF8B49C1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.h */,
+				DEF8B49D1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.m */,
 				5BB38CCA1D6F33060024CF2A /* TRFSampleUIRoutes.h */,
 				5BB38CCB1D6F33060024CF2A /* TRFSampleUIRoutes.m */,
 			);
@@ -289,12 +299,14 @@
 				DEEE46071D46736800D7E447 /* TRFViewControllerRouteHandler.m in Sources */,
 				DE5A05DB1D50E9AE00C97A6F /* TRFSampleTabRecentsViewController.m in Sources */,
 				DE9BE2A71D704710005DF9B1 /* TRFExternalLaunchInfo.m in Sources */,
+				DEF8B49E1D7077F6001ED303 /* TRFSampleBrowserViewControllerIntent.m in Sources */,
 				5B266FB81CFB949C003A3715 /* TRFSampleRootViewController.m in Sources */,
 				DEEE46031D46736800D7E447 /* NSURL+TRFRoute.m in Sources */,
 				DE5A05DE1D50EA0500C97A6F /* TRFSampleTabFeaturedViewController.m in Sources */,
 				5B266FB51CFB949C003A3715 /* TRFSampleAppDelegate.m in Sources */,
 				DEEEAEA01D675FF900E2760F /* TRFSampleTabBarRouteHandler.m in Sources */,
 				5BB38CCC1D6F33060024CF2A /* TRFSampleUIRoutes.m in Sources */,
+				DEF8B49B1D7077AE001ED303 /* TRFSampleBrowserRouteHandler.m in Sources */,
 				DE5A05D81D50E96500C97A6F /* TRFSampleTabBarViewController.m in Sources */,
 				5B266FB21CFB949C003A3715 /* main.m in Sources */,
 				DEEE46061D46736800D7E447 /* TRFUIRouter.m in Sources */,

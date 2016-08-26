@@ -54,8 +54,9 @@ const struct {
     .Regex = @"re",
 };
 
-NSString *const TRFRouteParameterValueStringPattern = @"[-!$&'()*+,.:=@_~0-9A-Za-z]+";
-NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
+NSString *const TRFRouteParameterPatternWithSchemePattern = @"^(.*?)://(.*?)$";
+NSString *const TRFRouteParameterValueStringPattern       = @"[-!$&'()*+,.:=@_~0-9A-Za-z]+";
+NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -66,8 +67,6 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
 @property (nonatomic, readwrite, copy) NSString *scheme;
 @property (nonatomic, copy) NSArray<NSString *> *patterns;
 @property (nonatomic) TRFRouteHandler *handler;
-
-@property (nonatomic, readwrite, copy) NSArray<TRFRoute *> *childRoutes;
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSRegularExpression *> *routeRegularExpressions;
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary<NSString *, TRFRouteParameter *> *> *internalRouteParameters;
@@ -270,43 +269,58 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
     if (self.scheme && [URL.scheme compare:self.scheme options:NSCaseInsensitiveSearch] != NSOrderedSame) {
         return NO;
     }
-    NSString *hostAndPath = nil;
+    __block NSString *testedURLPart = nil;
     if (URL.path) {
-        hostAndPath = [URL.host stringByAppendingString:(NSString * _Nonnull)URL.path];
+        testedURLPart = [URL.host stringByAppendingString:(NSString * _Nonnull)URL.path];
     } else {
-        hostAndPath = URL.host;
+        testedURLPart = URL.host;
     }
-    if (!hostAndPath) {
+    if (!testedURLPart) {
         return NO;
     }
     
     __block NSTextCheckingResult *result = nil;
     __block NSDictionary *internalRouteParameters = nil;
     
+    static NSRegularExpression *patternWithSchemeRegex = nil;
+    if (!patternWithSchemeRegex) {
+        patternWithSchemeRegex = [NSRegularExpression regularExpressionWithPattern:TRFRouteParameterPatternWithSchemePattern
+                                                                           options:(NSRegularExpressionOptions)0
+                                                                             error:NULL];
+    }
+    
     [self.patterns enumerateObjectsUsingBlock:^(NSString *pattern, NSUInteger patternIndex, BOOL *patternStop) {
+        
+        // The URL scheme may be included right in the pattern
+        // so that a route can match multiple patterns with multiple schemes for instance
+        // We need to check whether each pattern includes the URL scheme and match it
+        // against the given URL scheme.
+        NSTextCheckingResult *patternWithSchemeResult = [patternWithSchemeRegex firstMatchInString:pattern
+                                                                                           options:(NSMatchingOptions)0
+                                                                                             range:NSMakeRange(0, pattern.length)];
+        
+        NSString *testedURLPartForPattern = testedURLPart;
+        if (patternWithSchemeResult != nil) {
+            testedURLPartForPattern = [URL.scheme stringByAppendingFormat:@"://%@", testedURLPart];
+        }
+        
         NSRegularExpression *regex = self.routeRegularExpressions[pattern];
         if (!regex) {
             return;
         }
         result = [regex
-                  firstMatchInString:hostAndPath
+                  firstMatchInString:testedURLPartForPattern
                   options:(NSMatchingOptions)0
-                  range:NSMakeRange(0, hostAndPath.length)];
+                  range:NSMakeRange(0, testedURLPartForPattern.length)];
         if (result) {
             internalRouteParameters = self.internalRouteParameters[pattern];
+            testedURLPart = testedURLPartForPattern;
             *patternStop = YES;
         }
     }];
     
-    if (!result) {
-        __block BOOL foundChildRouteMatch = NO;
-        [self.childRoutes enumerateObjectsUsingBlock:^(TRFRoute *childRoute, NSUInteger idx, BOOL *childRouteStop) {
-            foundChildRouteMatch = [childRoute matchWithURL:URL];
-            if (foundChildRouteMatch) {
-                *childRouteStop = YES;
-            }
-        }];
-        return foundChildRouteMatch;
+    if (result == nil) {
+        return NO;
     }
     
     [URL trf_setRoute:self];
@@ -317,7 +331,7 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         if (resultRange.length == 0 || resultRange.location == NSNotFound) {
             return;
         }
-        NSString *paramValue = [hostAndPath substringWithRange:resultRange];
+        NSString *paramValue = [testedURLPart substringWithRange:resultRange];
         if (paramValue) {
             routeParameters[name] = paramValue;
         }
@@ -343,6 +357,7 @@ NSString *const TRFRouteParameterValueIntPattern    = @"[0-9]+";
         routeIntent = intent;
         routeIntent.URL = URL;
     }
+    routeIntent.routeId = self.identifier;
     
     TRFIntent *newIntent = [self.handler intentForIntent:routeIntent];
     return [self handleIntent:newIntent];

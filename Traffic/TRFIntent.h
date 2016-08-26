@@ -31,6 +31,7 @@
 
 - (void)buildFromURL:(NSURL *)URL;
 
+@property (nonatomic, copy) NSString *routeId;
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSDictionary *notificationPayload;
 @property (nonatomic) TRFExternalLaunchInfo *externalLaunchInfo;

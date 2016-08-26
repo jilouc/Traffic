@@ -25,4 +25,5 @@
 
 extern const struct _TRFSampleUIRoutes {
     __unsafe_unretained NSString *TabBar;
+    __unsafe_unretained NSString *HTTP;
 } TRFSampleUIRoutes;

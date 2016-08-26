@@ -28,6 +28,10 @@
 + (instancetype)intentWithIntent:(TRFIntent *)intent
 {
     TRFViewControllerIntent *newIntent = [self intentWithURL:intent.URL];
+    newIntent.externalLaunchInfo = intent.externalLaunchInfo;
+    newIntent.notificationPayload = intent.notificationPayload;
+    newIntent.routeId = intent.routeId;
+    
     if ([intent isKindOfClass:[TRFViewControllerIntent class]]) {
         TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)intent;
         newIntent.preferredTransition = vcIntent.preferredTransition;
