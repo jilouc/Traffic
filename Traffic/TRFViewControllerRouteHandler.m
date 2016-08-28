@@ -66,9 +66,9 @@
             preferredTransition = intent.preferredTransition;
         }
         
-        if (preferredTransition == TRFViewControllerPreferredTransitionPush ||
-            ![self shouldPresentModallyInViewController:proposedPresentingViewController intent:intent])
-        {
+        BOOL transitionPush = (preferredTransition == TRFViewControllerPreferredTransitionPush &&
+                               ![self shouldPresentModallyInViewController:proposedPresentingViewController intent:intent]);
+        if (transitionPush) {
             UINavigationController *navigationController = nil;
             if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
                 navigationController = (UINavigationController *)proposedPresentingViewController;
@@ -86,6 +86,16 @@
             Class navigationControllerClass = [self wrappingNavigationControllerClass];
             NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass, but got %@", NSStringFromClass(navigationControllerClass));
             presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
+        }
+        
+        if (intent.wrapInPopover) {
+            targetViewController.preferredContentSize = intent.popoverPreferredContentSize;
+            presentedViewController.modalPresentationStyle = UIModalPresentationPopover;
+
+            UIPopoverPresentationController *presentationController = presentedViewController.popoverPresentationController;
+            presentationController.sourceView = intent.popoverSourceView;
+            presentationController.sourceRect = intent.popoverSourceRect;
+            presentationController.delegate = intent.popoverPresentationDelegate;
         }
         
         [self willPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];

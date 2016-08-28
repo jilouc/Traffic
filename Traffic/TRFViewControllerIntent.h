@@ -23,6 +23,8 @@
 
 #import "TRFIntent.h"
 
+@import UIKit;
+
 typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 {
     TRFViewControllerPreferredTransitionAuto = 0,
@@ -33,6 +35,11 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 @interface TRFViewControllerIntent : TRFIntent
 
 @property (nonatomic) TRFViewControllerPreferredTransition preferredTransition;
+@property (nonatomic) BOOL wrapInPopover;
+@property (nonatomic) UIView *popoverSourceView;
+@property (nonatomic) CGRect popoverSourceRect;
+@property (nonatomic, weak) id<UIPopoverPresentationControllerDelegate> popoverPresentationDelegate;
+@property (nonatomic) CGSize popoverPreferredContentSize;
 
 + (instancetype)intentWithIntent:(TRFIntent *)intent;
 

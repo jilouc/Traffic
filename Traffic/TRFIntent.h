@@ -34,6 +34,7 @@
 @property (nonatomic, copy) NSString *routeId;
 @property (nonatomic, copy) NSURL *URL;
 @property (nonatomic, copy) NSDictionary *notificationPayload;
+@property (nonatomic) NSUserActivity *userActivity;
 @property (nonatomic) TRFExternalLaunchInfo *externalLaunchInfo;
 
 @end
