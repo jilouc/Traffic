@@ -42,4 +42,7 @@
 - (TRFRoute *)routeMatchingURL:(NSURL *)URL;
 - (TRFRoute *)routeWithId:(NSString *)routeId;
 
+- (BOOL)URL:(NSURL *)URL isMatchingRoute:(TRFRoute *)route;
+- (BOOL)URL:(NSURL *)URL isMatchingRoutes:(NSArray<NSString *> *)routeIds;
+
 @end

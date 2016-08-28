@@ -120,4 +120,22 @@ static TRFUIRouter *_defaultRouter = nil;
     return resultRoute;
 }
 
+- (BOOL)URL:(NSURL *)URL isMatchingRoute:(TRFRoute *)route
+{
+    return [route matchWithURL:URL];
+}
+
+- (BOOL)URL:(NSURL *)URL isMatchingRoutes:(NSArray<NSString *> *)routeIds
+{
+    __block BOOL matchFound = NO;
+    [routeIds enumerateObjectsUsingBlock:^(NSString *routeId, NSUInteger idx, BOOL *stop) {
+        TRFRoute *route = [self routeWithId:routeId];
+        if ([route matchWithURL:URL]) {
+            matchFound = YES;
+            *stop = YES;
+        }
+    }];
+    return matchFound;
+}
+
 @end
