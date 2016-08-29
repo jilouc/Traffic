@@ -35,12 +35,13 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 @interface TRFViewControllerIntent : TRFIntent
 
 @property (nonatomic) TRFViewControllerPreferredTransition preferredTransition;
+@property (nonatomic) UIModalPresentationStyle preferredModalPresentationStyle;
+@property (nonatomic) UIModalTransitionStyle preferredModalTransitionStyle;
+
 @property (nonatomic) BOOL wrapInPopover;
 @property (nonatomic) UIView *popoverSourceView;
 @property (nonatomic) CGRect popoverSourceRect;
 @property (nonatomic, weak) id<UIPopoverPresentationControllerDelegate> popoverPresentationDelegate;
 @property (nonatomic) CGSize popoverPreferredContentSize;
-
-+ (instancetype)intentWithIntent:(TRFIntent *)intent;
 
 @end

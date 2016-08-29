@@ -25,23 +25,4 @@
 
 @implementation TRFViewControllerIntent
 
-+ (instancetype)intentWithIntent:(TRFIntent *)intent
-{
-    TRFViewControllerIntent *newIntent = [self intentWithURL:intent.URL];
-    newIntent.externalLaunchInfo = intent.externalLaunchInfo;
-    newIntent.notificationPayload = intent.notificationPayload;
-    newIntent.userActivity = intent.userActivity;
-    newIntent.routeId = intent.routeId;
-    
-    if ([intent isKindOfClass:[TRFViewControllerIntent class]]) {
-        TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)intent;
-        newIntent.preferredTransition = vcIntent.preferredTransition;
-        newIntent.wrapInPopover = vcIntent.wrapInPopover;
-        newIntent.popoverSourceView = vcIntent.popoverSourceView;
-        newIntent.popoverSourceRect = vcIntent.popoverSourceRect;
-        newIntent.popoverPresentationDelegate = vcIntent.popoverPresentationDelegate;
-    }
-    return newIntent;
-}
-
 @end

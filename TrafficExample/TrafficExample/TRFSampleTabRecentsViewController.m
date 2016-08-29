@@ -38,6 +38,10 @@
         self.segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"Tab 1", @"Tab 2", @"Tab 3"]];
         self.navigationItem.titleView = self.segmentedControl;
         self.segmentedControl.selectedSegmentIndex = 0;
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                               target:self
+                                                                                               action:@selector(close:)];
     }
     return self;
 }
@@ -57,6 +61,11 @@
     } else {
         self.segmentedControl.selectedSegmentIndex = 0;
     }
+}
+
+- (void)close:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

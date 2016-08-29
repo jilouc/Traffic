@@ -14,7 +14,7 @@
 
 - (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent
 {
-    return [TRFSampleBrowserViewControllerIntent intentWithIntent:intent];
+    return [TRFSampleBrowserViewControllerIntent new];
 }
 
 - (UIViewController *)targetViewControllerForIntent:(TRFSampleBrowserViewControllerIntent *)intent

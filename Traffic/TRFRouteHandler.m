@@ -31,7 +31,7 @@
 
 @implementation TRFRouteHandler
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(TRFIntent *intent))handlerBlock
++ (instancetype)routeHandlerWithBlock:(void(^)(__kindof TRFIntent *intent))handlerBlock
 {
     return [[self alloc] initWithHandlerBlock:handlerBlock];
 }

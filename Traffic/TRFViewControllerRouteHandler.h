@@ -35,6 +35,7 @@
 + (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *intent))creationBlock
                             presentationBlock:(void(^)(__kindof UIViewController *targetViewController, UIViewController *proposedPresentingViewController, __kindof TRFViewControllerIntent *intent))presentationBlock;
 
+- (Class)targetViewControllerClassForIntent:(TRFViewControllerIntent *)intent;
 - (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent;
 - (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent;
 
@@ -43,11 +44,18 @@
                               intent:(TRFViewControllerIntent *)intent;
 
 - (BOOL)shouldPresentModallyInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
+
 - (BOOL)shouldWrapInNavigationControllerWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
 - (Class)wrappingNavigationControllerClass;
 
+- (UIModalPresentationStyle)modalPresentationStyleWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
+
+- (UIModalTransitionStyle)modalTransitionStyleWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent;
+
 - (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent;
 - (void)didPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent;
+
+
 
 @end
 

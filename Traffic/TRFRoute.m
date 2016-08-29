@@ -24,6 +24,7 @@
 #import "TRFRoute.h"
 #import "NSURL+TRFRoute.h"
 #import "NSURL+TRFRoutePrivate.h"
+#import "TRFViewControllerRouteHandler.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -340,6 +341,19 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     return YES;
 }
 
+- (TRFIntent *)intentForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFIntent *routeIntent = nil;
+    if (!intent) {
+        routeIntent = [TRFIntent intentWithURL:URL];
+    } else {
+        routeIntent = intent;
+        routeIntent.URL = URL;
+    }
+    routeIntent.routeId = self.identifier;
+    return routeIntent;
+}
+
 - (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     if (![self matchWithURL:URL]) {
@@ -350,17 +364,11 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
         return YES;
     }
     
-    TRFIntent *routeIntent = nil;
-    if (!intent) {
-        routeIntent = [TRFIntent intentWithURL:URL];
-    } else {
-        routeIntent = intent;
-        routeIntent.URL = URL;
-    }
-    routeIntent.routeId = self.identifier;
+    TRFIntent *routeIntent = [self intentForURL:URL intent:intent];
+    TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
+    [handlerIntent applyIntent:routeIntent];
     
-    TRFIntent *newIntent = [self.handler intentForIntent:routeIntent];
-    return [self handleIntent:newIntent];
+    return [self handleIntent:handlerIntent];
 }
 
 - (BOOL)handleIntent:(TRFIntent *)intent
@@ -368,6 +376,7 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     if (!self.handler) {
         return YES;
     }
+    
     [self.handler handleIntent:intent];
     return YES;
 }
@@ -381,6 +390,48 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
             self.scheme,
             self.patterns,
             [self.routeRegularExpressions valueForKey:@"pattern"]];
+}
+
+@end
+
+
+@implementation TRFRoute (TRFViewControllerRoute)
+
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent
+{
+    TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
+    if (![self.handler isKindOfClass:[TRFViewControllerRouteHandler class]] ||
+        ![handlerIntent isKindOfClass:[TRFViewControllerIntent class]]) {
+        return nil;
+    }
+    TRFViewControllerRouteHandler *vcRouteHandler = (TRFViewControllerRouteHandler *)self.handler;
+    TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)handlerIntent;
+    return [vcRouteHandler targetViewControllerForIntent:vcIntent];
+}
+
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFIntent *routeIntent = [self intentForURL:URL intent:intent];
+    return [self targetViewControllerForIntent:routeIntent];
+}
+
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent
+{
+    TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
+    if (![self.handler isKindOfClass:[TRFViewControllerRouteHandler class]] ||
+        ![handlerIntent isKindOfClass:[TRFViewControllerIntent class]]) {
+        return Nil;
+    }
+    TRFViewControllerRouteHandler *vcRouteHandler = (TRFViewControllerRouteHandler *)self.handler;
+    TRFViewControllerIntent *vcIntent = (TRFViewControllerIntent *)handlerIntent;
+    return [vcRouteHandler targetViewControllerClassForIntent:vcIntent];
+}
+
+
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFIntent *routeIntent = [self intentForURL:URL intent:intent];
+    return [self targetViewControllerClassForIntent:routeIntent];
 }
 
 @end

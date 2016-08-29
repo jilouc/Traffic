@@ -46,3 +46,12 @@
 - (BOOL)URL:(NSURL *)URL isMatchingRoutes:(NSArray<NSString *> *)routeIds;
 
 @end
+
+@interface TRFUIRouter (TRFViewControllerRoute)
+
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent;
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+
+@end

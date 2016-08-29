@@ -22,6 +22,7 @@
 //
 
 #import "TRFIntent.h"
+#import <objc/runtime.h>
 
 @interface TRFIntent ()
 
@@ -51,6 +52,39 @@
 }
 
 - (void)buildFromURL:(NSURL *)URL
+{
+    
+}
+
+- (void)applyIntent:(TRFIntent *)intent
+{
+    unsigned int outCount;
+    
+    Class klass = [intent class];
+    while (klass != [NSObject class]) {
+        
+        objc_property_t *properties = class_copyPropertyList(klass, &outCount);
+        
+        for (NSUInteger propertyIndex = 0; propertyIndex < outCount; propertyIndex++) {
+            objc_property_t property = properties[propertyIndex];
+            const char *propName = property_getName(property);
+        
+            if (propName != NULL) {
+                NSString *propertyName = [NSString
+                                          stringWithCString:propName
+                                          encoding:[NSString defaultCStringEncoding]];
+                
+                id propValue = [intent valueForKey:propertyName];
+                if (propValue) {
+                    [self setValue:propValue forKey:propertyName];
+                }
+            }
+        }
+        klass = [klass superclass];
+    }
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
     
 }

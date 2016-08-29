@@ -40,7 +40,14 @@
 - (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent
 {
     NSCParameterAssert(intent != nil);
-    return [TRFViewControllerIntent intentWithIntent:intent];
+    TRFViewControllerIntent *handlerIntent = [TRFViewControllerIntent new];
+    [handlerIntent applyIntent:intent];
+    return handlerIntent;
+}
+
+- (Class)targetViewControllerClassForIntent:(TRFViewControllerIntent *)intent
+{
+    return [[self targetViewControllerForIntent:intent] class];
 }
 
 - (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent
@@ -97,6 +104,10 @@
             presentationController.sourceRect = intent.popoverSourceRect;
             presentationController.delegate = intent.popoverPresentationDelegate;
         }
+        
+        presentedViewController.modalPresentationStyle = [self modalPresentationStyleWhenPresentingInViewController:proposedPresentingViewController intent:intent];
+        
+        presentedViewController.modalTransitionStyle = [self modalTransitionStyleWhenPresentingInViewController:proposedPresentingViewController intent:intent];
         
         [self willPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
         [proposedPresentingViewController presentViewController:presentedViewController animated:YES completion:^{
@@ -157,6 +168,16 @@
 - (Class)wrappingNavigationControllerClass
 {
     return [UINavigationController class];
+}
+
+- (UIModalPresentationStyle)modalPresentationStyleWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent
+{
+    return UIModalPresentationFullScreen;
+}
+
+- (UIModalTransitionStyle)modalTransitionStyleWhenPresentingInViewController:(UIViewController *)proposedPresentingViewController intent:(TRFViewControllerIntent *)intent
+{
+    return UIModalTransitionStyleCoverVertical;
 }
 
 - (void)willPresentViewController:(UIViewController *)viewController targetViewController:(UIViewController *)targetViewController intent:(TRFViewControllerIntent *)intent

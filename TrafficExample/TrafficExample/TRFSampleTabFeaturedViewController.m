@@ -25,4 +25,20 @@
 
 @implementation TRFSampleTabFeaturedViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                               target:self
+                                                                                               action:@selector(close:)];
+    }
+    return self;
+}
+
+- (void)close:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

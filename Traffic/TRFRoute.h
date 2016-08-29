@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
+
 #import "TRFRouteHandler.h"
 #import "TRFIntent.h"
 
@@ -51,3 +53,12 @@
 
 @end
 
+@interface TRFRoute (TRFViewControllerRoute)
+
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent;
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+
+@end

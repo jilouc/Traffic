@@ -29,6 +29,9 @@
 
 + (instancetype)intentWithURL:(NSURL *)URL;
 
+/// Applies intent properties values to the current instance
+- (void)applyIntent:(TRFIntent *)intent;
+
 - (void)buildFromURL:(NSURL *)URL;
 
 @property (nonatomic, copy) NSString *routeId;

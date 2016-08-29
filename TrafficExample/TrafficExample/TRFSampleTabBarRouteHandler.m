@@ -34,7 +34,12 @@
 
 - (TRFIntent *)intentForIntent:(TRFIntent *)intent
 {
-    return [TRFSampleTabBarViewControllerIntent intentWithIntent:intent];
+    return [TRFSampleTabBarViewControllerIntent new];
+}
+
+- (void)willPresentViewController:(UIViewController *)viewController targetViewController:(TRFSampleTabBarViewController *)targetViewController intent:(TRFViewControllerIntent *)intent
+{
+    
 }
 
 @end

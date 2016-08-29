@@ -27,7 +27,7 @@
 
 @interface TRFRouteHandler : NSObject
 
-+ (instancetype)routeHandlerWithBlock:(void(^)(TRFIntent *intent))handlerBlock;
++ (instancetype)routeHandlerWithBlock:(void(^)(__kindof TRFIntent *intent))handlerBlock;
 
 - (BOOL)handleIntent:(TRFIntent *)intent;
 

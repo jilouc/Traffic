@@ -139,3 +139,48 @@ static TRFUIRouter *_defaultRouter = nil;
 }
 
 @end
+
+@implementation TRFUIRouter (TRFViewControllerRoute)
+
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent
+{
+    if (intent.routeId.length) {
+        TRFRoute *route = [self routeWithId:intent.routeId];
+        if (route) {
+            return [route targetViewControllerClassForIntent:intent];
+        }
+    }
+    if (intent.URL) {
+        return [self targetViewControllerClassForURL:intent.URL intent:intent];
+    }
+    return Nil;
+}
+
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFRoute *route = [self routeMatchingURL:URL];
+    return [route targetViewControllerClassForURL:URL intent:intent];
+}
+
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent
+{
+    if (intent.routeId.length) {
+        TRFRoute *route = [self routeWithId:intent.routeId];
+        if (route) {
+            return [route targetViewControllerForIntent:intent];
+        }
+    }
+    if (intent.URL) {
+        return [self targetViewControllerForURL:intent.URL intent:intent];
+    }
+    return Nil;
+}
+
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFRoute *route = [self routeMatchingURL:URL];
+    return [route targetViewControllerForURL:URL intent:intent];
+}
+
+
+@end
