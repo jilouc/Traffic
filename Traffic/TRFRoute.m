@@ -365,9 +365,8 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     }
     
     TRFIntent *routeIntent = [self intentForURL:URL intent:intent];
-    TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
+    TRFIntent *handlerIntent = [self.handler intentForIntent:routeIntent];
     [handlerIntent applyIntent:routeIntent];
-    
     return [self handleIntent:handlerIntent];
 }
 

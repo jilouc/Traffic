@@ -41,7 +41,6 @@
 {
     NSCParameterAssert(intent != nil);
     TRFViewControllerIntent *handlerIntent = [TRFViewControllerIntent new];
-    [handlerIntent applyIntent:intent];
     return handlerIntent;
 }
 
