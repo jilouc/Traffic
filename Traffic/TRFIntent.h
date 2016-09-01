@@ -28,6 +28,10 @@
 @interface TRFIntent : NSObject
 
 + (instancetype)intentWithURL:(NSURL *)URL;
++ (instancetype)intentWithRouteId:(NSString *)routeId;
+
+- (instancetype)initWithURL:(NSURL *)URL;
+- (instancetype)initWithRouteId:(NSString *)routeId;
 
 /// Applies intent properties values to the current instance
 - (void)applyIntent:(TRFIntent *)intent;

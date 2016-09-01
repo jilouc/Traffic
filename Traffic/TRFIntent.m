@@ -32,8 +32,12 @@
 
 + (instancetype)intentWithURL:(NSURL *)URL
 {
-    TRFIntent *intent = [[self alloc] initWithURL:URL];
-    return intent;
+    return [[self alloc] initWithURL:URL];
+}
+
++ (instancetype)intentWithRouteId:(NSString *)routeId
+{
+    return [[self alloc] initWithRouteId:routeId];
 }
 
 - (instancetype)initWithURL:(NSURL *)URL
@@ -41,6 +45,15 @@
     self = [super init];
     if (self) {
         self.URL = URL;
+    }
+    return self;
+}
+
+- (instancetype)initWithRouteId:(NSString *)routeId
+{
+    self = [super init];
+    if (self) {
+        self.routeId = routeId;
     }
     return self;
 }
