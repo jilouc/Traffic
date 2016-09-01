@@ -380,7 +380,7 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
     [handlerIntent applyIntent:intent];
     
-    return [self.handler handleIntent:intent];
+    return [self.handler handleIntent:handlerIntent];
 }
 
 #pragma mark -
