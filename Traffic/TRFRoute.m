@@ -155,7 +155,7 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     NSRegularExpression *namedParameterRegex = [self.class namedParametersRegex];
     
     [self.patterns enumerateObjectsUsingBlock:^(NSString *pattern, NSUInteger patternIndex, BOOL *patternStop) {
-    
+        
         if (pattern.length == 0) {
             return;
         }
@@ -237,11 +237,35 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
         BOOL assertsPositionAtStartOfRange = YES;
         BOOL assertsPositionAtEndOfRange = YES;
         
+        
+        static NSRegularExpression *patternWithSchemeRegex = nil;
+        if (!patternWithSchemeRegex) {
+            patternWithSchemeRegex = [NSRegularExpression regularExpressionWithPattern:TRFRouteParameterPatternWithSchemePattern
+                                                                               options:(NSRegularExpressionOptions)0
+                                                                                 error:NULL];
+        }
+        
+        BOOL patternIncludesScheme = NO;
+        if (compiledPattern.length) {
+            // The URL scheme may be included right in the pattern
+            // so that a route can match multiple patterns with multiple schemes for instance
+            // We need to check whether each pattern includes the URL scheme and match it
+            // against the given URL scheme.
+            NSTextCheckingResult *patternWithSchemeResult = [patternWithSchemeRegex firstMatchInString:compiledPattern
+                                                                                               options:(NSMatchingOptions)0
+                                                                                                 range:NSMakeRange(0, compiledPattern.length)];
+            patternIncludesScheme = (patternWithSchemeResult != nil);
+        }
+        
+        
+        
+        NSString *regexPattern = [NSString stringWithFormat:@"%@%@%@%@",
+                                  assertsPositionAtStartOfRange ? @"^" : @"",
+                                  patternIncludesScheme ? (self.scheme.length ? self.scheme : @"") : @"(?:[^:]+)://",
+                                  compiledPattern,
+                                  assertsPositionAtEndOfRange ? @"$" : @""];
         NSRegularExpression *regex = [NSRegularExpression
-                                      regularExpressionWithPattern:[NSString stringWithFormat:@"%@%@%@",
-                                                                    assertsPositionAtStartOfRange ? @"^" : @"",
-                                                                    compiledPattern,
-                                                                    assertsPositionAtEndOfRange ? @"$" : @""]
+                                      regularExpressionWithPattern:regexPattern
                                       options:NSRegularExpressionCaseInsensitive
                                       error:&error];
         if (regex) {
@@ -249,7 +273,7 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
         }
         if (error) {
             [[NSException exceptionWithName:NSInvalidArgumentException
-                                     reason:[NSString stringWithFormat:@"Error while compiling pattern for route %@ (trying to compile regex with <<%@>>)", pattern, compiledPattern]
+                                     reason:[NSString stringWithFormat:@"Error while compiling pattern for route %@ (trying to compile regex with <<%@>>)", pattern, regexPattern]
                                    userInfo:@{NSLocalizedFailureReasonErrorKey: error.localizedFailureReason}]
              raise];
         }
@@ -270,45 +294,34 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     if (self.scheme && [URL.scheme compare:self.scheme options:NSCaseInsensitiveSearch] != NSOrderedSame) {
         return NO;
     }
-    __block NSString *testedURLPart = nil;
-    if (URL.path) {
-        testedURLPart = [URL.host stringByAppendingString:(NSString * _Nonnull)URL.path];
-    } else {
-        testedURLPart = URL.host;
-    }
-    if (!testedURLPart) {
+    
+    NSURLComponents *testedUrlComponents = [NSURLComponents new];
+    testedUrlComponents.host = URL.host;
+    testedUrlComponents.scheme = URL.scheme;
+    testedUrlComponents.path = URL.path;
+    
+    if (!testedUrlComponents) {
         return NO;
     }
     
     __block NSTextCheckingResult *result = nil;
     __block NSDictionary *internalRouteParameters = nil;
-    
-    static NSRegularExpression *patternWithSchemeRegex = nil;
-    if (!patternWithSchemeRegex) {
-        patternWithSchemeRegex = [NSRegularExpression regularExpressionWithPattern:TRFRouteParameterPatternWithSchemePattern
-                                                                           options:(NSRegularExpressionOptions)0
-                                                                             error:NULL];
-    }
+    __block NSString *testedURLPart = nil;
     
     [self.patterns enumerateObjectsUsingBlock:^(NSString *pattern, NSUInteger patternIndex, BOOL *patternStop) {
-        
-        // The URL scheme may be included right in the pattern
-        // so that a route can match multiple patterns with multiple schemes for instance
-        // We need to check whether each pattern includes the URL scheme and match it
-        // against the given URL scheme.
-        NSTextCheckingResult *patternWithSchemeResult = [patternWithSchemeRegex firstMatchInString:pattern
-                                                                                           options:(NSMatchingOptions)0
-                                                                                             range:NSMakeRange(0, pattern.length)];
-        
-        NSString *testedURLPartForPattern = testedURLPart;
-        if (patternWithSchemeResult != nil) {
-            testedURLPartForPattern = [URL.scheme stringByAppendingFormat:@"://%@", testedURLPart];
-        }
         
         NSRegularExpression *regex = self.routeRegularExpressions[pattern];
         if (!regex) {
             return;
         }
+        
+        if ([pattern containsString:@"#"]) {
+            testedUrlComponents.fragment = URL.fragment;
+        } else {
+            testedUrlComponents.fragment = nil;
+        }
+        NSString *testedURLPartForPattern = [testedUrlComponents string];
+        
         result = [regex
                   firstMatchInString:testedURLPartForPattern
                   options:(NSMatchingOptions)0
@@ -337,6 +350,7 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
             routeParameters[name] = paramValue;
         }
     }];
+    
     [URL trf_setRouteParameters:routeParameters];
     return YES;
 }
