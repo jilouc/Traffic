@@ -37,6 +37,7 @@
 
 - (Class)targetViewControllerClassForIntent:(TRFViewControllerIntent *)intent;
 - (UIViewController *)targetViewControllerForIntent:(TRFViewControllerIntent *)intent;
+
 - (TRFViewControllerIntent *)intentForIntent:(TRFIntent *)intent;
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController

@@ -101,7 +101,7 @@ static TRFUIRouter *_defaultRouter = nil;
     }
     NSLog(@"URL %@ matches route: %@", URL.absoluteString, route.identifier);
     
-    return [route handleURL:URL intent:intent];
+    return [route handleURL:URL intent:intent] != nil;
 }
 
 - (TRFRoute *)routeWithId:(NSString *)routeId
@@ -182,5 +182,23 @@ static TRFUIRouter *_defaultRouter = nil;
     return [route targetViewControllerForURL:URL intent:intent];
 }
 
+- (TRFViewControllerIntent *)deferredRouteURL:(NSURL *)URL intent:(TRFIntent *)intent
+{
+    TRFRoute *route = [self routeMatchingURL:URL];
+    if (route == nil) {
+        return nil;
+    }
+    NSLog(@"URL %@ matches route: %@", URL.absoluteString, route.identifier);
+    
+    TRFViewControllerIntent *baseIntent = [TRFViewControllerIntent intentWithURL:URL];
+    [baseIntent applyIntent:intent];
+    baseIntent.deferredPresentation = YES;
+    
+    TRFIntent *finalIntent = [route handleURL:URL intent:baseIntent];
+    if ([finalIntent isKindOfClass:[TRFViewControllerIntent class]]) {
+        return (TRFViewControllerIntent *)finalIntent;
+    }
+    return nil;
+}
 
 @end

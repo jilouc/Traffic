@@ -58,10 +58,39 @@
     return nil;
 }
 
+- (UIViewController *)prepareTargetViewController:(UIViewController *)targetViewController
+                  forPresentationInViewController:(UIViewController *)presentingViewController
+                                           intent:(TRFViewControllerIntent *)intent
+{
+    UIViewController *presentedViewController = targetViewController;
+    if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:presentingViewController intent:intent]) {
+        Class navigationControllerClass = [self wrappingNavigationControllerClass];
+        NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass, but got %@", NSStringFromClass(navigationControllerClass));
+        presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
+    }
+    
+    if (intent.wrapInPopover) {
+        targetViewController.preferredContentSize = intent.popoverPreferredContentSize;
+        presentedViewController.modalPresentationStyle = UIModalPresentationPopover;
+        
+        UIPopoverPresentationController *presentationController = presentedViewController.popoverPresentationController;
+        presentationController.sourceView = intent.popoverSourceView;
+        presentationController.sourceRect = intent.popoverSourceRect;
+        presentationController.delegate = intent.popoverPresentationDelegate;
+    }
+    
+    presentedViewController.modalPresentationStyle = [self modalPresentationStyleWhenPresentingInViewController:presentingViewController intent:intent];
+    
+    presentedViewController.modalTransitionStyle = [self modalTransitionStyleWhenPresentingInViewController:presentingViewController intent:intent];
+    
+    return presentedViewController;
+}
+
 - (void)presentTargetViewController:(UIViewController *)targetViewController
            presentingViewController:(UIViewController *)proposedPresentingViewController
                              intent:(TRFViewControllerIntent *)intent
 {
+    
     NSCParameterAssert([intent isKindOfClass:[TRFViewControllerIntent class]]);
     if (self.presentationBlock) {
         self.presentationBlock(targetViewController, proposedPresentingViewController, intent);
@@ -87,33 +116,35 @@
             }
         }
         
-        UIViewController *presentedViewController = targetViewController;
-        if ([self shouldWrapInNavigationControllerWhenPresentingInViewController:proposedPresentingViewController intent:intent]) {
-            Class navigationControllerClass = [self wrappingNavigationControllerClass];
-            NSAssert([navigationControllerClass isSubclassOfClass:[UINavigationController class]], @"-wrappingNavigationControllerClass must return a UINavigationController subclass, but got %@", NSStringFromClass(navigationControllerClass));
-            presentedViewController = [[navigationControllerClass alloc] initWithRootViewController:targetViewController];
+        UIViewController *presentedViewController = [self prepareTargetViewController:targetViewController
+                                                      forPresentationInViewController:proposedPresentingViewController
+                                                                               intent:intent];
+        
+        if (intent.deferredPresentation) {
+            intent.targetViewController = targetViewController;
+            intent.presentedViewController = presentedViewController;
+            return;
         }
         
-        if (intent.wrapInPopover) {
-            targetViewController.preferredContentSize = intent.popoverPreferredContentSize;
-            presentedViewController.modalPresentationStyle = UIModalPresentationPopover;
-
-            UIPopoverPresentationController *presentationController = presentedViewController.popoverPresentationController;
-            presentationController.sourceView = intent.popoverSourceView;
-            presentationController.sourceRect = intent.popoverSourceRect;
-            presentationController.delegate = intent.popoverPresentationDelegate;
-        }
+        [self presentTargetViewController:targetViewController
+                  presentedViewController:presentedViewController
+                 presentingViewController:proposedPresentingViewController
+                                   intent:intent];
         
-        presentedViewController.modalPresentationStyle = [self modalPresentationStyleWhenPresentingInViewController:proposedPresentingViewController intent:intent];
-        
-        presentedViewController.modalTransitionStyle = [self modalTransitionStyleWhenPresentingInViewController:proposedPresentingViewController intent:intent];
-        
-        [self willPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
-        [proposedPresentingViewController presentViewController:presentedViewController animated:YES completion:^{
-            [self didPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
-        }];
     }
 }
+
+- (void)presentTargetViewController:(UIViewController *)targetViewController
+            presentedViewController:(UIViewController *)presentedViewController
+           presentingViewController:(UIViewController *)presentingViewController
+                             intent:(TRFViewControllerIntent *)intent
+{
+    [self willPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
+    [presentingViewController presentViewController:presentedViewController animated:YES completion:^{
+        [self didPresentViewController:presentedViewController targetViewController:targetViewController intent:intent];
+    }];
+}
+
 
 + (instancetype)routeHandlerWithCreationBlock:(UIViewController *(^)(__kindof TRFViewControllerIntent *))creationBlock
                             presentationBlock:(void (^)(__kindof UIViewController *, UIViewController *, __kindof TRFViewControllerIntent *))presentationBlock

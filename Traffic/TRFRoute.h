@@ -48,8 +48,8 @@
 @property (nonatomic, copy, readonly) NSString *scheme;
 
 - (BOOL)matchWithURL:(NSURL *)URL;
-- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
-- (BOOL)handleIntent:(TRFIntent *)intent;
+- (TRFIntent *)handleURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (TRFIntent *)handleIntent:(TRFIntent *)intent;
 
 @end
 

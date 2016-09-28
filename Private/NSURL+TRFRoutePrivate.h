@@ -23,6 +23,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class TRFRoute;
+
 @interface NSURL (TRFRoutePrivate)
 
 - (void)trf_setRoute:(TRFRoute *)route;

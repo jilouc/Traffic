@@ -54,4 +54,6 @@
 - (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
 - (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
+- (TRFViewControllerIntent *)deferredRouteURL:(NSURL *)URL intent:(TRFIntent *)intent;
+
 @end

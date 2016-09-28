@@ -368,33 +368,40 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
     return routeIntent;
 }
 
-- (BOOL)handleURL:(NSURL *)URL intent:(TRFIntent *)intent
+- (TRFIntent *)handleURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
     if (![self matchWithURL:URL]) {
-        return NO;
-    }
-    
-    if (!self.handler) {
-        return YES;
+        return nil;
     }
     
     TRFIntent *routeIntent = [self intentForURL:URL intent:intent];
+    
+    if (!self.handler) {
+        return routeIntent;
+    }
+    
     TRFIntent *handlerIntent = [self.handler intentForIntent:routeIntent];
     [handlerIntent applyIntent:routeIntent];
     
-    return [self.handler handleIntent:handlerIntent];
+    if ([self.handler handleIntent:handlerIntent]) {
+        return handlerIntent;
+    }
+    return nil;
 }
 
-- (BOOL)handleIntent:(TRFIntent *)intent
+- (TRFIntent *)handleIntent:(TRFIntent *)intent
 {
     if (!self.handler) {
-        return YES;
+        return intent;
     }
     
     TRFIntent *handlerIntent = [self.handler intentForIntent:intent];
     [handlerIntent applyIntent:intent];
     
-    return [self.handler handleIntent:handlerIntent];
+    if ([self.handler handleIntent:handlerIntent]) {
+        return handlerIntent;
+    }
+    return nil;
 }
 
 #pragma mark -

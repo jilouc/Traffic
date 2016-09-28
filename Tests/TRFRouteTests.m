@@ -286,8 +286,8 @@ extern NSString *const TRFRouteParameterValueIntPattern;
 - (void)testHandleURL
 {
     TRFRoute *route1 = [TRFRoute routeWithId:nil scheme:nil pattern:@"route/<param1>" handler:nil];
-    expect([route1 handleURL:[NSURL URLWithString:@"traffic://not/matching"] intent:nil]).to.equal(NO);
-    expect([route1 handleURL:[NSURL URLWithString:@"traffic://route/matching"] intent:nil]).to.equal(YES);
+    expect([route1 handleURL:[NSURL URLWithString:@"traffic://not/matching"] intent:nil]).to.beNil;
+    expect([route1 handleURL:[NSURL URLWithString:@"traffic://route/matching"] intent:nil]).to.beKindOf([TRFIntent class]);
 }
 
 - (void)testHandleURLWithHandler
@@ -300,7 +300,7 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     [[[(id)mockHandler stub] andReturn:intent] intentForIntent:intent];
     
     [route1 handleURL:URL intent:intent];
-    [[(id)mockHandler verify] handleIntent:intent];
+    [(TRFRouteHandler *)[(id)mockHandler verify] handleIntent:intent];
 }
 
 @end

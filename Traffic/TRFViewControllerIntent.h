@@ -44,4 +44,8 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 @property (nonatomic, weak) id<UIPopoverPresentationControllerDelegate> popoverPresentationDelegate;
 @property (nonatomic) CGSize popoverPreferredContentSize;
 
+@property (nonatomic) BOOL deferredPresentation;
+@property (nonatomic, strong) UIViewController *targetViewController;
+@property (nonatomic, strong) UIViewController *presentedViewController;
+
 @end

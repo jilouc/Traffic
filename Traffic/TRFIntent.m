@@ -71,6 +71,10 @@
 
 - (void)applyIntent:(TRFIntent *)intent
 {
+    if (!intent) {
+        return;
+    }
+    
     unsigned int outCount;
     
     Class klass = [intent class];
