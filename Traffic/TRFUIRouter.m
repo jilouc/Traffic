@@ -95,6 +95,12 @@ static TRFUIRouter *_defaultRouter = nil;
 
 - (BOOL)routeURL:(NSURL *)URL intent:(TRFIntent *)intent
 {
+    // Give the delegate a chance to perform some changes on the URL on the fly
+    if ([self.delegate respondsToSelector:@selector(trafficRouter:willRouteURL:)]) {
+        URL = [self.delegate trafficRouter:self
+                              willRouteURL:URL];
+    }
+    
     TRFRoute *route = [self routeMatchingURL:URL];
     if (route == nil) {
         return NO;

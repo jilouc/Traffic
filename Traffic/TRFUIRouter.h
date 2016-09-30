@@ -26,12 +26,23 @@
 #import "TRFIntent.h"
 #import "TRFViewControllerIntent.h"
 
+@class TRFUIRouter;
+
+@protocol TRFUIRouterDelegate <NSObject>
+
+@optional
+- (NSURL *)trafficRouter:(TRFUIRouter *)router willRouteURL:(NSURL *)URL;
+
+@end
+
 //////////////////////////////////////////////////////////////////////
 
 @interface TRFUIRouter : NSObject
 
 + (instancetype)defaultRouter;
 + (void)setDefaultRouter:(TRFUIRouter *)uiRouter;
+
+@property (nonatomic, weak) id<TRFUIRouterDelegate> delegate;
 
 - (void)registerRoute:(TRFRoute *)route;
 - (void)registerRoutes:(NSArray<TRFRoute *> *)routes;
