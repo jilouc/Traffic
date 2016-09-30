@@ -91,4 +91,21 @@
     expect([URL trf_firstQueryParameterWithName:@"param3"]).to.beNil;
 }
 
+- (void)testFragmentParameter
+{
+    NSURL *URL = [NSURL URLWithString:@"traffic://foo/#param1=value11&param1=value12&param2=value2"];
+    expect(URL.trf_fragmentParameters).to.haveCountOf(2);
+    expect([URL trf_firstFragmentParameterWithName:@"param1"]).to.equal(@"value11");
+    expect([URL trf_firstFragmentParameterWithName:@"param2"]).to.equal(@"value2");
+    expect([URL trf_firstFragmentParameterWithName:@"param3"]).to.beNil;
+}
+
+- (void)testFragmentWithNoParameter
+{
+    NSURL *URL = [NSURL URLWithString:@"traffic://foo/#bar/baz"];
+    expect([URL trf_fragmentParameters]).to.haveCountOf(0);
+}
+
+
+
 @end

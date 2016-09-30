@@ -26,6 +26,7 @@
 
 const void *NSURLTRFRouteParametersKey;
 const void *NSURLTRFQueryParametersKey;
+const void *NSURLTRFFragmentParametersKey;
 const void *NSURLTRFRouteKey;
 
 @implementation NSURL (TRFRoute)
@@ -103,5 +104,33 @@ const void *NSURLTRFRouteKey;
     return nil;
 }
 
+- (NSDictionary *)trf_fragmentParameters
+{
+    NSDictionary *fragmentParameters = objc_getAssociatedObject(self, &NSURLTRFFragmentParametersKey);
+    if (!fragmentParameters) {
+        NSURLComponents *urlComponents = [NSURLComponents new];
+        urlComponents.query = self.fragment;
+        fragmentParameters = [urlComponents.URL trf_queryParameters];
+        
+        objc_setAssociatedObject(self, &NSURLTRFFragmentParametersKey, fragmentParameters, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return fragmentParameters;
+}
+
+- (id)trf_fragmentParameterWithName:(NSString *)parameterName
+{
+    return self.trf_fragmentParameters[parameterName];
+}
+
+- (NSString *)trf_firstFragmentParameterWithName:(NSString *)parameterName
+{
+    id value = [self trf_fragmentParameterWithName:parameterName];
+    if ([value isKindOfClass:[NSString class]]) {
+        return value;
+    } else if ([value isKindOfClass:[NSArray class]]) {
+        return [value firstObject];
+    }
+    return nil;
+}
 
 @end

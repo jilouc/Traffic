@@ -28,10 +28,17 @@
 @interface NSURL (TRFRoute)
 
 - (TRFRoute *)trf_route;
+
 - (NSDictionary *)trf_routeParameters;
 - (NSDictionary *)trf_queryParameters;
+- (NSDictionary *)trf_fragmentParameters;
+
 - (NSString *)trf_routeParameterWithName:(NSString *)parameterName;
+
 - (id)trf_queryParameterWithName:(NSString *)parameterName; // NSString or NSArray
 - (NSString *)trf_firstQueryParameterWithName:(NSString *)parameterName;
+
+- (id)trf_fragmentParameterWithName:(NSString *)parameterName; // NSString or NSArray
+- (NSString *)trf_firstFragmentParameterWithName:(NSString *)parameterName;;
 
 @end
