@@ -80,6 +80,7 @@
     Class klass = [intent class];
     while (klass != [NSObject class]) {
         
+        outCount = 0;
         objc_property_t *properties = class_copyPropertyList(klass, &outCount);
         
         for (NSUInteger propertyIndex = 0; propertyIndex < outCount; propertyIndex++) {
@@ -97,6 +98,11 @@
                 }
             }
         }
+        
+        if (properties) {
+            free(properties);
+        }
+        
         klass = [klass superclass];
     }
 }
