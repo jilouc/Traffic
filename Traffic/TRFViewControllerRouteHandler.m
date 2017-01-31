@@ -171,7 +171,7 @@
         return NO;
     }
     
-    UIViewController *presentingVC = [[UIApplication sharedApplication].keyWindow trf_currentViewControllerForRoutePresenting];
+    UIViewController *presentingVC = [intent.presentingWindow trf_currentViewControllerForRoutePresenting];
     
     if ([targetVC conformsToProtocol:@protocol(TRFRouteTargetViewController)]) {
         id<TRFRouteTargetViewController> routeTargetVC = (id<TRFRouteTargetViewController>)targetVC;

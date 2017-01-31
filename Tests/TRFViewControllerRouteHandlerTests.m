@@ -102,4 +102,25 @@
     [self waitForExpectationsWithTimeout:0. handler:nil];
 }
 
+- (void)testUserDefinedWindowIsUsedForPresenting
+{
+    UIWindow *customWindow = [UIWindow new];
+    TRFViewControllerIntent *intent = [TRFViewControllerIntent intentWithRouteId:@"foo"];
+    intent.presentingWindow = customWindow;
+    
+    TRFViewControllerRouteHandler *routeHandler;
+    routeHandler = [TRFViewControllerRouteHandler
+                    routeHandlerWithCreationBlock:^UIViewController *(__kindof TRFViewControllerIntent *intent) {
+                        return [UIViewController new];
+                    }
+                    presentationBlock:nil];
+    
+    id customWindowMock = OCMPartialMock(customWindow);
+    [[customWindowMock expect] trf_currentViewControllerForRoutePresenting];
+    
+    [routeHandler handleIntent:intent];
+    
+    OCMVerifyAll(customWindowMock);
+}
+
 @end

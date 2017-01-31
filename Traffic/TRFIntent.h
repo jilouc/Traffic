@@ -25,6 +25,10 @@
 #import "NSURL+TRFRoute.h"
 #import "TRFExternalLaunchInfo.h"
 
+#if TARGET_OS_IOS
+#import <UIKit/UIKit.h>
+#endif
+
 @interface TRFIntent : NSObject
 
 + (instancetype)intentWithURL:(NSURL *)URL;
@@ -43,5 +47,9 @@
 @property (nonatomic, copy) NSDictionary *notificationPayload;
 @property (nonatomic) NSUserActivity *userActivity;
 @property (nonatomic) TRFExternalLaunchInfo *externalLaunchInfo;
+
+#if TARGET_OS_IOS
+@property (nonatomic, strong) UIWindow *presentingWindow;
+#endif
 
 @end
