@@ -103,7 +103,12 @@
                 NSString *propertyName = [NSString
                                           stringWithCString:propName
                                           encoding:[NSString defaultCStringEncoding]];
-                
+                // we need to ignore the URL property for now
+                // and set it at the end of the process, because setURL:
+                // is calling buildFromURL: and all properties must be available at this moment
+                if ([propertyName isEqualToString:NSStringFromSelector(@selector(URL))]) {
+                    continue;
+                }
                 id propValue = [intent valueForKey:propertyName];
                 if (propValue) {
                     [self setValue:propValue forKey:propertyName];
@@ -117,6 +122,11 @@
         
         klass = [klass superclass];
     }
+    
+    if (intent.URL) {
+        self.URL = intent.URL;
+    }
+
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
