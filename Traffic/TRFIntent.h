@@ -47,6 +47,7 @@
 @property (nonatomic, copy) NSDictionary *notificationPayload;
 @property (nonatomic) NSUserActivity *userActivity;
 @property (nonatomic) TRFExternalLaunchInfo *externalLaunchInfo;
+@property (nonatomic, copy) NSDictionary *userInfo;
 
 #if TARGET_OS_IOS
 @property (nonatomic, strong) UIWindow *presentingWindow;
