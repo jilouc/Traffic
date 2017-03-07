@@ -52,13 +52,3 @@
 - (TRFIntent *)handleIntent:(TRFIntent *)intent;
 
 @end
-
-@interface TRFRoute (TRFViewControllerRoute)
-
-- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
-
-- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent;
-- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent;
-
-@end

@@ -1,6 +1,6 @@
 //
-//  TRFUIRouter.h
-//  Copyright © 2016 Cocoapps. All rights reserved.
+//  TRFRoute+TRFViewControllerRoute.h
+//  Traffic
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,39 +21,20 @@
 //  THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
+
 #import "TRFRoute.h"
-#import "TRFIntent.h"
+#import "TRFViewControllerIntent.h"
 
-@class TRFUIRouter;
+@interface TRFRoute (TRFViewControllerRoute)
 
-@protocol TRFUIRouterDelegate <NSObject>
+- (TRFViewControllerIntent *)targetIntentForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
-@optional
-- (NSURL *)trafficRouter:(TRFUIRouter *)router willRouteURL:(NSURL *)URL;
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
-@end
-
-//////////////////////////////////////////////////////////////////////
-
-@interface TRFUIRouter : NSObject
-
-+ (instancetype)defaultRouter;
-+ (void)setDefaultRouter:(TRFUIRouter *)uiRouter;
-
-@property (nonatomic, weak) id<TRFUIRouterDelegate> delegate;
-
-- (void)registerRoute:(TRFRoute *)route;
-- (void)registerRoutes:(NSArray<TRFRoute *> *)routes;
-
-- (BOOL)routeIntent:(TRFIntent *)intent;
-- (BOOL)routeURL:(NSURL *)URL intent:(TRFIntent *)intent;
-
-- (TRFRoute *)routeMatchingURL:(NSURL *)URL;
-- (TRFRoute *)routeWithId:(NSString *)routeId;
-
-- (BOOL)URL:(NSURL *)URL isMatchingRoute:(TRFRoute *)route;
-- (BOOL)URL:(NSURL *)URL isMatchingRoutes:(NSArray<NSString *> *)routeIds;
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent;
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent;
 
 @end
-
