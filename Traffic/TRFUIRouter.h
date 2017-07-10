@@ -55,5 +55,7 @@
 - (BOOL)URL:(NSURL *)URL isMatchingRoute:(TRFRoute *)route;
 - (BOOL)URL:(NSURL *)URL isMatchingRoutes:(NSArray<NSString *> *)routeIds;
 
+- (TRFIntent *)intentForURL:(NSURL *)URL;
+
 @end
 

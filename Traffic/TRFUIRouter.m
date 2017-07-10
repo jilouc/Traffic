@@ -24,6 +24,7 @@
 #import "TRFUIRouter.h"
 #import "TRFRoute.h"
 #import "NSURL+TRFRoute.h"
+#import "TRFRoute+Internal.h"
 
 //////////////////////////////////////////////////////////////////////
 
@@ -143,6 +144,13 @@ static TRFUIRouter *_defaultRouter = nil;
         }
     }];
     return matchFound;
+}
+
+- (TRFIntent *)intentForURL:(NSURL *)URL
+{
+    TRFRoute *route = [self routeMatchingURL:URL];
+    TRFIntent *baseIntent = [route intentForURL:URL intent:nil];
+    return [route.handler intentForIntent:baseIntent];
 }
 
 @end
