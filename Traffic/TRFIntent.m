@@ -83,8 +83,12 @@
 
 - (void)applyIntent:(TRFIntent *)intent
 {
-    if (!intent) {
+    if (!intent || self == intent) {
         return;
+    }
+    
+    if (intent.URL) {
+        self.URL = intent.URL;
     }
     
     unsigned int outCount;
@@ -122,11 +126,6 @@
         
         klass = [klass superclass];
     }
-    
-    if (intent.URL) {
-        self.URL = intent.URL;
-    }
-
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
