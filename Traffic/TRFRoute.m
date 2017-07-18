@@ -369,7 +369,9 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
         routeIntent = [TRFIntent intentWithURL:URL];
     } else {
         routeIntent = intent;
-        routeIntent.URL = URL;
+        if (URL && ![routeIntent.URL isEqual:URL]) {
+            routeIntent.URL = URL;
+        }
     }
     routeIntent.routeId = self.identifier;
     return routeIntent;
