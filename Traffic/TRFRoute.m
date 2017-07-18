@@ -315,11 +315,18 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
             return;
         }
         
+        if ([pattern containsString:@"\\?"] || [pattern containsString:@";"]) {
+            testedUrlComponents.query = URL.query;
+        } else {
+            testedUrlComponents.query = nil;
+        }
+        
         if ([pattern containsString:@"#"]) {
             testedUrlComponents.fragment = URL.fragment;
         } else {
             testedUrlComponents.fragment = nil;
         }
+            
         NSString *testedURLPartForPattern = [testedUrlComponents string];
         
         result = [regex

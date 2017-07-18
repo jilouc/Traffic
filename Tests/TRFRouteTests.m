@@ -303,4 +303,25 @@ extern NSString *const TRFRouteParameterValueIntPattern;
     [(TRFRouteHandler *)[(id)mockHandler verify] handleIntent:intent];
 }
 
+- (void)testRouteWithQueryParameterMatching
+{
+    TRFRoute *route = [TRFRoute routeWithId:nil scheme:nil
+                                   patterns:@[
+                                              @"**\\?param=<param>",
+                                              @"**;param=<param>",
+                                              ] handler:nil];
+    
+    NSURL *URL1 = [NSURL URLWithString:@"traffic://route/?param=foo"];
+    expect([route matchWithURL:URL1]).to.equal(YES);
+    expect(URL1.trf_routeParameters[@"param"]).to.equal(@"foo");
+    
+    NSURL *URL2 = [NSURL URLWithString:@"traffic://route;param=foo"];
+    expect([route matchWithURL:URL2]).to.equal(YES);
+    expect(URL2.trf_routeParameters[@"param"]).to.equal(@"foo");
+    
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route"]]).to.equal(NO);
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route/?otherparam=bar"]]).to.equal(NO);
+    expect([route matchWithURL:[NSURL URLWithString:@"traffic://route;otherparam=bar"]]).to.equal(NO);
+}
+
 @end
