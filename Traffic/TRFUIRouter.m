@@ -150,7 +150,9 @@ static TRFUIRouter *_defaultRouter = nil;
 {
     TRFRoute *route = [self routeMatchingURL:URL];
     TRFIntent *baseIntent = [route intentForURL:URL intent:nil];
-    return [route.handler intentForIntent:baseIntent];
+    TRFIntent *routeIntent = [route.handler intentForIntent:baseIntent];
+    [routeIntent applyIntent:baseIntent];
+    return routeIntent;
 }
 
 @end
