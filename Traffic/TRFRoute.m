@@ -272,9 +272,13 @@ NSString *const TRFRouteParameterValueIntPattern          = @"[0-9]+";
             routeRegularExpressions[pattern] = regex;
         }
         if (error) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+            if (error.localizedDescription) {
+                userInfo[NSLocalizedFailureReasonErrorKey] = error.localizedDescription;
+            }
             [[NSException exceptionWithName:NSInvalidArgumentException
                                      reason:[NSString stringWithFormat:@"Error while compiling pattern for route %@ (trying to compile regex with <<%@>>)", pattern, regexPattern]
-                                   userInfo:@{NSLocalizedFailureReasonErrorKey: error.localizedFailureReason}]
+                                   userInfo:userInfo]
              raise];
         }
     }];
