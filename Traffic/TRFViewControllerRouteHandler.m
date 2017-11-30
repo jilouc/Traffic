@@ -101,24 +101,33 @@
             preferredTransition = intent.preferredTransition;
         }
         
-        BOOL transitionPush = (preferredTransition == TRFViewControllerPreferredTransitionPush &&
-                               ![self shouldPresentModallyInViewController:proposedPresentingViewController intent:intent]);
-        if (transitionPush) {
-            UINavigationController *navigationController = nil;
-            if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
-                navigationController = (UINavigationController *)proposedPresentingViewController;
-            } else if (proposedPresentingViewController.navigationController) {
-                navigationController = proposedPresentingViewController.navigationController;
-            }
-            if (navigationController) {
-                [navigationController pushViewController:targetViewController animated:YES];
-                return;
-            }
-        }
+        UIViewController *presentedViewController = nil;
         
-        UIViewController *presentedViewController = [self prepareTargetViewController:targetViewController
-                                                      forPresentationInViewController:proposedPresentingViewController
-                                                                               intent:intent];
+        if (preferredTransition == TRFViewControllerPreferredTransitionChild) {
+            presentedViewController = targetViewController;
+            
+        } else {
+            
+            BOOL transitionPush = (preferredTransition == TRFViewControllerPreferredTransitionPush &&
+                                   ![self shouldPresentModallyInViewController:proposedPresentingViewController intent:intent]);
+            if (transitionPush) {
+                UINavigationController *navigationController = nil;
+                if ([proposedPresentingViewController isKindOfClass:[UINavigationController class]]) {
+                    navigationController = (UINavigationController *)proposedPresentingViewController;
+                } else if (proposedPresentingViewController.navigationController) {
+                    navigationController = proposedPresentingViewController.navigationController;
+                }
+                if (navigationController) {
+                    [navigationController pushViewController:targetViewController animated:YES];
+                    return;
+                }
+            }
+            
+            presentedViewController = [self prepareTargetViewController:targetViewController
+                                        forPresentationInViewController:proposedPresentingViewController
+                                                                 intent:intent];
+            
+        }
         
         if (intent.deferredPresentation) {
             intent.targetViewController = targetViewController;
@@ -126,12 +135,39 @@
             return;
         }
         
-        [self presentTargetViewController:targetViewController
-                  presentedViewController:presentedViewController
-                 presentingViewController:proposedPresentingViewController
+        if (preferredTransition == TRFViewControllerPreferredTransitionChild) {
+            
+            UIViewController *parentViewController = intent.parentViewController;
+            if (!parentViewController) {
+                parentViewController = proposedPresentingViewController;
+            }
+            
+            [self addTargetViewController:targetViewController
+                   inParentViewController:parentViewController
                                    intent:intent];
+            
+        } else {
+            
+            [self presentTargetViewController:targetViewController
+                      presentedViewController:presentedViewController
+                     presentingViewController:proposedPresentingViewController
+                                       intent:intent];
+        }
         
     }
+}
+
+- (void)addTargetViewController:(UIViewController *)targetViewController
+         inParentViewController:(UIViewController *)parentViewController
+                         intent:(TRFViewControllerIntent *)intent
+{
+    [self willPresentViewController:targetViewController targetViewController:targetViewController intent:intent];
+    targetViewController.view.bounds = parentViewController.view.bounds;
+    targetViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [parentViewController.view addSubview:targetViewController.view];
+    [parentViewController addChildViewController:targetViewController];
+    [targetViewController didMoveToParentViewController:parentViewController];
+    [self didPresentViewController:targetViewController targetViewController:targetViewController intent:intent];
 }
 
 - (void)presentTargetViewController:(UIViewController *)targetViewController
@@ -254,3 +290,4 @@
 }
 
 @end
+

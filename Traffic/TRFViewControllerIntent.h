@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
     TRFViewControllerPreferredTransitionAuto = 0,
     TRFViewControllerPreferredTransitionPush,
     TRFViewControllerPreferredTransitionModal,
+    TRFViewControllerPreferredTransitionChild,
 };
 
 @interface TRFViewControllerIntent : TRFIntent
@@ -47,5 +48,6 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 @property (nonatomic) BOOL deferredPresentation;
 @property (nonatomic, strong) UIViewController *targetViewController;
 @property (nonatomic, strong) UIViewController *presentedViewController;
+@property (nonatomic, weak) UIViewController *parentViewController;
 
 @end
