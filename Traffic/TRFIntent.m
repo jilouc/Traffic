@@ -69,16 +69,6 @@
     
 }
 
-#if TARGET_OS_IOS
-- (UIWindow *)presentingWindow
-{
-    if (_presentingWindow) {
-        return _presentingWindow;
-    }
-    return [[UIApplication sharedApplication] keyWindow];
-}
-#endif
-
 #pragma mark -
 
 - (void)applyIntent:(TRFIntent *)intent

@@ -49,8 +49,4 @@
 @property (nonatomic) TRFExternalLaunchInfo *externalLaunchInfo;
 @property (nonatomic, copy) NSDictionary *userInfo;
 
-#if TARGET_OS_IOS
-@property (nonatomic, strong) UIWindow *presentingWindow;
-#endif
-
 @end

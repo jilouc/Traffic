@@ -23,6 +23,7 @@
 
 #import "TRFViewControllerRouteHandler.h"
 #import "TRFRouteTargetViewController.h"
+#import "TRFIntent+PresentingWindow.h"
 
 //////////////////////////////////////////////////////////////////////
 

@@ -24,7 +24,6 @@
 #import "TRFRoute.h"
 #import "NSURL+TRFRoute.h"
 #import "NSURL+TRFRoutePrivate.h"
-#import "TRFViewControllerRouteHandler.h"
 
 //////////////////////////////////////////////////////////////////////
 
