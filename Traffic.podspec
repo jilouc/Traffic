@@ -46,6 +46,7 @@ EOS
     ss.ios.deployment_target = "9.0"
     ss.public_header_files = 'Traffic/UIKit/*.h'
     ss.source_files = 'Traffic/UIKit'
+    ss.dependency 'Traffic/Core'
   end
 
 
