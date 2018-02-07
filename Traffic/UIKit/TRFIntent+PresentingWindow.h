@@ -16,8 +16,7 @@
 
 @interface TRFIntent (PresentingWindow)
 
-- (UIWindow *)presentingWindow NS_EXTENSION_UNAVAILABLE("Not supported in extensions");
-- (void)setPresentingWindow:(UIWindow *)presentingWindow NS_EXTENSION_UNAVAILABLE("Not supported in extensions");
+@property (nonatomic) UIWindow *presentingWindow NS_EXTENSION_UNAVAILABLE("Not supported in extensions");
 
 @end
 

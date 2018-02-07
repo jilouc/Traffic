@@ -29,12 +29,12 @@
 
 @interface TRFRoute (TRFViewControllerRoute)
 
-- (TRFViewControllerIntent *)targetIntentForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (TRFViewControllerIntent *)targetIntentForURL:(NSURL *)URL intent:(TRFIntent *)intent NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions");
 
-- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent;
-- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (UIViewController *)targetViewControllerForIntent:(TRFIntent *)intent NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions");
+- (UIViewController *)targetViewControllerForURL:(NSURL *)URL intent:(TRFIntent *)intent NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions");
 
-- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent;
-- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent;
+- (Class)targetViewControllerClassForIntent:(TRFIntent *)intent NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions");
+- (Class)targetViewControllerClassForURL:(NSURL *)URL intent:(TRFIntent *)intent NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions");
 
 @end

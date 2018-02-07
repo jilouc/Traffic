@@ -28,6 +28,7 @@
 
 //////////////////////////////////////////////////////////////////////
 
+NS_EXTENSION_UNAVAILABLE_IOS("Not supported in extensions")
 @interface TRFViewControllerRouteHandler : TRFRouteHandler
 
 + (instancetype)routeHandlerWithBlock:(void (^)(TRFViewControllerIntent *intent))block NS_UNAVAILABLE;
