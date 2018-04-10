@@ -50,4 +50,7 @@ typedef NS_ENUM(NSInteger, TRFViewControllerPreferredTransition)
 @property (nonatomic, strong) UIViewController *presentedViewController;
 @property (nonatomic, weak) UIViewController *parentViewController;
 
+@property (nonatomic) CGRect sourceRect;
+@property (nonatomic) UIView *sourceView;
+
 @end

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "Traffic"
-  s.version      = "0.6.0"
+  s.version      = "0.6.1"
   s.summary      = "Simple and powerful URL routing library to easily handle incoming URLs in your app."
   s.homepage     = "https://github.com/jilouc/Traffic"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -44,8 +44,8 @@ EOS
 
   s.subspec 'UIKit' do |ss|
     ss.ios.deployment_target = "9.0"
-    ss.public_header_files = 'Traffic/UIKit/*.h'
     ss.source_files = 'Traffic/UIKit'
+    ss.public_header_files = 'Traffic/UIKit/*.h'
     ss.dependency 'Traffic/Core'
   end
 
