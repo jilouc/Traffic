@@ -23,6 +23,7 @@
 
 #import <XCTest/XCTest.h>
 #import "TRFViewControllerRouteHandler.h"
+#import "TRFIntent+PresentingWindow.h"
 #import <Expecta/Expecta.h>
 #import <OCMock/OCMock.h>
 

@@ -11,26 +11,26 @@
 		2E223C5C9B1CD6A40411B7F2 /* libPods-TrafficTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5F208069F972F9D60E27A0 /* libPods-TrafficTests.a */; };
 		5B266F8E1CFB920E003A3715 /* Traffic.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B266F8D1CFB920E003A3715 /* Traffic.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B266F951CFB920E003A3715 /* Traffic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B266F8A1CFB920E003A3715 /* Traffic.framework */; };
-		5B266FD61CFB9598003A3715 /* TRFRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B266FCE1CFB9598003A3715 /* TRFRoute.h */; };
-		5B266FD71CFB9598003A3715 /* TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FCF1CFB9598003A3715 /* TRFRoute.m */; };
-		5B266FD81CFB9598003A3715 /* TRFRouteHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */; };
-		5B266FD91CFB9598003A3715 /* TRFRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FD11CFB9598003A3715 /* TRFRouteHandler.m */; };
-		5B266FDA1CFB9598003A3715 /* TRFUIRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B266FD21CFB9598003A3715 /* TRFUIRouter.h */; };
-		5B266FDB1CFB9598003A3715 /* TRFUIRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FD31CFB9598003A3715 /* TRFUIRouter.m */; };
-		5B266FE01CFB96E0003A3715 /* NSURL+TRFRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */; };
-		5B266FE11CFB96E0003A3715 /* NSURL+TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */; };
 		5B266FE31CFBA254003A3715 /* TRFRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266F991CFB920E003A3715 /* TRFRouteTests.m */; };
 		5B266FEA1CFF9FEF003A3715 /* NSURLTRFRouteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B266FE81CFF9F5B003A3715 /* NSURLTRFRouteTests.m */; };
+		5B2A1B11202B14C4002A050D /* NSURL+TRFRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B05202B14C4002A050D /* NSURL+TRFRoute.h */; };
+		5B2A1B12202B14C4002A050D /* TRFIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B06202B14C4002A050D /* TRFIntent.m */; };
+		5B2A1B13202B14C4002A050D /* TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B07202B14C4002A050D /* TRFRoute.m */; };
+		5B2A1B14202B14C4002A050D /* TRFRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B08202B14C4002A050D /* TRFRouteHandler.m */; };
+		5B2A1B15202B14C4002A050D /* TRFExternalLaunchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B09202B14C4002A050D /* TRFExternalLaunchInfo.m */; };
+		5B2A1B16202B14C4002A050D /* TRFUIRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B0A202B14C4002A050D /* TRFUIRouter.h */; };
+		5B2A1B17202B14C4002A050D /* TRFIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B0B202B14C4002A050D /* TRFIntent.h */; };
+		5B2A1B18202B14C4002A050D /* NSURL+TRFRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B0C202B14C4002A050D /* NSURL+TRFRoute.m */; };
+		5B2A1B19202B14C4002A050D /* TRFRouteHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B0D202B14C4002A050D /* TRFRouteHandler.h */; };
+		5B2A1B1A202B14C4002A050D /* TRFRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B0E202B14C4002A050D /* TRFRoute.h */; };
+		5B2A1B1B202B14C4002A050D /* TRFExternalLaunchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B0F202B14C4002A050D /* TRFExternalLaunchInfo.h */; };
+		5B2A1B1C202B14C4002A050D /* TRFUIRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2A1B10202B14C4002A050D /* TRFUIRouter.m */; };
+		5B2A1B20202B14E3002A050D /* NSURL+TRFRoutePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B1E202B14E3002A050D /* NSURL+TRFRoutePrivate.h */; };
+		5B2A1B21202B14E3002A050D /* TRFRoute+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2A1B1F202B14E3002A050D /* TRFRoute+Internal.h */; };
 		5B3D9F5D1D022C75004B76E3 /* TRFRouteHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D9F5C1D022C75004B76E3 /* TRFRouteHandlerTests.m */; };
 		5B3D9F5F1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */; };
-		5B668DAD1D6EE421008769D3 /* TRFIntent.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B668DAB1D6EE421008769D3 /* TRFIntent.h */; };
-		5B668DAE1D6EE421008769D3 /* TRFIntent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B668DAC1D6EE421008769D3 /* TRFIntent.m */; };
 		5B8AB5C51D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */; };
 		5B8AB5C71D03108B0072DEA4 /* TRFUIRouterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */; };
-		DE6DFE5A1E6F26800003F677 /* TRFRoute+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = DE6DFE581E6F26800003F677 /* TRFRoute+Internal.h */; };
-		DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */; };
-		DE9BE2A21D7045FF005DF9B1 /* TRFExternalLaunchInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */; };
-		DE9BE2A31D704600005DF9B1 /* TRFExternalLaunchInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */; };
 		DEB28008202A0DB0000D752B /* TRFViewControllerRouteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB27FFD202A0DB0000D752B /* TRFViewControllerRouteHandler.m */; };
 		DEB28009202A0DB0000D752B /* TRFIntent+PresentingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = DEB27FFE202A0DB0000D752B /* TRFIntent+PresentingWindow.h */; };
 		DEB2800A202A0DB0000D752B /* TRFRouteTargetViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = DEB27FFF202A0DB0000D752B /* TRFRouteTargetViewController.h */; };
@@ -62,29 +62,29 @@
 		5B266F941CFB920E003A3715 /* TrafficTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrafficTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B266F991CFB920E003A3715 /* TRFRouteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRFRouteTests.m; sourceTree = "<group>"; };
 		5B266F9B1CFB920E003A3715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B266FCE1CFB9598003A3715 /* TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRoute.h; sourceTree = "<group>"; };
-		5B266FCF1CFB9598003A3715 /* TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRoute.m; sourceTree = "<group>"; };
-		5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteHandler.h; sourceTree = "<group>"; };
-		5B266FD11CFB9598003A3715 /* TRFRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandler.m; sourceTree = "<group>"; };
-		5B266FD21CFB9598003A3715 /* TRFUIRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFUIRouter.h; sourceTree = "<group>"; };
-		5B266FD31CFB9598003A3715 /* TRFUIRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouter.m; sourceTree = "<group>"; };
-		5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoute.h"; sourceTree = "<group>"; };
-		5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TRFRoute.m"; sourceTree = "<group>"; };
 		5B266FE81CFF9F5B003A3715 /* NSURLTRFRouteTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURLTRFRouteTests.m; sourceTree = "<group>"; };
+		5B2A1B05202B14C4002A050D /* NSURL+TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoute.h"; sourceTree = "<group>"; };
+		5B2A1B06202B14C4002A050D /* TRFIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFIntent.m; sourceTree = "<group>"; };
+		5B2A1B07202B14C4002A050D /* TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRoute.m; sourceTree = "<group>"; };
+		5B2A1B08202B14C4002A050D /* TRFRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandler.m; sourceTree = "<group>"; };
+		5B2A1B09202B14C4002A050D /* TRFExternalLaunchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFExternalLaunchInfo.m; sourceTree = "<group>"; };
+		5B2A1B0A202B14C4002A050D /* TRFUIRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFUIRouter.h; sourceTree = "<group>"; };
+		5B2A1B0B202B14C4002A050D /* TRFIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFIntent.h; sourceTree = "<group>"; };
+		5B2A1B0C202B14C4002A050D /* NSURL+TRFRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+TRFRoute.m"; sourceTree = "<group>"; };
+		5B2A1B0D202B14C4002A050D /* TRFRouteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteHandler.h; sourceTree = "<group>"; };
+		5B2A1B0E202B14C4002A050D /* TRFRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRoute.h; sourceTree = "<group>"; };
+		5B2A1B0F202B14C4002A050D /* TRFExternalLaunchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFExternalLaunchInfo.h; sourceTree = "<group>"; };
+		5B2A1B10202B14C4002A050D /* TRFUIRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouter.m; sourceTree = "<group>"; };
+		5B2A1B1E202B14E3002A050D /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
+		5B2A1B1F202B14E3002A050D /* TRFRoute+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TRFRoute+Internal.h"; sourceTree = "<group>"; };
 		5B3D9F5C1D022C75004B76E3 /* TRFRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFRouteHandlerTests.m; sourceTree = "<group>"; };
 		5B3D9F5E1D022FAE004B76E3 /* TRFViewControllerRouteHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandlerTests.m; sourceTree = "<group>"; };
-		5B668DAB1D6EE421008769D3 /* TRFIntent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFIntent.h; sourceTree = "<group>"; };
-		5B668DAC1D6EE421008769D3 /* TRFIntent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFIntent.m; sourceTree = "<group>"; };
 		5B8AB5C41D02CC9F0072DEA4 /* UIWindowTRFViewControllerPresentingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWindowTRFViewControllerPresentingTests.m; sourceTree = "<group>"; };
 		5B8AB5C61D03108B0072DEA4 /* TRFUIRouterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFUIRouterTests.m; sourceTree = "<group>"; };
 		7294690AF0C242B378E24F2D /* Pods-Traffic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Traffic.release.xcconfig"; path = "Pods/Target Support Files/Pods-Traffic/Pods-Traffic.release.xcconfig"; sourceTree = "<group>"; };
 		9C4A6C5E5F7D53EF92B101C6 /* libPods-Traffic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Traffic.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBE18E54650FAC94B805BF10 /* Pods-TrafficTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCF502E60C3A050EC4D278C0 /* Pods-TrafficTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrafficTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrafficTests/Pods-TrafficTests.release.xcconfig"; sourceTree = "<group>"; };
-		DE6DFE581E6F26800003F677 /* TRFRoute+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TRFRoute+Internal.h"; sourceTree = "<group>"; };
-		DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+TRFRoutePrivate.h"; sourceTree = "<group>"; };
-		DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFExternalLaunchInfo.h; sourceTree = "<group>"; };
-		DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFExternalLaunchInfo.m; sourceTree = "<group>"; };
 		DEB27FFD202A0DB0000D752B /* TRFViewControllerRouteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFViewControllerRouteHandler.m; sourceTree = "<group>"; };
 		DEB27FFE202A0DB0000D752B /* TRFIntent+PresentingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TRFIntent+PresentingWindow.h"; sourceTree = "<group>"; };
 		DEB27FFF202A0DB0000D752B /* TRFRouteTargetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFRouteTargetViewController.h; sourceTree = "<group>"; };
@@ -132,8 +132,8 @@
 		5B266F801CFB920E003A3715 = {
 			isa = PBXGroup;
 			children = (
+				5B2A1B1D202B14E3002A050D /* Private */,
 				5B266FCD1CFB9598003A3715 /* Traffic */,
-				DE806A1A1D41286C003B64EA /* Private */,
 				5B266F8C1CFB920E003A3715 /* Framework */,
 				5B266F981CFB920E003A3715 /* Tests */,
 				5B266F8B1CFB920E003A3715 /* Products */,
@@ -177,17 +177,38 @@
 		5B266FCD1CFB9598003A3715 /* Traffic */ = {
 			isa = PBXGroup;
 			children = (
-				DE9BE2AA1D70473E005DF9B1 /* RouteHandlers */,
-				DE9BE2A41D70465F005DF9B1 /* Intents */,
-				5B266FDE1CFB96E0003A3715 /* NSURL+TRFRoute.h */,
-				5B266FDF1CFB96E0003A3715 /* NSURL+TRFRoute.m */,
-				5B266FCE1CFB9598003A3715 /* TRFRoute.h */,
-				5B266FCF1CFB9598003A3715 /* TRFRoute.m */,
-				5B266FD21CFB9598003A3715 /* TRFUIRouter.h */,
-				5B266FD31CFB9598003A3715 /* TRFUIRouter.m */,
+				5B2A1B04202B14C4002A050D /* Core */,
 				DEB27FFC202A0DB0000D752B /* UIKit */,
 			);
 			path = Traffic;
+			sourceTree = "<group>";
+		};
+		5B2A1B04202B14C4002A050D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				5B2A1B05202B14C4002A050D /* NSURL+TRFRoute.h */,
+				5B2A1B0C202B14C4002A050D /* NSURL+TRFRoute.m */,
+				5B2A1B0F202B14C4002A050D /* TRFExternalLaunchInfo.h */,
+				5B2A1B09202B14C4002A050D /* TRFExternalLaunchInfo.m */,
+				5B2A1B0B202B14C4002A050D /* TRFIntent.h */,
+				5B2A1B06202B14C4002A050D /* TRFIntent.m */,
+				5B2A1B0E202B14C4002A050D /* TRFRoute.h */,
+				5B2A1B07202B14C4002A050D /* TRFRoute.m */,
+				5B2A1B0D202B14C4002A050D /* TRFRouteHandler.h */,
+				5B2A1B08202B14C4002A050D /* TRFRouteHandler.m */,
+				5B2A1B0A202B14C4002A050D /* TRFUIRouter.h */,
+				5B2A1B10202B14C4002A050D /* TRFUIRouter.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		5B2A1B1D202B14E3002A050D /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				5B2A1B1E202B14E3002A050D /* NSURL+TRFRoutePrivate.h */,
+				5B2A1B1F202B14E3002A050D /* TRFRoute+Internal.h */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 		AD1B26E5DEBBD37672D6E822 /* Pods */ = {
@@ -199,35 +220,6 @@
 				DCF502E60C3A050EC4D278C0 /* Pods-TrafficTests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		DE806A1A1D41286C003B64EA /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				DE806A1B1D41286C003B64EA /* NSURL+TRFRoutePrivate.h */,
-				DE6DFE581E6F26800003F677 /* TRFRoute+Internal.h */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		DE9BE2A41D70465F005DF9B1 /* Intents */ = {
-			isa = PBXGroup;
-			children = (
-				5B668DAB1D6EE421008769D3 /* TRFIntent.h */,
-				5B668DAC1D6EE421008769D3 /* TRFIntent.m */,
-				DE9BE2A01D7045FF005DF9B1 /* TRFExternalLaunchInfo.h */,
-				DE9BE2A11D7045FF005DF9B1 /* TRFExternalLaunchInfo.m */,
-			);
-			name = Intents;
-			sourceTree = "<group>";
-		};
-		DE9BE2AA1D70473E005DF9B1 /* RouteHandlers */ = {
-			isa = PBXGroup;
-			children = (
-				5B266FD01CFB9598003A3715 /* TRFRouteHandler.h */,
-				5B266FD11CFB9598003A3715 /* TRFRouteHandler.m */,
-			);
-			name = RouteHandlers;
 			sourceTree = "<group>";
 		};
 		DEB27FFC202A0DB0000D752B /* UIKit */ = {
@@ -256,20 +248,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEB2800D202A0DB0000D752B /* TRFRoute+TRFViewControllerRoute.h in Headers */,
-				5B266FE01CFB96E0003A3715 /* NSURL+TRFRoute.h in Headers */,
 				DEB2800E202A0DB0000D752B /* TRFViewControllerIntent.h in Headers */,
+				5B2A1B16202B14C4002A050D /* TRFUIRouter.h in Headers */,
 				5B266F8E1CFB920E003A3715 /* Traffic.h in Headers */,
 				DEB28010202A0DB0000D752B /* TRFViewControllerRouteHandler.h in Headers */,
-				DE806A1C1D41286C003B64EA /* NSURL+TRFRoutePrivate.h in Headers */,
 				DEB2800A202A0DB0000D752B /* TRFRouteTargetViewController.h in Headers */,
-				DE6DFE5A1E6F26800003F677 /* TRFRoute+Internal.h in Headers */,
-				5B266FD81CFB9598003A3715 /* TRFRouteHandler.h in Headers */,
+				5B2A1B1A202B14C4002A050D /* TRFRoute.h in Headers */,
+				5B2A1B21202B14E3002A050D /* TRFRoute+Internal.h in Headers */,
+				5B2A1B11202B14C4002A050D /* NSURL+TRFRoute.h in Headers */,
+				5B2A1B1B202B14C4002A050D /* TRFExternalLaunchInfo.h in Headers */,
 				DEB2800C202A0DB0000D752B /* TRFUIRouter+TRFViewControllerRoute.h in Headers */,
-				5B668DAD1D6EE421008769D3 /* TRFIntent.h in Headers */,
-				5B266FDA1CFB9598003A3715 /* TRFUIRouter.h in Headers */,
-				5B266FD61CFB9598003A3715 /* TRFRoute.h in Headers */,
 				DEB28009202A0DB0000D752B /* TRFIntent+PresentingWindow.h in Headers */,
-				DE9BE2A21D7045FF005DF9B1 /* TRFExternalLaunchInfo.h in Headers */,
+				5B2A1B19202B14C4002A050D /* TRFRouteHandler.h in Headers */,
+				5B2A1B20202B14E3002A050D /* NSURL+TRFRoutePrivate.h in Headers */,
+				5B2A1B17202B14C4002A050D /* TRFIntent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,13 +368,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Traffic-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3AFCFAA8F2B8314AA740371A /* [CP] Embed Pods Frameworks */ = {
@@ -421,13 +416,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TrafficTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DD2F159C8FBB50DB9B4F113A /* [CP] Copy Pods Resources */ = {
@@ -453,16 +451,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEB28008202A0DB0000D752B /* TRFViewControllerRouteHandler.m in Sources */,
+				5B2A1B18202B14C4002A050D /* NSURL+TRFRoute.m in Sources */,
+				5B2A1B13202B14C4002A050D /* TRFRoute.m in Sources */,
+				5B2A1B1C202B14C4002A050D /* TRFUIRouter.m in Sources */,
 				DEB28011202A0DB0000D752B /* TRFUIRouter+TRFViewControllerRoute.m in Sources */,
+				5B2A1B15202B14C4002A050D /* TRFExternalLaunchInfo.m in Sources */,
+				5B2A1B12202B14C4002A050D /* TRFIntent.m in Sources */,
 				DEB2800B202A0DB0000D752B /* TRFViewControllerIntent.m in Sources */,
-				DE9BE2A31D704600005DF9B1 /* TRFExternalLaunchInfo.m in Sources */,
-				5B266FD71CFB9598003A3715 /* TRFRoute.m in Sources */,
+				5B2A1B14202B14C4002A050D /* TRFRouteHandler.m in Sources */,
 				DEB28012202A0DB0000D752B /* TRFRoute+TRFViewControllerRoute.m in Sources */,
-				5B668DAE1D6EE421008769D3 /* TRFIntent.m in Sources */,
-				5B266FE11CFB96E0003A3715 /* NSURL+TRFRoute.m in Sources */,
 				DEB2800F202A0DB0000D752B /* TRFIntent+PresentingWindow.m in Sources */,
-				5B266FDB1CFB9598003A3715 /* TRFUIRouter.m in Sources */,
-				5B266FD91CFB9598003A3715 /* TRFRouteHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,20 +34,19 @@ EOS
 
   s.prefix_header_contents = pch_Traffic
 
+  s.source_files  = "Traffic/Traffic.h"
+  s.public_header_files = "Traffic/Traffic.h"
 
   s.subspec 'Core' do |ss|
-    ss.ios.deployment_target = "9.0"
-    ss.watchos.deployment_target = "2.0"
-    ss.source_files  = "Traffic/*.{h,m}", "Private/**/*.{h,m}"
-    ss.public_header_files = "Traffic/*.h"
+    ss.public_header_files = 'Traffic/Core/*.h'
+    ss.source_files = 'Traffic/Core', 'Private'
   end
 
   s.subspec 'UIKit' do |ss|
     ss.ios.deployment_target = "9.0"
-    ss.source_files = 'Traffic/UIKit'
-    ss.public_header_files = 'Traffic/UIKit/*.h'
     ss.dependency 'Traffic/Core'
+    ss.public_header_files = 'Traffic/UIKit/*.h'
+    ss.source_files = 'Traffic/UIKit'
   end
-
 
 end
